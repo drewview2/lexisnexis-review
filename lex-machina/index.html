@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow" name="robots"/><title>Lex Machina / Miami-Dade — Client Review</title><meta content="Lex Machina Miami-Dade animated ad review: five versions across ten sizes." name="description"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&amp;display=swap" rel="stylesheet"/><style>
+:root{color-scheme:dark;--bg:#17191d;--panel:#101114;--line:#393d45;--muted:#aeb4be;--white:#f6f7f8;--red:#ed1c24}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Lato,Arial,Helvetica,sans-serif}
+a{color:inherit}
+main{max-width:1540px;margin:0 auto;padding:28px 28px 70px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:22px}
+.brand-title{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}.brand-title h1{font-size:25px;line-height:1.1;margin:0;font-weight:700;letter-spacing:-.35px}.brand-title .sub{color:#aeb4be;font-size:13px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap}.tab{border:1px solid #454a53;background:#23262c;color:#f4f5f6;text-decoration:none;padding:8px 12px;border-radius:6px;font-size:13px}.tab.active{border-color:#ed1c24}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}.controls button{font:600 13px Lato,Arial,sans-serif;background:#25282f;border:1px solid #525660;border-radius:5px;padding:9px 13px;color:#f4f4f5;cursor:pointer}.controls button:hover{background:#343840}
+.filters{display:flex;gap:8px 14px;flex-wrap:wrap;margin:0 0 12px}.filters button{border:0;background:transparent;color:#b8bdc7;font:600 12px Lato,Arial,sans-serif;cursor:pointer;padding:4px 0}.filters button.active,.filters button:hover{color:#fff}
+.sizes{display:flex;gap:9px 16px;flex-wrap:wrap;margin:0 0 24px}.sizes a{color:#b8bdc7;text-decoration:none;font-size:12px}.sizes a:hover{color:#fff}
+.size-group{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);scroll-margin-top:16px}.size-group h2{font-size:18px;font-weight:600;margin:0 0 18px}.ads{display:flex;flex-wrap:wrap;align-items:flex-start;gap:26px}.ad-card{margin:0;max-width:100%}.ad-card figcaption{font-size:12px;color:#d0d3d9;margin:0 0 9px}.viewport{overflow:hidden;background:#000;outline:1px solid #3b3e45}.artboard{position:relative;transform-origin:0 0;background:#000;overflow:hidden;cursor:default}.ad{position:absolute;inset:0;background:#000;overflow:hidden}.asset{position:absolute;box-sizing:border-box}.asset-img{object-fit:contain;user-select:none;-webkit-user-drag:none}.copy{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:700;line-height:1.08;color:#fff;z-index:20;padding:0}.copy .copy-line{display:block;white-space:nowrap;flex:0 0 auto;max-width:100%}.copy .red{color:var(--red)}.copy sup{font-size:.48em;line-height:0;vertical-align:baseline;position:relative;top:-.7em;margin-left:.025em}.triangle{z-index:10}.lex{z-index:22}.ln{z-index:24}.cta{display:flex;align-items:center;justify-content:center;text-align:center;border:2px solid var(--red);border-radius:999px;color:#fff;font-weight:700;line-height:1.05;padding:3px 8px;z-index:25;background:#000;white-space:normal}
+.frame1{opacity:0;animation:frame1 8s linear infinite both}.frame2{opacity:0;animation:frame2 8s linear infinite both}.triangle{animation:triIn 8s linear infinite both}.lex{animation:lexIn 8s linear infinite both}.ln{animation:lnIn 8s linear infinite both}.cta{animation:ctaIn 8s linear infinite both}
+@keyframes frame1{0%{opacity:0}5%{opacity:1}35%{opacity:1}42%{opacity:0}100%{opacity:0}}
+@keyframes frame2{0%,42%{opacity:0}47%{opacity:1}95%{opacity:1}100%{opacity:0}}
+@keyframes triIn{0%,40%{opacity:0;transform:translateY(-8px)}46%{opacity:1;transform:translateY(0)}95%{opacity:1}100%{opacity:0}}
+@keyframes lexIn{0%,48%{opacity:0}54%{opacity:1}95%{opacity:1}100%{opacity:0}}
+@keyframes lnIn{0%{opacity:1}35%{opacity:1}42%{opacity:0}56%{opacity:0}62%{opacity:1}95%{opacity:1}100%{opacity:0}}
+@keyframes lnFrame2In{0%,56%{opacity:0}62%{opacity:1}95%{opacity:1}100%{opacity:0}}
+.ln.frame2{animation:lnFrame2In 8s linear infinite both}
+@keyframes ctaIn{0%,62%{opacity:0}68%{opacity:1}95%{opacity:1}100%{opacity:0}}
+body.paused .ad *{animation-play-state:paused!important}
+body.frame-one .ad *{animation:none!important} body.frame-one .frame1{opacity:1!important} body.frame-one .frame2,body.frame-one .triangle,body.frame-one .lex,body.frame-one .cta{opacity:0!important} body.frame-one .ln{opacity:1!important}
+body.frame-two .ad *{animation:none!important} body.frame-two .frame1{opacity:0!important} body.frame-two .frame2,body.frame-two .triangle,body.frame-two .lex,body.frame-two .ln,body.frame-two .cta{opacity:1!important}
+body.filtering .ad-card{display:none}.ad-card.visible{display:block!important}
+.size-group[data-size="1200x1200"] .ad-card{width:600px}.size-group[data-size="1200x1200"] .viewport{width:600px!important;height:600px!important}.size-group[data-size="1200x1200"] .artboard{transform:scale(.5)}.size-group[data-size="1200x1200"] figcaption::after{content:' · 50%';color:#878e99}
+@media(max-width:760px){main{padding:22px 14px 50px}.brand-title h1{font-size:22px}.size-group[data-size="1200x1200"] .ad-card{width:100%}.size-group[data-size="1200x1200"] figcaption::after{content:''}.viewport{max-width:100%;overflow:auto}}
+
+.ln-first{z-index:24;opacity:0;animation:frame1 8s linear infinite both}.ln-stationary{z-index:24;opacity:1!important;animation:none!important}
+body.frame-one .ln-first{opacity:1!important;animation:none!important}body.frame-two .ln-first{opacity:0!important;animation:none!important}
+body.frame-one .ln.frame2{opacity:0!important;animation:none!important}body.frame-two .ln.frame2{opacity:1!important;animation:none!important}
+
+/* Tall-format polish — isolated to 160x600 and 300x600 */
+.asset-img{
+  display:block;
+  object-fit:contain!important;
+  object-position:50% 50%!important;
+  image-rendering:auto;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.lex,.ln,.ln-first,.ln-stationary,.triangle{
+  object-fit:contain!important;
+  object-position:50% 50%!important;
+}
+#s160x600 .copy,#s300x600 .copy{
+  line-height:1.11!important;
+  text-rendering:geometricPrecision;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* 1200x1200 frame-one polish — isolated to this size only */
+#s1200x1200 .copy.frame1{
+  left:120px!important;
+  top:225px!important;
+  width:960px!important;
+  height:360px!important;
+  line-height:1.15!important;
+  text-align:center!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-rendering:geometricPrecision;
+  -webkit-font-smoothing:antialiased;
+}
+#s1200x1200 .ln-first{
+  left:390px!important;
+  top:700px!important;
+  width:420px!important;
+  height:90px!important;
+  object-fit:contain!important;
+  object-position:50% 50%!important;
+}
+#s1200x1200 .frame2.ln{
+  left:210px!important;
+  top:925px!important;
+  width:360px!important;
+  height:77px!important;
+  object-fit:contain!important;
+  object-position:50% 50%!important;
+}
+
+
+/* CLEAN RECOVERY PASS — size-isolated fixes only */
+.asset-img{
+  display:block!important;
+  object-fit:contain!important;
+  object-position:50% 50%!important;
+  image-rendering:auto!important;
+  transform-origin:center center;
+}
+#s160x600 .copy,#s300x600 .copy{line-height:1.13!important;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased}
+@keyframes ctaTallIn{0%,55%{opacity:0}61%{opacity:1}95%{opacity:1}100%{opacity:0}}
+@keyframes lnTallIn{0%,64%{opacity:0}70%{opacity:1}95%{opacity:1}100%{opacity:0}}
+#s160x600 .cta.frame2,#s300x600 .cta.frame2{animation:ctaTallIn 8s linear infinite both!important}
+#s160x600 .ln.frame2,#s300x600 .ln.frame2{animation:lnTallIn 8s linear infinite both!important}
+body.frame-one #s160x600 .ln.frame2,body.frame-one #s300x600 .ln.frame2{opacity:0!important;animation:none!important}
+body.frame-two #s160x600 .ln-first,body.frame-two #s300x600 .ln-first{opacity:0!important;animation:none!important}
+body.frame-one #s160x600 .ln-first,body.frame-one #s300x600 .ln-first{opacity:1!important;animation:none!important}
+body.frame-two #s160x600 .ln.frame2,body.frame-two #s300x600 .ln.frame2{opacity:1!important;animation:none!important}
+
+/* Final polish: preserve source aspect ratio and avoid distortion */
+.asset-img{object-fit:contain!important;object-position:50% 50%!important;image-rendering:auto!important;}
+.lex,.ln,.ln-first,.ln-stationary,.triangle{object-fit:contain!important;object-position:50% 50%!important;}
+
+/* QA fixes: frame-one isolation for tall units */
+body.frame-one #s160x600 .cta.frame2,
+body.frame-one #s300x600 .cta.frame2{
+  opacity:0!important;
+  animation:none!important;
+}
+
+/* 1200x1200 final requested alignment */
+#s1200x1200 .ln-first{
+  left:390px!important;
+  top:1030px!important;
+  width:420px!important;
+  height:90px!important;
+}
+#s1200x1200 .frame2.ln{
+  left:165px!important;
+  top:925px!important;
+  width:360px!important;
+  height:77px!important;
+}
+</style>
+<style id="latest-isolated-adjustments">
+/* 160x600 — FRAME 1 ONLY */
+#s160x600 .ad-card[data-version="announcement"] .copy.frame1{font-size:28px!important;line-height:1.12!important;}
+#s160x600 .ad-card[data-version="opportunity"] .copy.frame1{font-size:23px!important;line-height:1.12!important;}
+#s160x600 .ad-card[data-version="winning-work"] .copy.frame1{font-size:23px!important;line-height:1.12!important;}
+#s160x600 .ad-card[data-version="beyond-the-docket"] .copy.frame1{font-size:23px!important;line-height:1.12!important;}
+#s160x600 .ad-card[data-version="start-knowing"] .copy.frame1{font-size:25px!important;line-height:1.12!important;}
+#s160x600 .ln-first{top:538px!important;}
+
+/* 300x600 — FRAME 1 ONLY */
+#s300x600 .ad-card[data-version="announcement"] .copy.frame1{font-size:33px!important;line-height:1.11!important;}
+#s300x600 .ad-card[data-version="opportunity"] .copy.frame1{font-size:31px!important;line-height:1.11!important;}
+#s300x600 .ad-card[data-version="winning-work"] .copy.frame1{font-size:31px!important;line-height:1.11!important;}
+#s300x600 .ad-card[data-version="beyond-the-docket"] .copy.frame1{font-size:30px!important;line-height:1.11!important;}
+#s300x600 .ad-card[data-version="start-knowing"] .copy.frame1{font-size:32px!important;line-height:1.11!important;}
+#s300x600 .ln-first{top:528px!important;}
+
+/* 728x90 — triangle only; enlarge around the same visual center */
+#s728x90 .triangle.frame2{
+  left:0!important;
+  top:-8px!important;
+  width:315px!important;
+  height:120px!important;
+  object-fit:contain!important;
+}
+
+/* VECTOR-ASSET SAFETY — logos and triangle stay crisp/proportional */
+.asset-img{
+  object-fit:contain!important;
+  object-position:50% 50%!important;
+  image-rendering:auto!important;
+}
+.lex,.ln,.ln-first,.ln-stationary,.triangle{
+  object-fit:contain!important;
+  object-position:50% 50%!important;
+  max-width:none!important;
+}
+</style>
+</head>
+<body><main>
+<div class="topbar"><div class="brand-title"><h1>Lex Machina / Miami-Dade</h1><span class="sub">5 versions · 10 sizes · corrected fixed-size layouts</span></div><nav class="tabs"><a class="tab" href="../">Law360</a><a class="tab active" href="./">Lex Machina</a></nav></div>
+<div class="controls"><button id="replay">Replay all</button><button id="pause">Pause</button><button id="f1">Frame 1</button><button id="f2">Frame 2</button></div>
+<div class="filters"><button class="active" data-filter="all">All versions</button><button data-filter="announcement">Announcement</button><button data-filter="opportunity">Opportunity</button><button data-filter="winning-work">Winning Work</button><button data-filter="beyond-the-docket">Beyond The Docket</button><button data-filter="start-knowing">Start Knowing</button></div>
+<nav aria-label="Ad sizes" class="sizes"><a href="#s300x250">300 × 250</a><a href="#s160x600">160 × 600</a><a href="#s300x600">300 × 600</a><a href="#s728x90">728 × 90</a><a href="#s970x250">970 × 250</a><a href="#s320x50">320 × 50</a><a href="#s300x50">300 × 50</a><a href="#s970x90">970 × 90</a><a href="#s500x100">500 × 100</a><a href="#s1200x1200">1200 × 1200</a></nav>
+<section class="size-group" data-size="300x250" id="s300x250"><h2>300 × 250</h2><div class="ads">
+<figure class="ad-card visible" data-version="announcement">
+<figcaption>AD 01 / Announcement</figcaption>
+<div class="viewport" style="width:300px;height:250px">
+<div class="artboard" style="width:300px;height:250px">
+<div aria-label="Lex Machina Miami-Dade Announcement, 300x250" class="ad" role="img">
+<div class="asset copy frame1" style="left:23.0px;top:31.0px;width:256.0px;height:127.0px;font-size:30.24px"><span class="copy-line">The wait <span class="red">is</span> <span class="red">over.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:102.5px;top:211px;width:95px;height:21px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:32px;top:23px;width:236px;height:202px"/>
+<div class="asset copy frame2" style="left:26px;top:40px;width:248px;height:92px;font-size:18.5px"><span class="copy-line">Enhanced <span class="red">Miami-Dade</span></span><span class="copy-line">Litigation Analytics</span><span class="copy-line">are here.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:35px;top:140px;width:230px;height:31px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:14px;top:211px;width:95px;height:21px"/>
+<div class="asset cta frame2" style="left:128px;top:204px;width:158px;height:30px;font-size:11px">Read the Announcement</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="opportunity">
+<figcaption>AD 02 / Opportunity</figcaption>
+<div class="viewport" style="width:300px;height:250px">
+<div class="artboard" style="width:300px;height:250px">
+<div aria-label="Lex Machina Miami-Dade Opportunity, 300x250" class="ad" role="img">
+<div class="asset copy frame1" style="left:23.0px;top:31.0px;width:256.0px;height:127.0px;font-size:28.00px"><span class="copy-line">Where is litigation</span><span class="copy-line">creating your</span><span class="copy-line"><span class="red">next</span> <span class="red">opportunity?</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:102.5px;top:211px;width:95px;height:21px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:32px;top:23px;width:236px;height:202px"/>
+<div class="asset copy frame2" style="left:26px;top:34px;width:248px;height:92px;font-size:24px"><span class="copy-line">Don’t guess.</span><span class="copy-line"><span class="red">Ask</span></span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:35px;top:137px;width:230px;height:31px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:14px;top:211px;width:95px;height:21px"/>
+<div class="asset cta frame2" style="left:128px;top:204px;width:158px;height:30px;font-size:11px">Explore Miami-Dade Insights</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="winning-work">
+<figcaption>AD 03 / Winning Work</figcaption>
+<div class="viewport" style="width:300px;height:250px">
+<div class="artboard" style="width:300px;height:250px">
+<div aria-label="Lex Machina Miami-Dade Winning Work, 300x250" class="ad" role="img">
+<div class="asset copy frame1" style="left:23.0px;top:31.0px;width:256.0px;height:127.0px;font-size:28.00px"><span class="copy-line">Who’s winning</span><span class="copy-line">the work in</span><span class="copy-line"><span class="red">Miami-Dade?</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:102.5px;top:211px;width:95px;height:21px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:32px;top:23px;width:236px;height:202px"/>
+<div class="asset copy frame2" style="left:26px;top:38px;width:248px;height:92px;font-size:19.5px"><span class="copy-line">See what</span><span class="copy-line">the <span class="red">litigation data</span></span><span class="copy-line">reveals.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:35px;top:140px;width:230px;height:31px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:14px;top:211px;width:95px;height:21px"/>
+<div class="asset cta frame2" style="left:128px;top:204px;width:158px;height:30px;font-size:11px">Explore Miami-Dade Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="beyond-the-docket">
+<figcaption>AD 04 / Beyond The Docket</figcaption>
+<div class="viewport" style="width:300px;height:250px">
+<div class="artboard" style="width:300px;height:250px">
+<div aria-label="Lex Machina Miami-Dade Beyond The Docket, 300x250" class="ad" role="img">
+<div class="asset copy frame1" style="left:23.0px;top:31.0px;width:256.0px;height:127.0px;font-size:26.88px"><span class="copy-line">The docket doesn’t</span><span class="copy-line">tell <span class="red">the</span> <span class="red">whole</span> <span class="red">story.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:102.5px;top:211px;width:95px;height:21px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:32px;top:23px;width:236px;height:202px"/>
+<div class="asset copy frame2" style="left:26px;top:40px;width:248px;height:92px;font-size:16.5px"><span class="copy-line">Go beyond it</span><span class="copy-line">with enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span> analytics.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:35px;top:142px;width:230px;height:31px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:14px;top:211px;width:95px;height:21px"/>
+<div class="asset cta frame2" style="left:128px;top:204px;width:158px;height:30px;font-size:11px">Explore the Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="start-knowing">
+<figcaption>AD 05 / Start Knowing</figcaption>
+<div class="viewport" style="width:300px;height:250px">
+<div class="artboard" style="width:300px;height:250px">
+<div aria-label="Lex Machina Miami-Dade Start Knowing, 300x250" class="ad" role="img">
+<div class="asset copy frame1" style="left:23.0px;top:31.0px;width:256.0px;height:127.0px;font-size:29.12px"><span class="copy-line">Stop guessing.</span><span class="copy-line"><span class="red">Start</span> <span class="red">knowing.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:102.5px;top:211px;width:95px;height:21px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:32px;top:23px;width:236px;height:202px"/>
+<div class="asset copy frame2" style="left:26px;top:39px;width:248px;height:92px;font-size:18.5px"><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Legal Analytics<sup>®</sup></span><span class="copy-line">now in</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:35px;top:140px;width:230px;height:31px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:14px;top:211px;width:95px;height:21px"/>
+<div class="asset cta frame2" style="left:128px;top:204px;width:158px;height:30px;font-size:11px">Request a Demo</div>
+</div>
+</div>
+</div>
+</figure></div></section><section class="size-group" data-size="160x600" id="s160x600"><h2>160 × 600</h2><div class="ads">
+<figure class="ad-card visible" data-version="announcement">
+<figcaption>AD 01 / Announcement</figcaption>
+<div class="viewport" style="width:160px;height:600px">
+<div class="artboard" style="width:160px;height:600px">
+<div aria-label="Lex Machina Miami-Dade Announcement, 160x600" class="ad" role="img">
+<div class="asset copy frame1" style="left:8px;top:58px;width:144px;height:430px;font-size:32px"><span class="copy-line">The</span><span class="copy-line">wait</span><span class="copy-line"><span class="red">is over.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:19px;top:546px;width:122px;height:27px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-55px;top:50px;width:269px;height:231px"/>
+<div class="asset copy frame2" style="left:6px;top:68px;width:148px;height:150px;font-size:21.5px"><span class="copy-line">Enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Litigation</span><span class="copy-line">Analytics</span><span class="copy-line">are here.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:16.0px;top:300px;width:129.0px;height:18.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:19px;top:503px;width:122px;height:27px"/>
+<div class="asset cta frame2" style="left:21.0px;top:386px;width:119.0px;height:49.0px;font-size:13.0px">Read the Announcement</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="opportunity">
+<figcaption>AD 02 / Opportunity</figcaption>
+<div class="viewport" style="width:160px;height:600px">
+<div class="artboard" style="width:160px;height:600px">
+<div aria-label="Lex Machina Miami-Dade Opportunity, 160x600" class="ad" role="img">
+<div class="asset copy frame1" style="left:8px;top:58px;width:144px;height:430px;font-size:26px"><span class="copy-line">Where is</span><span class="copy-line">litigation</span><span class="copy-line">creating</span><span class="copy-line">your</span><span class="copy-line"><span class="red">next</span></span><span class="copy-line"><span class="red">opportunity?</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:19px;top:546px;width:122px;height:27px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-55px;top:50px;width:269px;height:231px"/>
+<div class="asset copy frame2" style="left:6px;top:68px;width:148px;height:150px;font-size:27px"><span class="copy-line">Don’t</span><span class="copy-line">guess.</span><span class="copy-line"><span class="red">Ask</span></span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:16.0px;top:300px;width:129.0px;height:18.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:19px;top:503px;width:122px;height:27px"/>
+<div class="asset cta frame2" style="left:21.0px;top:386px;width:119.0px;height:49.0px;font-size:13.0px">Explore Miami-Dade Insights</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="winning-work">
+<figcaption>AD 03 / Winning Work</figcaption>
+<div class="viewport" style="width:160px;height:600px">
+<div class="artboard" style="width:160px;height:600px">
+<div aria-label="Lex Machina Miami-Dade Winning Work, 160x600" class="ad" role="img">
+<div class="asset copy frame1" style="left:8px;top:58px;width:144px;height:430px;font-size:26px"><span class="copy-line">Who’s</span><span class="copy-line">winning</span><span class="copy-line">the work</span><span class="copy-line">in</span><span class="copy-line"><span class="red">Miami-Dade?</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:19px;top:546px;width:122px;height:27px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-55px;top:50px;width:269px;height:231px"/>
+<div class="asset copy frame2" style="left:6px;top:68px;width:148px;height:150px;font-size:22px"><span class="copy-line">See what</span><span class="copy-line">the</span><span class="copy-line"><span class="red">litigation data</span></span><span class="copy-line">reveals.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:16.0px;top:300px;width:129.0px;height:18.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:19px;top:503px;width:122px;height:27px"/>
+<div class="asset cta frame2" style="left:21.0px;top:386px;width:119.0px;height:49.0px;font-size:13.0px">Explore Miami-Dade Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="beyond-the-docket">
+<figcaption>AD 04 / Beyond The Docket</figcaption>
+<div class="viewport" style="width:160px;height:600px">
+<div class="artboard" style="width:160px;height:600px">
+<div aria-label="Lex Machina Miami-Dade Beyond The Docket, 160x600" class="ad" role="img">
+<div class="asset copy frame1" style="left:8px;top:58px;width:144px;height:430px;font-size:26px"><span class="copy-line">The docket</span><span class="copy-line">doesn’t</span><span class="copy-line">tell the</span><span class="copy-line"><span class="red">whole</span></span><span class="copy-line"><span class="red">story.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:19px;top:546px;width:122px;height:27px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-55px;top:50px;width:269px;height:231px"/>
+<div class="asset copy frame2" style="left:6px;top:68px;width:148px;height:150px;font-size:19px"><span class="copy-line">Go beyond it</span><span class="copy-line">with enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">analytics.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:16.0px;top:300px;width:129.0px;height:18.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:19px;top:503px;width:122px;height:27px"/>
+<div class="asset cta frame2" style="left:21.0px;top:386px;width:119.0px;height:49.0px;font-size:13.0px">Explore the Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="start-knowing">
+<figcaption>AD 05 / Start Knowing</figcaption>
+<div class="viewport" style="width:160px;height:600px">
+<div class="artboard" style="width:160px;height:600px">
+<div aria-label="Lex Machina Miami-Dade Start Knowing, 160x600" class="ad" role="img">
+<div class="asset copy frame1" style="left:8px;top:58px;width:144px;height:430px;font-size:28px"><span class="copy-line">Stop</span><span class="copy-line">guessing.</span><span class="copy-line"><span class="red">Start</span></span><span class="copy-line"><span class="red">knowing.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:19px;top:546px;width:122px;height:27px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-55px;top:50px;width:269px;height:231px"/>
+<div class="asset copy frame2" style="left:6px;top:68px;width:148px;height:150px;font-size:21px"><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Legal Analytics<sup>®</sup></span><span class="copy-line">now in</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:16.0px;top:300px;width:129.0px;height:18.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:19px;top:503px;width:122px;height:27px"/>
+<div class="asset cta frame2" style="left:21.0px;top:386px;width:119.0px;height:49.0px;font-size:13.0px">Request a Demo</div>
+</div>
+</div>
+</div>
+</figure></div></section><section class="size-group" data-size="300x600" id="s300x600"><h2>300 × 600</h2><div class="ads">
+<figure class="ad-card visible" data-version="announcement">
+<figcaption>AD 01 / Announcement</figcaption>
+<div class="viewport" style="width:300px;height:600px">
+<div class="artboard" style="width:300px;height:600px">
+<div aria-label="Lex Machina Miami-Dade Announcement, 300x600" class="ad" role="img">
+<div class="asset copy frame1" style="left:42.0px;top:120.0px;width:218.0px;height:199.0px;font-size:36.72px"><span class="copy-line">The wait</span><span class="copy-line"><span class="red">is over.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:58px;top:535px;width:184px;height:41px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:16px;top:58px;width:268px;height:230px"/>
+<div class="asset copy frame2" style="left:24px;top:66px;width:252px;height:170px;font-size:29px"><span class="copy-line">Enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Litigation</span><span class="copy-line">Analytics</span><span class="copy-line">are here.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:28px;top:300px;width:244px;height:33px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:58px;top:499px;width:184px;height:41px"/>
+<div class="asset cta frame2" style="left:51px;top:393px;width:198px;height:46px;font-size:15px">Read the Announcement</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="opportunity">
+<figcaption>AD 02 / Opportunity</figcaption>
+<div class="viewport" style="width:300px;height:600px">
+<div class="artboard" style="width:300px;height:600px">
+<div aria-label="Lex Machina Miami-Dade Opportunity, 300x600" class="ad" role="img">
+<div class="asset copy frame1" style="left:42.0px;top:120.0px;width:218.0px;height:199.0px;font-size:34.00px"><span class="copy-line">Where is litigation</span><span class="copy-line">creating your</span><span class="copy-line"><span class="red">next opportunity?</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:58px;top:535px;width:184px;height:41px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:16px;top:58px;width:268px;height:230px"/>
+<div class="asset copy frame2" style="left:24px;top:66px;width:252px;height:170px;font-size:38px"><span class="copy-line">Don’t</span><span class="copy-line">guess.</span><span class="copy-line"><span class="red">Ask</span></span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:28px;top:300px;width:244px;height:33px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:58px;top:499px;width:184px;height:41px"/>
+<div class="asset cta frame2" style="left:51px;top:393px;width:198px;height:46px;font-size:15px">Explore Miami-Dade Insights</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="winning-work">
+<figcaption>AD 03 / Winning Work</figcaption>
+<div class="viewport" style="width:300px;height:600px">
+<div class="artboard" style="width:300px;height:600px">
+<div aria-label="Lex Machina Miami-Dade Winning Work, 300x600" class="ad" role="img">
+<div class="asset copy frame1" style="left:42.0px;top:120.0px;width:218.0px;height:199.0px;font-size:34.00px"><span class="copy-line">Who’s winning</span><span class="copy-line">the work in</span><span class="copy-line"><span class="red">Miami-Dade?</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:58px;top:535px;width:184px;height:41px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:16px;top:58px;width:268px;height:230px"/>
+<div class="asset copy frame2" style="left:24px;top:66px;width:252px;height:170px;font-size:32px"><span class="copy-line">See what the</span><span class="copy-line"><span class="red">litigation data</span></span><span class="copy-line">reveals.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:28px;top:300px;width:244px;height:33px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:58px;top:499px;width:184px;height:41px"/>
+<div class="asset cta frame2" style="left:51px;top:393px;width:198px;height:46px;font-size:15px">Explore Miami-Dade Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="beyond-the-docket">
+<figcaption>AD 04 / Beyond The Docket</figcaption>
+<div class="viewport" style="width:300px;height:600px">
+<div class="artboard" style="width:300px;height:600px">
+<div aria-label="Lex Machina Miami-Dade Beyond The Docket, 300x600" class="ad" role="img">
+<div class="asset copy frame1" style="left:42.0px;top:120.0px;width:218.0px;height:199.0px;font-size:32.64px"><span class="copy-line">The docket</span><span class="copy-line">doesn’t tell</span><span class="copy-line"><span class="red">the whole story.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:58px;top:535px;width:184px;height:41px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:16px;top:58px;width:268px;height:230px"/>
+<div class="asset copy frame2" style="left:24px;top:66px;width:252px;height:170px;font-size:27px"><span class="copy-line">Go beyond it</span><span class="copy-line">with enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">analytics.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:28px;top:300px;width:244px;height:33px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:58px;top:499px;width:184px;height:41px"/>
+<div class="asset cta frame2" style="left:51px;top:393px;width:198px;height:46px;font-size:15px">Explore the Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="start-knowing">
+<figcaption>AD 05 / Start Knowing</figcaption>
+<div class="viewport" style="width:300px;height:600px">
+<div class="artboard" style="width:300px;height:600px">
+<div aria-label="Lex Machina Miami-Dade Start Knowing, 300x600" class="ad" role="img">
+<div class="asset copy frame1" style="left:42.0px;top:120.0px;width:218.0px;height:199.0px;font-size:35.36px"><span class="copy-line">Stop guessing.</span><span class="copy-line"><span class="red">Start knowing.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:58px;top:535px;width:184px;height:41px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:16px;top:58px;width:268px;height:230px"/>
+<div class="asset copy frame2" style="left:24px;top:66px;width:252px;height:170px;font-size:32px"><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Legal Analytics<sup>®</sup></span><span class="copy-line">now in</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:28px;top:300px;width:244px;height:33px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:58px;top:499px;width:184px;height:41px"/>
+<div class="asset cta frame2" style="left:51px;top:393px;width:198px;height:46px;font-size:15px">Request a Demo</div>
+</div>
+</div>
+</div>
+</figure></div></section><section class="size-group" data-size="728x90" id="s728x90"><h2>728 × 90</h2><div class="ads">
+<figure class="ad-card visible" data-version="announcement">
+<figcaption>AD 01 / Announcement</figcaption>
+<div class="viewport" style="width:728px;height:90px">
+<div class="artboard" style="width:728px;height:90px">
+<div aria-label="Lex Machina Miami-Dade Announcement, 728x90" class="ad" role="img">
+<div class="asset copy frame1" style="left:24.0px;top:14.0px;width:410.0px;height:62.0px;font-size:24.84px"><span class="copy-line">The wait <span class="red">is</span> <span class="red">over.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:12px;top:-3px;width:292px;height:111px"/>
+<div class="asset copy frame2" style="left:32px;top:13px;width:252px;height:62px;font-size:19px"><span class="copy-line">Enhanced <span class="red">Miami-Dade</span></span><span class="copy-line">Litigation Analytics are here.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:318px;top:29px;width:180px;height:24px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:638px;top:34px;width:76px;height:17px"/>
+<div class="asset cta frame2" style="left:508px;top:24px;width:116px;height:42px;font-size:10px">Read the Announcement</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="opportunity">
+<figcaption>AD 02 / Opportunity</figcaption>
+<div class="viewport" style="width:728px;height:90px">
+<div class="artboard" style="width:728px;height:90px">
+<div aria-label="Lex Machina Miami-Dade Opportunity, 728x90" class="ad" role="img">
+<div class="asset copy frame1" style="left:24.0px;top:14.0px;width:410.0px;height:62.0px;font-size:23.00px"><span class="copy-line">Where is litigation creating your <span class="red">next</span> <span class="red">opportunity?</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:12px;top:-3px;width:292px;height:111px"/>
+<div class="asset copy frame2" style="left:32px;top:13px;width:252px;height:62px;font-size:22px"><span class="copy-line">Don’t guess.</span><span class="copy-line"><span class="red">Ask</span></span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:318px;top:29px;width:180px;height:24px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:638px;top:34px;width:76px;height:17px"/>
+<div class="asset cta frame2" style="left:508px;top:24px;width:116px;height:42px;font-size:10px">Explore Miami-Dade Insights</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="winning-work">
+<figcaption>AD 03 / Winning Work</figcaption>
+<div class="viewport" style="width:728px;height:90px">
+<div class="artboard" style="width:728px;height:90px">
+<div aria-label="Lex Machina Miami-Dade Winning Work, 728x90" class="ad" role="img">
+<div class="asset copy frame1" style="left:24.0px;top:14.0px;width:410.0px;height:62.0px;font-size:23.00px"><span class="copy-line">Who’s winning the work in <span class="red">Miami-Dade?</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:12px;top:-3px;width:292px;height:111px"/>
+<div class="asset copy frame2" style="left:32px;top:13px;width:252px;height:62px;font-size:19px"><span class="copy-line">See what the</span><span class="copy-line"><span class="red">litigation data</span> reveals.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:318px;top:29px;width:180px;height:24px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:638px;top:34px;width:76px;height:17px"/>
+<div class="asset cta frame2" style="left:508px;top:24px;width:116px;height:42px;font-size:10px">Explore Miami-Dade Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="beyond-the-docket">
+<figcaption>AD 04 / Beyond The Docket</figcaption>
+<div class="viewport" style="width:728px;height:90px">
+<div class="artboard" style="width:728px;height:90px">
+<div aria-label="Lex Machina Miami-Dade Beyond The Docket, 728x90" class="ad" role="img">
+<div class="asset copy frame1" style="left:24.0px;top:14.0px;width:410.0px;height:62.0px;font-size:22.08px"><span class="copy-line">The docket doesn’t tell <span class="red">the</span> <span class="red">whole</span> <span class="red">story.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:12px;top:-3px;width:292px;height:111px"/>
+<div class="asset copy frame2" style="left:32px;top:13px;width:252px;height:62px;font-size:16.5px"><span class="copy-line">Go beyond it with enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span> analytics.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:318px;top:29px;width:180px;height:24px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:638px;top:34px;width:76px;height:17px"/>
+<div class="asset cta frame2" style="left:508px;top:24px;width:116px;height:42px;font-size:10px">Explore the Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="start-knowing">
+<figcaption>AD 05 / Start Knowing</figcaption>
+<div class="viewport" style="width:728px;height:90px">
+<div class="artboard" style="width:728px;height:90px">
+<div aria-label="Lex Machina Miami-Dade Start Knowing, 728x90" class="ad" role="img">
+<div class="asset copy frame1" style="left:24.0px;top:14.0px;width:410.0px;height:62.0px;font-size:23.92px"><span class="copy-line">Stop guessing. <span class="red">Start</span> <span class="red">knowing.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:12px;top:-3px;width:292px;height:111px"/>
+<div class="asset copy frame2" style="left:32px;top:13px;width:252px;height:62px;font-size:18px"><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Legal Analytics<sup>®</sup> now in</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:318px;top:29px;width:180px;height:24px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:638px;top:34px;width:76px;height:17px"/>
+<div class="asset cta frame2" style="left:508px;top:24px;width:116px;height:42px;font-size:10px">Request a Demo</div>
+</div>
+</div>
+</div>
+</figure></div></section><section class="size-group" data-size="970x250" id="s970x250"><h2>970 × 250</h2><div class="ads">
+<figure class="ad-card visible" data-version="announcement">
+<figcaption>AD 01 / Announcement</figcaption>
+<div class="viewport" style="width:970px;height:250px">
+<div class="artboard" style="width:970px;height:250px">
+<div aria-label="Lex Machina Miami-Dade Announcement, 970x250" class="ad" role="img">
+<div class="asset copy frame1" style="left:80px;top:64px;width:510px;height:122px;font-size:41px"><span class="copy-line">The wait <span class="red">is over.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:655px;top:101px;width:220px;height:48px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:20.0px;top:-68.0px;width:455.0px;height:388.0px"/>
+<div class="asset copy frame2" style="left:40px;top:55px;width:420px;height:130px;font-size:32px"><span class="copy-line">Enhanced <span class="red">Miami-Dade</span></span><span class="copy-line">Litigation Analytics are here.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:515.0px;top:52.0px;width:410.0px;height:53.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:525.0px;top:166.0px;width:170.0px;height:36.0px"/>
+<div class="asset cta frame2" style="left:730.0px;top:154.0px;width:195.0px;height:58.0px;font-size:16.0px">Read the Announcement</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="opportunity">
+<figcaption>AD 02 / Opportunity</figcaption>
+<div class="viewport" style="width:970px;height:250px">
+<div class="artboard" style="width:970px;height:250px">
+<div aria-label="Lex Machina Miami-Dade Opportunity, 970x250" class="ad" role="img">
+<div class="asset copy frame1" style="left:80px;top:64px;width:510px;height:122px;font-size:37px"><span class="copy-line">Where is litigation creating</span><span class="copy-line">your <span class="red">next opportunity?</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:655px;top:101px;width:220px;height:48px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:20.0px;top:-68.0px;width:455.0px;height:388.0px"/>
+<div class="asset copy frame2" style="left:40px;top:55px;width:420px;height:130px;font-size:38px"><span class="copy-line">Don’t guess. <span class="red">Ask</span></span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:515.0px;top:52.0px;width:410.0px;height:53.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:525.0px;top:166.0px;width:170.0px;height:36.0px"/>
+<div class="asset cta frame2" style="left:730.0px;top:154.0px;width:195.0px;height:58.0px;font-size:16.0px">Explore Miami-Dade Insights</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="winning-work">
+<figcaption>AD 03 / Winning Work</figcaption>
+<div class="viewport" style="width:970px;height:250px">
+<div class="artboard" style="width:970px;height:250px">
+<div aria-label="Lex Machina Miami-Dade Winning Work, 970x250" class="ad" role="img">
+<div class="asset copy frame1" style="left:80px;top:64px;width:510px;height:122px;font-size:37px"><span class="copy-line">Who’s winning the work in</span><span class="copy-line"><span class="red">Miami-Dade?</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:655px;top:101px;width:220px;height:48px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:20.0px;top:-68.0px;width:455.0px;height:388.0px"/>
+<div class="asset copy frame2" style="left:40px;top:55px;width:420px;height:130px;font-size:34px"><span class="copy-line">See what the</span><span class="copy-line"><span class="red">litigation data</span> reveals.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:515.0px;top:52.0px;width:410.0px;height:53.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:525.0px;top:166.0px;width:170.0px;height:36.0px"/>
+<div class="asset cta frame2" style="left:730.0px;top:154.0px;width:195.0px;height:58.0px;font-size:16.0px">Explore Miami-Dade Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="beyond-the-docket">
+<figcaption>AD 04 / Beyond The Docket</figcaption>
+<div class="viewport" style="width:970px;height:250px">
+<div class="artboard" style="width:970px;height:250px">
+<div aria-label="Lex Machina Miami-Dade Beyond The Docket, 970x250" class="ad" role="img">
+<div class="asset copy frame1" style="left:80px;top:64px;width:510px;height:122px;font-size:36px"><span class="copy-line">The docket doesn’t tell</span><span class="copy-line"><span class="red">the whole story.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:655px;top:101px;width:220px;height:48px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:20.0px;top:-68.0px;width:455.0px;height:388.0px"/>
+<div class="asset copy frame2" style="left:40px;top:55px;width:420px;height:130px;font-size:29px"><span class="copy-line">Go beyond it with enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span> analytics.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:515.0px;top:52.0px;width:410.0px;height:53.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:525.0px;top:166.0px;width:170.0px;height:36.0px"/>
+<div class="asset cta frame2" style="left:730.0px;top:154.0px;width:195.0px;height:58.0px;font-size:16.0px">Explore the Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="start-knowing">
+<figcaption>AD 05 / Start Knowing</figcaption>
+<div class="viewport" style="width:970px;height:250px">
+<div class="artboard" style="width:970px;height:250px">
+<div aria-label="Lex Machina Miami-Dade Start Knowing, 970x250" class="ad" role="img">
+<div class="asset copy frame1" style="left:80px;top:64px;width:510px;height:122px;font-size:39px"><span class="copy-line">Stop guessing.</span><span class="copy-line"><span class="red">Start knowing.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:655px;top:101px;width:220px;height:48px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:20.0px;top:-68.0px;width:455.0px;height:388.0px"/>
+<div class="asset copy frame2" style="left:40px;top:55px;width:420px;height:130px;font-size:33px"><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Legal Analytics<sup>®</sup> now in</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:515.0px;top:52.0px;width:410.0px;height:53.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:525.0px;top:166.0px;width:170.0px;height:36.0px"/>
+<div class="asset cta frame2" style="left:730.0px;top:154.0px;width:195.0px;height:58.0px;font-size:16.0px">Request a Demo</div>
+</div>
+</div>
+</div>
+</figure></div></section><section class="size-group" data-size="320x50" id="s320x50"><h2>320 × 50</h2><div class="ads">
+<figure class="ad-card visible" data-version="announcement">
+<figcaption>AD 01 / Announcement</figcaption>
+<div class="viewport" style="width:320px;height:50px">
+<div class="artboard" style="width:320px;height:50px">
+<div aria-label="Lex Machina Miami-Dade Announcement, 320x50" class="ad" role="img">
+<div class="asset copy frame1" style="left:15.0px;top:9.0px;width:188.0px;height:32.0px;font-size:15.12px"><span class="copy-line">The wait <span class="red">is</span> <span class="red">over.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-8px;top:-8px;width:174px;height:70px"/>
+<div class="asset copy frame2" style="left:8px;top:4px;width:146px;height:42px;font-size:9.8px"><span class="copy-line">Enhanced <span class="red">Miami-Dade</span></span><span class="copy-line">Litigation Analytics are here.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:169px;top:15px;width:88px;height:12px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:263px;top:17px;width:52px;height:12px"/>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="opportunity">
+<figcaption>AD 02 / Opportunity</figcaption>
+<div class="viewport" style="width:320px;height:50px">
+<div class="artboard" style="width:320px;height:50px">
+<div aria-label="Lex Machina Miami-Dade Opportunity, 320x50" class="ad" role="img">
+<div class="asset copy frame1" style="left:15.0px;top:9.0px;width:188.0px;height:32.0px;font-size:14.00px"><span class="copy-line">Where is litigation creating</span><span class="copy-line">your <span class="red">next</span> <span class="red">opportunity?</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-8px;top:-8px;width:174px;height:70px"/>
+<div class="asset copy frame2" style="left:8px;top:4px;width:146px;height:42px;font-size:14px"><span class="copy-line">Don’t guess.</span><span class="copy-line"><span class="red">Ask</span></span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:169px;top:15px;width:88px;height:12px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:263px;top:17px;width:52px;height:12px"/>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="winning-work">
+<figcaption>AD 03 / Winning Work</figcaption>
+<div class="viewport" style="width:320px;height:50px">
+<div class="artboard" style="width:320px;height:50px">
+<div aria-label="Lex Machina Miami-Dade Winning Work, 320x50" class="ad" role="img">
+<div class="asset copy frame1" style="left:15.0px;top:9.0px;width:188.0px;height:32.0px;font-size:14.00px"><span class="copy-line">Who’s winning the</span><span class="copy-line">work in <span class="red">Miami-Dade?</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-8px;top:-8px;width:174px;height:70px"/>
+<div class="asset copy frame2" style="left:8px;top:4px;width:146px;height:42px;font-size:10.2px"><span class="copy-line">See what the</span><span class="copy-line"><span class="red">litigation data</span> reveals.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:169px;top:15px;width:88px;height:12px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:263px;top:17px;width:52px;height:12px"/>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="beyond-the-docket">
+<figcaption>AD 04 / Beyond The Docket</figcaption>
+<div class="viewport" style="width:320px;height:50px">
+<div class="artboard" style="width:320px;height:50px">
+<div aria-label="Lex Machina Miami-Dade Beyond The Docket, 320x50" class="ad" role="img">
+<div class="asset copy frame1" style="left:15.0px;top:9.0px;width:188.0px;height:32.0px;font-size:13.44px"><span class="copy-line">The docket doesn’t</span><span class="copy-line">tell <span class="red">the whole story.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-8px;top:-8px;width:174px;height:70px"/>
+<div class="asset copy frame2" style="left:8px;top:4px;width:146px;height:42px;font-size:8.7px"><span class="copy-line">Go beyond it</span><span class="copy-line">with enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span> analytics.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:169px;top:15px;width:88px;height:12px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:263px;top:17px;width:52px;height:12px"/>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="start-knowing">
+<figcaption>AD 05 / Start Knowing</figcaption>
+<div class="viewport" style="width:320px;height:50px">
+<div class="artboard" style="width:320px;height:50px">
+<div aria-label="Lex Machina Miami-Dade Start Knowing, 320x50" class="ad" role="img">
+<div class="asset copy frame1" style="left:15.0px;top:9.0px;width:188.0px;height:32.0px;font-size:14.56px"><span class="copy-line">Stop guessing. <span class="red">Start</span> <span class="red">knowing.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-8px;top:-8px;width:174px;height:70px"/>
+<div class="asset copy frame2" style="left:8px;top:4px;width:146px;height:42px;font-size:9.5px"><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Legal Analytics<sup>®</sup> now in</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:169px;top:15px;width:88px;height:12px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:263px;top:17px;width:52px;height:12px"/>
+</div>
+</div>
+</div>
+</figure></div></section><section class="size-group" data-size="300x50" id="s300x50"><h2>300 × 50</h2><div class="ads">
+<figure class="ad-card visible" data-version="announcement">
+<figcaption>AD 01 / Announcement</figcaption>
+<div class="viewport" style="width:300px;height:50px">
+<div class="artboard" style="width:300px;height:50px">
+<div aria-label="Lex Machina Miami-Dade Announcement, 300x50" class="ad" role="img">
+<div class="asset copy frame1" style="left:14.0px;top:10.0px;width:176.0px;height:28.0px;font-size:15.12px"><span class="copy-line">The wait <span class="red">is</span> <span class="red">over.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-9px;top:-8px;width:164px;height:70px"/>
+<div class="asset copy frame2" style="left:7px;top:4px;width:138px;height:42px;font-size:9.4px"><span class="copy-line">Enhanced <span class="red">Miami-Dade</span></span><span class="copy-line">Litigation Analytics are here.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:155px;top:15px;width:78px;height:12px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:242px;top:17px;width:49px;height:12px"/>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="opportunity">
+<figcaption>AD 02 / Opportunity</figcaption>
+<div class="viewport" style="width:300px;height:50px">
+<div class="artboard" style="width:300px;height:50px">
+<div aria-label="Lex Machina Miami-Dade Opportunity, 300x50" class="ad" role="img">
+<div class="asset copy frame1" style="left:14.0px;top:10.0px;width:176.0px;height:28.0px;font-size:14.00px"><span class="copy-line">Where is litigation creating</span><span class="copy-line">your <span class="red">next</span> <span class="red">opportunity?</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-9px;top:-8px;width:164px;height:70px"/>
+<div class="asset copy frame2" style="left:7px;top:4px;width:138px;height:42px;font-size:13.5px"><span class="copy-line">Don’t guess.</span><span class="copy-line"><span class="red">Ask</span></span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:155px;top:15px;width:78px;height:12px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:242px;top:17px;width:49px;height:12px"/>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="winning-work">
+<figcaption>AD 03 / Winning Work</figcaption>
+<div class="viewport" style="width:300px;height:50px">
+<div class="artboard" style="width:300px;height:50px">
+<div aria-label="Lex Machina Miami-Dade Winning Work, 300x50" class="ad" role="img">
+<div class="asset copy frame1" style="left:14.0px;top:10.0px;width:176.0px;height:28.0px;font-size:14.00px"><span class="copy-line">Who’s winning the</span><span class="copy-line">work in <span class="red">Miami-Dade?</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-9px;top:-8px;width:164px;height:70px"/>
+<div class="asset copy frame2" style="left:7px;top:4px;width:138px;height:42px;font-size:9.8px"><span class="copy-line">See what the</span><span class="copy-line"><span class="red">litigation data</span> reveals.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:155px;top:15px;width:78px;height:12px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:242px;top:17px;width:49px;height:12px"/>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="beyond-the-docket">
+<figcaption>AD 04 / Beyond The Docket</figcaption>
+<div class="viewport" style="width:300px;height:50px">
+<div class="artboard" style="width:300px;height:50px">
+<div aria-label="Lex Machina Miami-Dade Beyond The Docket, 300x50" class="ad" role="img">
+<div class="asset copy frame1" style="left:14.0px;top:10.0px;width:176.0px;height:28.0px;font-size:13.44px"><span class="copy-line">The docket doesn’t</span><span class="copy-line">tell <span class="red">the whole story.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-9px;top:-8px;width:164px;height:70px"/>
+<div class="asset copy frame2" style="left:7px;top:4px;width:138px;height:42px;font-size:8.4px"><span class="copy-line">Go beyond it</span><span class="copy-line">with enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span> analytics.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:155px;top:15px;width:78px;height:12px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:242px;top:17px;width:49px;height:12px"/>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="start-knowing">
+<figcaption>AD 05 / Start Knowing</figcaption>
+<div class="viewport" style="width:300px;height:50px">
+<div class="artboard" style="width:300px;height:50px">
+<div aria-label="Lex Machina Miami-Dade Start Knowing, 300x50" class="ad" role="img">
+<div class="asset copy frame1" style="left:14.0px;top:10.0px;width:176.0px;height:28.0px;font-size:14.56px"><span class="copy-line">Stop guessing. <span class="red">Start</span> <span class="red">knowing.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:-9px;top:-8px;width:164px;height:70px"/>
+<div class="asset copy frame2" style="left:7px;top:4px;width:138px;height:42px;font-size:9.2px"><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Legal Analytics<sup>®</sup> now in</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:155px;top:15px;width:78px;height:12px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:242px;top:17px;width:49px;height:12px"/>
+</div>
+</div>
+</div>
+</figure></div></section><section class="size-group" data-size="970x90" id="s970x90"><h2>970 × 90</h2><div class="ads">
+<figure class="ad-card visible" data-version="announcement">
+<figcaption>AD 01 / Announcement</figcaption>
+<div class="viewport" style="width:970px;height:90px">
+<div class="artboard" style="width:970px;height:90px">
+<div aria-label="Lex Machina Miami-Dade Announcement, 970x90" class="ad" role="img">
+<div class="asset copy frame1" style="left:30.0px;top:34.0px;width:713.0px;height:26.0px;font-size:29.16px"><span class="copy-line">The wait <span class="red">is</span> <span class="red">over.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:6px;top:-9px;width:370px;height:126px;opacity:0.76"/>
+<div class="asset copy frame2" style="left:43px;top:12px;width:284px;height:66px;font-size:20px"><span class="copy-line">Enhanced <span class="red">Miami-Dade</span></span><span class="copy-line">Litigation Analytics are here.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:382px;top:27px;width:222px;height:29px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:806px;top:31px;width:136px;height:30px"/>
+<div class="asset cta frame2" style="left:632px;top:23px;width:142px;height:44px;font-size:11px">Read the Announcement</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="opportunity">
+<figcaption>AD 02 / Opportunity</figcaption>
+<div class="viewport" style="width:970px;height:90px">
+<div class="artboard" style="width:970px;height:90px">
+<div aria-label="Lex Machina Miami-Dade Opportunity, 970x90" class="ad" role="img">
+<div class="asset copy frame1" style="left:30.0px;top:34.0px;width:713.0px;height:26.0px;font-size:27.00px"><span class="copy-line">Where is litigation creating your <span class="red">next</span> <span class="red">opportunity?</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:6px;top:-9px;width:370px;height:126px;opacity:0.76"/>
+<div class="asset copy frame2" style="left:28px;top:21px;width:330px;height:48px;font-size:24px"><span class="copy-line">Don’t guess. <span class="red">Ask</span></span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:382px;top:27px;width:222px;height:29px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:806px;top:31px;width:136px;height:30px"/>
+<div class="asset cta frame2" style="left:632px;top:23px;width:142px;height:44px;font-size:11px">Explore Miami-Dade Insights</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="winning-work">
+<figcaption>AD 03 / Winning Work</figcaption>
+<div class="viewport" style="width:970px;height:90px">
+<div class="artboard" style="width:970px;height:90px">
+<div aria-label="Lex Machina Miami-Dade Winning Work, 970x90" class="ad" role="img">
+<div class="asset copy frame1" style="left:30.0px;top:34.0px;width:713.0px;height:26.0px;font-size:27.00px"><span class="copy-line">Who’s winning the work in <span class="red">Miami-Dade?</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:6px;top:-9px;width:370px;height:126px;opacity:0.76"/>
+<div class="asset copy frame2" style="left:43px;top:12px;width:284px;height:66px;font-size:20.5px"><span class="copy-line">See what the</span><span class="copy-line"><span class="red">litigation data</span> reveals.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:382px;top:27px;width:222px;height:29px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:806px;top:31px;width:136px;height:30px"/>
+<div class="asset cta frame2" style="left:632px;top:23px;width:142px;height:44px;font-size:11px">Explore Miami-Dade Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="beyond-the-docket">
+<figcaption>AD 04 / Beyond The Docket</figcaption>
+<div class="viewport" style="width:970px;height:90px">
+<div class="artboard" style="width:970px;height:90px">
+<div aria-label="Lex Machina Miami-Dade Beyond The Docket, 970x90" class="ad" role="img">
+<div class="asset copy frame1" style="left:30.0px;top:34.0px;width:713.0px;height:26.0px;font-size:25.92px"><span class="copy-line">The docket doesn’t tell <span class="red">the</span> <span class="red">whole</span> <span class="red">story.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:6px;top:-9px;width:370px;height:126px;opacity:0.76"/>
+<div class="asset copy frame2" style="left:43px;top:12px;width:284px;height:66px;font-size:17.5px"><span class="copy-line">Go beyond it with enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span> analytics.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:382px;top:27px;width:222px;height:29px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:806px;top:31px;width:136px;height:30px"/>
+<div class="asset cta frame2" style="left:632px;top:23px;width:142px;height:44px;font-size:11px">Explore the Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="start-knowing">
+<figcaption>AD 05 / Start Knowing</figcaption>
+<div class="viewport" style="width:970px;height:90px">
+<div class="artboard" style="width:970px;height:90px">
+<div aria-label="Lex Machina Miami-Dade Start Knowing, 970x90" class="ad" role="img">
+<div class="asset copy frame1" style="left:30.0px;top:34.0px;width:713.0px;height:26.0px;font-size:28.08px"><span class="copy-line">Stop guessing. <span class="red">Start</span> <span class="red">knowing.</span></span></div>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:6px;top:-9px;width:370px;height:126px;opacity:0.76"/>
+<div class="asset copy frame2" style="left:43px;top:12px;width:284px;height:66px;font-size:19.5px"><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Legal Analytics<sup>®</sup> now in</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:382px;top:27px;width:222px;height:29px"/>
+<img alt="LexisNexis" class="asset asset-img ln-stationary" data-asset="ln" src="" style="left:806px;top:31px;width:136px;height:30px"/>
+<div class="asset cta frame2" style="left:632px;top:23px;width:142px;height:44px;font-size:11px">Request a Demo</div>
+</div>
+</div>
+</div>
+</figure></div></section><section class="size-group" data-size="500x100" id="s500x100"><h2>500 × 100</h2><div class="ads">
+<figure class="ad-card visible" data-version="announcement">
+<figcaption>AD 01 / Announcement</figcaption>
+<div class="viewport" style="width:500px;height:100px">
+<div class="artboard" style="width:500px;height:100px">
+<div aria-label="Lex Machina Miami-Dade Announcement, 500x100" class="ad" role="img">
+<div class="asset copy frame1" style="left:22px;top:14px;width:315px;height:72px;font-size:20px"><span class="copy-line">The wait <span class="red">is over.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:356px;top:37px;width:120px;height:26px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:15.0px;top:-52.0px;width:235.0px;height:201.0px"/>
+<div class="asset copy frame2" style="left:18px;top:17px;width:226px;height:66px;font-size:17px"><span class="copy-line">Enhanced <span class="red">Miami-Dade</span></span><span class="copy-line">Litigation Analytics are here.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:270.0px;top:15.0px;width:214.0px;height:28.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:270px;top:68px;width:92px;height:20px"/>
+<div class="asset cta frame2" style="left:374.0px;top:59.0px;width:114.0px;height:32.0px;font-size:9.0px">Read the Announcement</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="opportunity">
+<figcaption>AD 02 / Opportunity</figcaption>
+<div class="viewport" style="width:500px;height:100px">
+<div class="artboard" style="width:500px;height:100px">
+<div aria-label="Lex Machina Miami-Dade Opportunity, 500x100" class="ad" role="img">
+<div class="asset copy frame1" style="left:22px;top:14px;width:315px;height:72px;font-size:18px"><span class="copy-line">Where is litigation creating</span><span class="copy-line">your <span class="red">next opportunity?</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:356px;top:37px;width:120px;height:26px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:15.0px;top:-52.0px;width:235.0px;height:201.0px"/>
+<div class="asset copy frame2" style="left:18px;top:17px;width:226px;height:66px;font-size:22px"><span class="copy-line">Don’t guess.</span><span class="copy-line"><span class="red">Ask</span></span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:270.0px;top:15.0px;width:214.0px;height:28.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:270px;top:68px;width:92px;height:20px"/>
+<div class="asset cta frame2" style="left:374.0px;top:59.0px;width:114.0px;height:32.0px;font-size:9.0px">Explore Miami-Dade Insights</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="winning-work">
+<figcaption>AD 03 / Winning Work</figcaption>
+<div class="viewport" style="width:500px;height:100px">
+<div class="artboard" style="width:500px;height:100px">
+<div aria-label="Lex Machina Miami-Dade Winning Work, 500x100" class="ad" role="img">
+<div class="asset copy frame1" style="left:22px;top:14px;width:315px;height:72px;font-size:18px"><span class="copy-line">Who’s winning the work</span><span class="copy-line">in <span class="red">Miami-Dade?</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:356px;top:37px;width:120px;height:26px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:15.0px;top:-52.0px;width:235.0px;height:201.0px"/>
+<div class="asset copy frame2" style="left:18px;top:17px;width:226px;height:66px;font-size:18px"><span class="copy-line">See what the</span><span class="copy-line"><span class="red">litigation data</span> reveals.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:270.0px;top:15.0px;width:214.0px;height:28.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:270px;top:68px;width:92px;height:20px"/>
+<div class="asset cta frame2" style="left:374.0px;top:59.0px;width:114.0px;height:32.0px;font-size:9.0px">Explore Miami-Dade Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="beyond-the-docket">
+<figcaption>AD 04 / Beyond The Docket</figcaption>
+<div class="viewport" style="width:500px;height:100px">
+<div class="artboard" style="width:500px;height:100px">
+<div aria-label="Lex Machina Miami-Dade Beyond The Docket, 500x100" class="ad" role="img">
+<div class="asset copy frame1" style="left:22px;top:14px;width:315px;height:72px;font-size:18px"><span class="copy-line">The docket doesn’t tell</span><span class="copy-line"><span class="red">the whole story.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:356px;top:37px;width:120px;height:26px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:15.0px;top:-52.0px;width:235.0px;height:201.0px"/>
+<div class="asset copy frame2" style="left:18px;top:17px;width:226px;height:66px;font-size:16px"><span class="copy-line">Go beyond it with enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span> analytics.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:270.0px;top:15.0px;width:214.0px;height:28.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:270px;top:68px;width:92px;height:20px"/>
+<div class="asset cta frame2" style="left:374.0px;top:59.0px;width:114.0px;height:32.0px;font-size:9.0px">Explore the Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="start-knowing">
+<figcaption>AD 05 / Start Knowing</figcaption>
+<div class="viewport" style="width:500px;height:100px">
+<div class="artboard" style="width:500px;height:100px">
+<div aria-label="Lex Machina Miami-Dade Start Knowing, 500x100" class="ad" role="img">
+<div class="asset copy frame1" style="left:22px;top:14px;width:315px;height:72px;font-size:20px"><span class="copy-line">Stop guessing.</span><span class="copy-line"><span class="red">Start knowing.</span></span></div><img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:356px;top:37px;width:120px;height:26px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:15.0px;top:-52.0px;width:235.0px;height:201.0px"/>
+<div class="asset copy frame2" style="left:18px;top:17px;width:226px;height:66px;font-size:17px"><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Legal Analytics<sup>®</sup> now in</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:270.0px;top:15.0px;width:214.0px;height:28.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:270px;top:68px;width:92px;height:20px"/>
+<div class="asset cta frame2" style="left:374.0px;top:59.0px;width:114.0px;height:32.0px;font-size:9.0px">Request a Demo</div>
+</div>
+</div>
+</div>
+</figure></div></section><section class="size-group" data-size="1200x1200" id="s1200x1200"><h2>1200 × 1200</h2><div class="ads">
+<figure class="ad-card visible" data-version="announcement">
+<figcaption>AD 01 / Announcement</figcaption>
+<div class="viewport" style="width:600px;height:600px">
+<div class="artboard" style="width:1200px;height:1200px">
+<div aria-label="Lex Machina Miami-Dade Announcement, 1200x1200" class="ad" role="img">
+<div class="asset copy frame1" style="left:160.0px;top:260.0px;width:880.0px;height:300.0px;font-size:98.0px"><span class="copy-line">The wait <span class="red">is</span> <span class="red">over.</span></span></div>
+<img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:390px;top:1030px;width:420px;height:90px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:135.0px;top:95.0px;width:930.0px;height:794.0px"/>
+<div class="asset copy frame2" style="left:185px;top:170px;width:830px;height:330px;font-size:82px"><span class="copy-line">Enhanced <span class="red">Miami-Dade</span></span><span class="copy-line">Litigation Analytics</span><span class="copy-line">are here.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:165.0px;top:660.0px;width:870.0px;height:113.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:165px;top:925.0px;width:360.0px;height:77.0px"/>
+<div class="asset cta frame2" style="left:630.0px;top:915.0px;width:360.0px;height:95.0px;font-size:28.0px">Read the Announcement</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="opportunity">
+<figcaption>AD 02 / Opportunity</figcaption>
+<div class="viewport" style="width:600px;height:600px">
+<div class="artboard" style="width:1200px;height:1200px">
+<div aria-label="Lex Machina Miami-Dade Opportunity, 1200x1200" class="ad" role="img">
+<div class="asset copy frame1" style="left:160.0px;top:260.0px;width:880.0px;height:300.0px;font-size:92.0px"><span class="copy-line">Where is litigation</span><span class="copy-line">creating your</span><span class="copy-line"><span class="red">next</span> <span class="red">opportunity?</span></span></div>
+<img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:390px;top:1030px;width:420px;height:90px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:135.0px;top:95.0px;width:930.0px;height:794.0px"/>
+<div class="asset copy frame2" style="left:185px;top:170px;width:830px;height:330px;font-size:105px"><span class="copy-line">Don’t guess.</span><span class="copy-line"><span class="red">Ask</span></span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:165.0px;top:660.0px;width:870.0px;height:113.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:165px;top:925.0px;width:360.0px;height:77.0px"/>
+<div class="asset cta frame2" style="left:630.0px;top:915.0px;width:360.0px;height:95.0px;font-size:28.0px">Explore Miami-Dade Insights</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="winning-work">
+<figcaption>AD 03 / Winning Work</figcaption>
+<div class="viewport" style="width:600px;height:600px">
+<div class="artboard" style="width:1200px;height:1200px">
+<div aria-label="Lex Machina Miami-Dade Winning Work, 1200x1200" class="ad" role="img">
+<div class="asset copy frame1" style="left:160.0px;top:260.0px;width:880.0px;height:300.0px;font-size:92.0px"><span class="copy-line">Who’s winning</span><span class="copy-line">the work in</span><span class="copy-line"><span class="red">Miami-Dade?</span></span></div>
+<img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:390px;top:1030px;width:420px;height:90px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:135.0px;top:95.0px;width:930.0px;height:794.0px"/>
+<div class="asset copy frame2" style="left:185px;top:170px;width:830px;height:330px;font-size:92px"><span class="copy-line">See what the</span><span class="copy-line"><span class="red">litigation data</span></span><span class="copy-line">reveals.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:165.0px;top:660.0px;width:870.0px;height:113.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:165px;top:925.0px;width:360.0px;height:77.0px"/>
+<div class="asset cta frame2" style="left:630.0px;top:915.0px;width:360.0px;height:95.0px;font-size:28.0px">Explore Miami-Dade Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="beyond-the-docket">
+<figcaption>AD 04 / Beyond The Docket</figcaption>
+<div class="viewport" style="width:600px;height:600px">
+<div class="artboard" style="width:1200px;height:1200px">
+<div aria-label="Lex Machina Miami-Dade Beyond The Docket, 1200x1200" class="ad" role="img">
+<div class="asset copy frame1" style="left:160.0px;top:260.0px;width:880.0px;height:300.0px;font-size:90.0px"><span class="copy-line">The docket doesn’t</span><span class="copy-line">tell <span class="red">the</span> <span class="red">whole</span> <span class="red">story.</span></span></div>
+<img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:390px;top:1030px;width:420px;height:90px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:135.0px;top:95.0px;width:930.0px;height:794.0px"/>
+<div class="asset copy frame2" style="left:185px;top:170px;width:830px;height:330px;font-size:78px"><span class="copy-line">Go beyond it</span><span class="copy-line">with enhanced</span><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">analytics.</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:165.0px;top:660.0px;width:870.0px;height:113.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:165px;top:925.0px;width:360.0px;height:77.0px"/>
+<div class="asset cta frame2" style="left:630.0px;top:915.0px;width:360.0px;height:95.0px;font-size:28.0px">Explore the Analytics</div>
+</div>
+</div>
+</div>
+</figure>
+<figure class="ad-card visible" data-version="start-knowing">
+<figcaption>AD 05 / Start Knowing</figcaption>
+<div class="viewport" style="width:600px;height:600px">
+<div class="artboard" style="width:1200px;height:1200px">
+<div aria-label="Lex Machina Miami-Dade Start Knowing, 1200x1200" class="ad" role="img">
+<div class="asset copy frame1" style="left:160.0px;top:260.0px;width:880.0px;height:300.0px;font-size:96.0px"><span class="copy-line">Stop guessing.</span><span class="copy-line"><span class="red">Start</span> <span class="red">knowing.</span></span></div>
+<img alt="LexisNexis" class="asset asset-img ln-first" data-asset="ln" src="" style="left:390px;top:1030px;width:420px;height:90px"/>
+<img alt="" class="asset asset-img triangle frame2" data-asset="triangle" src="" style="left:135.0px;top:95.0px;width:930.0px;height:794.0px"/>
+<div class="asset copy frame2" style="left:185px;top:150px;width:830px;height:330px;font-size:88px"><span class="copy-line"><span class="red">Miami-Dade</span></span><span class="copy-line">Legal Analytics<sup>®</sup></span><span class="copy-line">now in</span></div>
+<img alt="Lex Machina" class="asset asset-img lex frame2" data-asset="lex" src="" style="left:165.0px;top:660.0px;width:870.0px;height:113.0px"/>
+<img alt="LexisNexis" class="asset asset-img ln frame2" data-asset="ln" src="" style="left:165px;top:925.0px;width:360.0px;height:77.0px"/>
+<div class="asset cta frame2" style="left:630.0px;top:915.0px;width:360.0px;height:95.0px;font-size:28.0px">Request a Demo</div>
+</div>
+</div>
+</div>
+</figure></div></section>
+</main>
+<script>
+const ASSETS={"triangle":"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJMYXllcl8yIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTIyMS42NDkgMTA0Ni45NyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJsaW5lYXItZ3JhZGllbnQiIHgxPSI4NDMuNDIxIiB5MT0iLTIyMi43MjMiIHgyPSIxNzUuMzM4IiB5Mj0iNzY3Ljc1IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZWQxZDI0Ii8+PHN0b3Agb2Zmc2V0PSIuMDA4IiBzdG9wLWNvbG9yPSIjZWExYzIzIi8+PHN0b3Agb2Zmc2V0PSIuMjIzIiBzdG9wLWNvbG9yPSIjYTMxNDE4Ii8+PHN0b3Agb2Zmc2V0PSIuNDI1IiBzdG9wLWNvbG9yPSIjNjkwYzEwIi8+PHN0b3Agb2Zmc2V0PSIuNjA5IiBzdG9wLWNvbG9yPSIjM2IwNzA5Ii8+PHN0b3Agb2Zmc2V0PSIuNzcyIiBzdG9wLWNvbG9yPSIjMWIwMzA0Ii8+PHN0b3Agb2Zmc2V0PSIuOTA4IiBzdG9wLWNvbG9yPSIjMDcwMDAxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImxpbmVhci1ncmFkaWVudC0yIiB4MT0iMTAyMS43ODkiIHkxPSI3ODAuMzQxIiB4Mj0iNDU4LjQ5IiB5Mj0iLTE5NS4zMjIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9Ii4wMDUiIHN0b3AtY29sb3I9IiMwMDAiLz48c3RvcCBvZmZzZXQ9Ii4zMzUiIHN0b3AtY29sb3I9IiM0OTAwMDAiLz48c3RvcCBvZmZzZXQ9Ii42ODUiIHN0b3AtY29sb3I9IiNlZDFkMjQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48ZyBpZD0iTGF5ZXJfMS0yIj48cGF0aCBkPSJNMTE1Mi4yODUsMTkuOTA4YzE3LjgzNywwLDM0LjMzOCw5LjUyNiw0My4wNTgsMjQuODY1LDguNjUxLDE1LjIxOCw4LjQ3MiwzMy4yOTMtLjQ4Niw0OC4zNDZsLTU0MS40NjEsOTA5LjkxM2MtOC45NTgsMTUuMDQ4LTI0Ljg3LDI0LjAyOS00Mi41NzIsMjQuMDI5cy0zMy42MTktOC45ODItNDIuNTcyLTI0LjAyOUwyNi43OTIsOTMuMTE5Yy04Ljk1OC0xNS4wNTItOS4xMzctMzMuMTI4LS40ODYtNDguMzQ2LDguNzE5LTE1LjMzOSwyNS4yMi0yNC44NjUsNDMuMDU4LTI0Ljg2NWgxMDgyLjkyMlpNMTE1Mi4yODUsMEg2OS4zNjRDNDQuMzc5LDAsMjEuMjQ4LDEzLjM4Niw4Ljk5OSwzNC45MzVjLTEyLjIzNiwyMS41MjQtMTEuOTgsNDcuMDgxLjY4NSw2OC4zNjVsNTQxLjQ2MSw5MDkuOTEzYzEyLjU3NiwyMS4xMzcsMzQuODg2LDMzLjc1Nyw1OS42NzksMzMuNzU3czQ3LjA5Ni0xMi42MTgsNTkuNjc4LTMzLjc1NEwxMjExLjk2NSwxMDMuMjk5YzEyLjY2NS0yMS4yODMsMTIuOTIyLTQ2Ljg0LjY4NS02OC4zNjUtMTIuMjQ5LTIxLjU0OC0zNS4zOC0zNC45MzQtNjAuMzY0LTM0LjkzNGgwWiIgc3R5bGU9ImZpbGw6dXJsKCNsaW5lYXItZ3JhZGllbnQpOyIvPjxwYXRoIGQ9Ik0xMTUyLjI4NCw0NC43OTRjMTguODMxLDAsMzAuNjAxLDE5Ljc3OSwyMS4xODUsMzUuNjAxbC01NDEuNDYsOTA5LjkxM2MtNC43MDgsNy45MTEtMTIuOTQ2LDExLjg2Ny0yMS4xODUsMTEuODY3cy0xNi40NzctMy45NTYtMjEuMTg1LTExLjg2N0w0OC4xNzgsODAuMzk1Yy05LjQxNi0xNS44MjMsMi4zNTQtMzUuNjAxLDIxLjE4NS0zNS42MDFoMTA4Mi45MlpNMTE1Mi4yODQsMzQuODRINjkuMzY0Yy0xMi42NywwLTIzLjkxNCw2LjQ3Mi0zMC4wNzcsMTcuMzEyLTUuOTY2LDEwLjQ5Mi01LjgzOSwyMi45NTMuMzM4LDMzLjMzNGw1NDEuNDYsOTA5LjkxM2M2LjIzNCwxMC40NzYsMTcuMzUxLDE2LjczMSwyOS43MzksMTYuNzMxczIzLjUwNS02LjI1NSwyOS43MzktMTYuNzMxTDExODIuMDIzLDg1LjQ4NmM2LjE3Ny0xMC4zODEsNi4zMDQtMjIuODQyLjMzOC0zMy4zMzQtNi4xNjQtMTAuODQtMTcuNDA4LTE3LjMxMi0zMC4wNzctMTcuMzEyaDBaIiBzdHlsZT0iZmlsbDp1cmwoI2xpbmVhci1ncmFkaWVudC0yKTsiLz48L2c+PC9zdmc+","lex":"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJMYXllcl8yIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjkuMjU4IDIyLjg5NiI+PGcgaWQ9IkxheWVyXzEtMiI+PHBhdGggZD0iTTAsMjIuNDFWMS4yOTZzMy45MzksMCwzLjkzOSwwdjE4LjA0OHM5LjA0OSwwLDkuMDQ5LDBsLS45NiwzLjA2NkgwWiIgc3R5bGU9ImZpbGw6I2ZmZjsiLz48cGF0aCBkPSJNMjIuODQ2LDIyLjc4NGMtMi41OCwwLTQuNjEyLS42OTgtNi4wNy0yLjA4MS0xLjQ3MS0xLjQwOC0yLjE5NC0zLjM0LTIuMTk0LTUuODA4LDAtMS41MjEuMzEyLTIuODY3LjkyMi00LjA1MS42MzYtMS4xOTcsMS41MDgtMi4xMzEsMi42MDUtMi44MDQsMS4xMjItLjY5OCwyLjM4MS0xLjA0NywzLjc4OS0xLjA0NywyLjE4MSwwLDMuODUxLjY2MSw1LjAzNSwxLjk2OSwxLjE5NywxLjMwOSwxLjc5NSwzLjE3OCwxLjc5NSw1LjYwOSwwLC4yNzQsMCwuNTM2LS4wMjUuODEsMCwuMjQ5LS4wMjUuNDM2LS4wNjIuNTQ4aC0xMC4yMDhjLjI4NywyLjYxNywxLjc3LDMuOTM5LDQuNDI1LDMuOTM5LDEuNzIsMCwzLjI2Ni0uMzc0LDQuNjYxLTEuMTIybC42MTEsMi44OTJjLS42NjEuMzYxLTEuNDQ2LjY0OC0yLjM2OC44MzUtLjkyMi4yMTItMS44OTQuMzI0LTIuODkyLjMyNGwtLjAyNS0uMDEyWk0yMS44ODYsOS43MjJjLS45NDcsMC0xLjcyLjMyNC0yLjMxOC45Ni0uNTczLjYzNi0uOTYsMS41NTgtMS4xMjIsMi43NDJoNi41NjhjLS4wMzctMi40NjgtMS4wODQtMy43MDItMy4xMjgtMy43MDJaIiBzdHlsZT0iZmlsbDojZmZmOyIvPjxwYXRoIGQ9Ik0zMi41MTgsMjIuODk2bC0yLjUxOC0yLjA4MSw1LjIzNS01Ljg5NS00Ljk3My01Ljc4MywyLjc3OS0yLjI1Niw0LjY2MSw1LjQ5Nyw0LjcxMS01LjQ5NywyLjUxOCwyLjA4MS00Ljk5OCw1LjY5Niw1LjI5Nyw1Ljk4My0yLjgwNCwyLjI1Ni00Ljk0OC01LjcyMS00Ljk0OCw1LjcyMWgtLjAxMloiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PHBhdGggZD0iTTUyLjk5NiwyMi40MVYxLjI5NnMzLjIxNiwwLDMuMjE2LDBsOC4zODgsMTIuNDg5LDcuODktMTIuNDg5aDMuMjAzczAsMjEuMTE0LDAsMjEuMTE0aC0zLjkyNnMwLTE0LjIyMSwwLTE0LjIyMWwtNi4yMTksOS44MzRoLTIuNDA2cy02LjYxOC05Ljg4NC02LjYxOC05Ljg4NHYxNC4yODNzLTMuNTI3LDAtMy41MjcsMHYtLjAxMloiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PHBhdGggZD0iTTgzLjMyLDIyLjc4NGMtMS4zMDksMC0yLjM4MS0uMzg2LTMuMjE2LTEuMTU5LS44MzUtLjc3My0xLjI0Ni0xLjc1Ny0xLjI0Ni0yLjk1NCwwLTEuNTgzLjc0OC0yLjgyOSwyLjIzMS0zLjc2NCwxLjUwOC0uOTQ3LDMuNjg5LTEuNTIxLDYuNTY4LTEuNzMydi0uMTEyYzAtMS4xMzQtLjIxMi0xLjk1Ny0uNjM2LTIuNDU1LS40MjQtLjUyMy0xLjEyMi0uNzg1LTIuMDgxLS43ODUtLjY2MSwwLTEuMzgzLjE2Mi0yLjE5NC40ODYtLjgxLjMxMi0xLjYzMy43NDgtMi40NTUsMS4yOTZsLS40MzYtMi45NzljLjgxLS40OTksMS43MDgtLjg5NywyLjY5Mi0xLjE4NC45ODUtLjMxMiwxLjkzMi0uNDYxLDIuODI5LS40NjEsMi4wNDQsMCwzLjU0LjQ4Niw0LjQ4NywxLjQ0Ni45NDcuOTYsMS40MjEsMi41MDUsMS40MjEsNC42MjR2NS40NTljMCwuNDI0LjA2Mi43MzUuMTk5LjkyMi4xNS4xNzQuMzk5LjI2Mi43MjMuMjYyLjE1LDAsLjM3NC0uMDUuNjYxLS4xNWwuNDM2LDIuNTE4Yy0uODQ4LjM2MS0xLjcyLjU0OC0yLjYwNS41NDgtMS42MiwwLTIuNTY4LS42OTgtMi44MjktMi4xMDYtMS4zNzEsMS41MDgtMi44NzksMi4yNTYtNC41MzcsMi4yNTZsLS4wMTIuMDI1Wk04Mi40MjMsMTguMjQ3YzAsLjQ5OS4xNzQuOTEuNTIzLDEuMjA5LjM2MS4zMTIuODQ4LjQ2MSwxLjQ0Ni40NjEsMS4yMjEsMCwyLjMwNi0uNTg2LDMuMjY2LTEuNzd2LTIuOTU0Yy0xLjc3LjIxMi0zLjA5MS41NzMtMy45NjMsMS4wNzItLjg0OC40ODYtMS4yNzEsMS4xMzQtMS4yNzEsMS45Njl2LjAxMloiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PHBhdGggZD0iTTEwMi42MzksMjIuNzg0Yy0yLjQ4LDAtNC40MjUtLjY5OC01LjgwOC0yLjA4MS0xLjM4My0xLjM4My0yLjA4MS0zLjM0LTIuMDgxLTUuODQ1LDAtMS41NDYuMzI0LTIuOTA0Ljk4NS00LjA3Ni42NzMtMS4xNzIsMS41OTUtMi4xMDYsMi43NDItMi43NzksMS4xNzItLjY3MywyLjUzLTEuMDEsNC4wNTEtMS4wMSwxLjAyMiwwLDEuOTMyLjEsMi43NDIuMjg3LjgzNS4xNzQsMS42NDUuNDYxLDIuNDU1Ljg3MmwtLjYxMSwyLjg5MmMtMS4zODMtLjc0OC0yLjc1NC0xLjEyMi00LjEwMS0xLjEyMi0xLjM0NiwwLTIuNDkzLjQzNi0zLjI2NiwxLjI5Ni0uNzczLjg3Mi0xLjE1OSwyLjEwNi0xLjE1OSwzLjcyNywwLDEuNjIuMzg2LDIuODI5LDEuMTU5LDMuNjc3Ljc3My44MzUsMS44OTQsMS4yNDYsMy4zNTMsMS4yNDYsMS4zMDksMCwyLjYzLS4zNzQsMy45NjMtMS4xMjJsLjYxMSwyLjg5MmMtLjY2MS4zNjEtMS40MjEuNjQ4LTIuMzE4LjgzNS0uODcyLjIxMi0xLjc3LjMyNC0yLjcxNy4zMjR2LS4wMTJaIiBzdHlsZT0iZmlsbDojZmZmOyIvPjxwYXRoIGQ9Ik0xMTAuNjI4LDIyLjQxVi44NzJzMy43NjQtLjg3MiwzLjc2NC0uODcydjkuMTk4YzEuMzgzLTEuNDcxLDMuMDA0LTIuMTk0LDQuODYxLTIuMTk0LDEuNDgzLDAsMi42MTcuNDk5LDMuNDE1LDEuNTA4Ljc4NS45ODUsMS4xODQsMi40MDYsMS4xODQsNC4yNzV2OS42MzRzLTMuNzY0LDAtMy43NjQsMHYtOS4zMzVjMC0yLjAwNy0uNzczLTMuMDA0LTIuMzE4LTMuMDA0LS41OTgsMC0xLjE4NC4xODctMS43NTcuNTczcy0xLjEyMi45MS0xLjYyLDEuNTk1djEwLjE4M3MtMy43NjQsMC0zLjc2NCwwdi0uMDI1WiIgc3R5bGU9ImZpbGw6I2ZmZjsiLz48cGF0aCBkPSJNMTI3LjM2Nyw1LjI2VjEuMjk2czMuOTM5LDAsMy45MzksMHYzLjk2M3MtMy45MzksMC0zLjkzOSwwWk0xMjcuNDU0LDIyLjQxVjcuMzc5czMuNzY0LDAsMy43NjQsMHYxNS4wMzFzLTMuNzY0LDAtMy43NjQsMFoiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PHBhdGggZD0iTTEzNC45NywyMi40MVY3LjM3OXMzLjU5LDAsMy41OSwwbC4wODcsMS43N2MxLjQ3MS0xLjQyMSwzLjA5MS0yLjE0NCw0Ljg2MS0yLjE0NCwxLjUyMSwwLDIuNjguNDg2LDMuNDY1LDEuNDcxLjgxLjk4NSwxLjIwOSwyLjQxOCwxLjIwOSw0LjMxMnY5LjYzNHMtMy43NjQsMC0zLjc2NCwwdi05LjUxYzAtMS44OTQtLjc0OC0yLjgyOS0yLjI1Ni0yLjgyOS0xLjE3MiwwLTIuMzE4LjYxMS0zLjQ0LDEuODQ1djEwLjQ5NHMtMy43NjQsMC0zLjc2NCwwbC4wMTItLjAxMloiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PHBhdGggZD0iTTE1NS4zODYsMjIuNzg0Yy0xLjMwOSwwLTIuMzgxLS4zODYtMy4yMTYtMS4xNTlzLTEuMjQ2LTEuNzU3LTEuMjQ2LTIuOTU0YzAtMS41ODMuNzQ4LTIuODI5LDIuMjMxLTMuNzY0LDEuNTA4LS45NDcsMy42ODktMS41MjEsNi41NjgtMS43MzJ2LS4xMTJjMC0xLjEzNC0uMjEyLTEuOTU3LS42MzYtMi40NTUtLjQyNC0uNTIzLTEuMTIyLS43ODUtMi4wODEtLjc4NS0uNjYxLDAtMS4zODMuMTYyLTIuMTk0LjQ4Ni0uODEuMzEyLTEuNjMzLjc0OC0yLjQ1NSwxLjI5NmwtLjQzNi0yLjk3OWMuODEtLjQ5OSwxLjcwOC0uODk3LDIuNjkyLTEuMTg0Ljk4NS0uMzEyLDEuOTMyLS40NjEsMi44MjktLjQ2MSwyLjA0NCwwLDMuNTQuNDg2LDQuNDg3LDEuNDQ2czEuNDIxLDIuNTA1LDEuNDIxLDQuNjI0djUuNDU5YzAsLjQyNC4wNjIuNzM1LjE5OS45MjIuMTUuMTc0LjM5OS4yNjIuNzIzLjI2Mi4xNSwwLC4zNzQtLjA1LjY2MS0uMTVsLjQzNiwyLjUxOGMtLjg0OC4zNjEtMS43Mi41NDgtMi42MDUuNTQ4LTEuNjIsMC0yLjU2OC0uNjk4LTIuODI5LTIuMTA2LTEuMzcxLDEuNTA4LTIuODc5LDIuMjU2LTQuNTM3LDIuMjU2bC0uMDEyLjAyNVpNMTU0LjQ4OCwxOC4yNDdjMCwuNDk5LjE3NC45MS41MjMsMS4yMDkuMzYxLjMxMi44NDguNDYxLDEuNDQ2LjQ2MSwxLjIwOSwwLDIuMzA2LS41ODYsMy4yNjUtMS43N3YtMi45NTRjLTEuNzcuMjEyLTMuMDkxLjU3My0zLjk2MywxLjA3Mi0uODQ4LjQ4Ni0xLjI3MSwxLjEzNC0xLjI3MSwxLjk2OXYuMDEyWiIgc3R5bGU9ImZpbGw6I2ZmZjsiLz48cGF0aCBkPSJNMTY2Ljk1Miw1LjA2Yy0uNjczLDAtMS4yMzQtLjIxMi0xLjY4My0uNjM2LS40MjQtLjQ0OS0uNjM2LS45OTctLjYzNi0xLjY4MywwLS42ODYuMjEyLTEuMjIxLjYzNi0xLjY0NS40NDktLjQ0OS45OTctLjY2MSwxLjY4My0uNjYxczEuMjIxLjIyNCwxLjY0NS42NjFjLjQ0OS40MjQuNjYxLjk3Mi42NjEsMS42NDUsMCwuNjczLS4yMjQsMS4yMzQtLjY2MSwxLjY4My0uNDI0LjQyNC0uOTcyLjYzNi0xLjY0NS42MzZaTTE2Ni45NTIsNC41MzdjLjQ5OSwwLC45MS0uMTYyLDEuMjQ2LS40ODYuMzI0LS4zMjQuNDk5LS43Ni40OTktMS4yOTZzLS4xNjItLjk3Mi0uNDk5LTEuMjk2Yy0uMzI0LS4zMjQtLjc0OC0uNDg2LTEuMjQ2LS40ODZzLS45MS4xNjItMS4yNDYuNDg2Yy0uMzI0LjMyNC0uNDg2Ljc2LS40ODYsMS4yOTZzLjE2Mi45NzIuNDg2LDEuMjk2Ljc0OC40ODYsMS4yNDYuNDg2Wk0xNjYuMDA1LDMuNzY0VjEuNTdzLjkyMiwwLC45MjIsMGMuNjczLDAsMS4wMS4yNjIsMS4wMS43ODUsMCwuMzEyLS4xMzcuNTIzLS4zOTkuNjM2bC40ODYuNzg1aC0uNzIzcy0uMzQ5LS42OTgtLjM0OS0uNjk4aC0uMzEydi42OThzLS42MzYsMC0uNjM2LDB2LS4wMTJaTTE2Ni45MjcsMi4wMTloLS4yODd2LjY2MWguMjg3Yy4yMjQsMCwuMzQ5LS4xMTIuMzQ5LS4zNDksMC0uMjEyLS4xMTItLjMyNC0uMzQ5LS4zMjR2LjAxMloiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PC9nPjwvc3ZnPg==","ln":"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIGlkPSJMYXllcl8yIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5OS40MzkgMjIuMjAyIj48ZyBpZD0iTGF5ZXJfMS0yIj48cGF0aCBkPSJNMzEuMDY2LDUuNjk3aC0xLjM1MnYxMC42MzVoNi43NDR2LTEuMzIyaC01LjM5MlY1LjY5N1pNODguMDI4LDkuNTM4bC0yLjY3NiwzLjA3OCwyLjY5NywzLjEwNC0uOTAxLjc4My0uMDIzLS4wMjYtMi41NjUtMi45NS0yLjU4OSwyLjk3Ny0uOTAxLS43ODMuMDIzLS4wMjcsMi42NzUtMy4wNzctMi42OTctMy4xMDQuOTAxLS43ODMuMDIzLjAyNSwyLjU2NiwyLjk1MSwyLjU4Ny0yLjk3Ny45MDEuNzgzLS4wMjIuMDI1Wk03MC4zNzIsMTMuMzQzbC03LjI1NC03LjY0NWgtLjI2OHYxMC42MzVoMS4zNTN2LTcuNjQ1bDcuMjU0LDcuNjQ1aC4yNjdWNS42OTdoLTEuMzUydjcuNjQ1Wk04OS40MDQsOC45MDFoMS4yNzh2Ny40MzJoLTEuMjc4di03LjQzMlpNODkuMzQ0LDYuODk0aDEuMzk4di0xLjE5N2gtMS4zOTh2MS4xOTdaTTgwLjY3MiwxMi45MjljLS4wMzEtMi42NDYtMS41NDctNC4xNDgtMy42MjgtNC4xNDhzLTMuNzMsMS42OC0zLjczLDMuODM2YzAsMi4xNCwxLjYyLDMuODM0LDMuODIsMy44MzQsMS4yOTMsMCwyLjM0OC0uNTM1LDIuOTg3LTEuMjAzbC0uMDA3LS4wMDktLjkxLS43OWMtLjQ3OC40MzUtMS4xOTcuNzk5LTIuMDcxLjc5OS0xLjM1MiwwLTIuMzc5LS45OTYtMi40OTgtMi4zMTloNi4wMzZaTTc5LjIyOSwxMS44MTVoLTQuNTMzYy4yNjctMS4xMywxLjE4OC0xLjg1OSwyLjI3My0xLjg1OSwxLjEzLS4wMTUsMi4wODEuNjM4LDIuMjYxLDEuODU5TTk1LjM4NiwxMi4wOTdsLS42MzMtLjIyNGMtLjg5Ni0uMzEyLTEuMTMtLjY2OS0xLjEzLTEuMTMsMC0uNTIuNTEyLS44MTgsMS4wOTgtLjgxOC41NDQsMCwuOTI2LjIyMiwxLjI1My41OGwuODY2LS43NTNjLS41NDEtLjY0OS0xLjI2NS0uOTcyLTIuMTE5LS45NzItMS40MDUsMC0yLjQxMS44NjMtMi40MTEsMS45NzcsMCwuODkyLjQ4LDEuNzEsMS44MzksMi4ybC42MDMuMjIzYy45MS4zMTIsMS4zMTMuNjI0LDEuMzEzLDEuMTg5cy0uNjE4LjkzNy0xLjM3NS45MzdjLS44MTYsMC0xLjMzOS0uMzc4LTEuODI0LS45MzdsLS45MTIuNzk0Yy42NjcuODEsMS42MTcsMS4yODYsMi43MDUsMS4yODYsMS42ODUsMCwyLjczNS0uOTM2LDIuNzM1LTIuMTI1LDAtMS4xLS42OTUtMS43Ny0yLjAwOS0yLjIyOU01MS43MTksOS41MTNsLS45MDItLjc4My0yLjU4NywyLjk3Ny0yLjU2Ni0yLjk1MS0uMDIyLS4wMjUtLjkwMi43ODMsMi42OTksMy4xMDQtMi42NzYsMy4wNzctLjAyMy4wMjcuOTAyLjc4MywyLjU4OC0yLjk3NywyLjU2NSwyLjk1LjAyMy4wMjYuOTAyLS43ODMtMi42OTgtMy4xMDQsMi42NzUtMy4wNzguMDIzLS4wMjVaTTUzLjA3Miw4LjkwMWgxLjI3OHY3LjQzMmgtMS4yNzh2LTcuNDMyWk01My4wMTMsNi44OTRoMS4zOTl2LTEuMTk3aC0xLjM5OXYxLjE5N1pNNDQuMzQsMTIuOTI5Yy0uMDMxLTIuNjQ2LTEuNTQ2LTQuMTQ4LTMuNjI3LTQuMTQ4cy0zLjczMSwxLjY4LTMuNzMxLDMuODM2YzAsMi4xNCwxLjYyLDMuODM0LDMuODIsMy44MzQsMS4yOTMsMCwyLjM0OC0uNTM1LDIuOTg4LTEuMjAzbC0uMDA3LS4wMDktLjkxLS43OWMtLjQ3OS40MzUtMS4xOTcuNzk5LTIuMDcyLjc5OS0xLjM1MywwLTIuMzc4LS45OTYtMi40OTctMi4zMTloNi4wMzVaTTQyLjg5OCwxMS44MTVoLTQuNTM0Yy4yNjgtMS4xMywxLjE5LTEuODU5LDIuMjc1LTEuODU5LDEuMTMtLjAxNSwyLjA4MS42MzgsMi4yNTksMS44NTlNNTkuMDU1LDEyLjA5N2wtLjYzNS0uMjI0Yy0uODk2LS4zMTItMS4xMjctLjY2OS0xLjEyNy0xLjEzLDAtLjUyLjUxLS44MTgsMS4wOTctLjgxOC41NDMsMCwuOTI2LjIyMiwxLjI1My41OGwuODY1LS43NTNjLS41NC0uNjQ5LTEuMjY1LS45NzItMi4xMTgtLjk3Mi0xLjQwNiwwLTIuNDExLjg2My0yLjQxMSwxLjk3NywwLC44OTIuNDgsMS43MSwxLjgzOCwyLjJsLjYwMi4yMjNjLjkxMi4zMTIsMS4zMTQuNjI0LDEuMzE0LDEuMTg5cy0uNjE4LjkzNy0xLjM3Ni45MzdjLS44MTYsMC0xLjMzOS0uMzc4LTEuODIzLS45MzdsLS45MTMuNzk0Yy42NjcuODEsMS42MTcsMS4yODYsMi43MDUsMS4yODYsMS42ODUsMCwyLjczNS0uOTM2LDIuNzM1LTIuMTI1LDAtMS4xLS42OTUtMS43Ny0yLjAwOC0yLjIyOU05OS40MzksNy44ODVjMC0uNTU3LS40MzMtLjk5My0uOTg1LS45OTMtLjU0NiwwLS45ODkuNDQ0LS45ODkuOTkzLDAsLjU1Ny40MzUuOTk0Ljk4OS45OTRzLjk4NS0uNDM3Ljk4NS0uOTk0TTk5LjI3NSw3Ljg4NWMwLC40NjctLjM2MS44MzQtLjgyMS44MzRzLS44Mi0uMzY3LS44Mi0uODM0YzAtLjQ2LjM2OC0uODM0LjgyLS44MzRzLjgyMS4zNzQuODIxLjgzNE05OC42NDIsNy45MzVsLjI2OC40OTFoLS4xOThsLS4yNTYtLjQ2NGgtLjE5NHYuNDY0aC0uMTg2di0xLjExNGguMzk0Yy4yNTMsMCwuMzk5LjExNS4zOTkuMzE4LDAsLjE2NC0uMDc3LjI2Ny0uMjI3LjMwNU05OC40NTcsNy40NzloLS4xOTZ2LjMyM2guMjAxYy4xNTgsMCwuMjI1LS4wNS4yMjUtLjE2OCwwLS4xMDYtLjA3MS0uMTU1LS4yMzEtLjE1NU0yNC4yNzIsNC43MDRjMC0uNTU3LS40MzItLjk5My0uOTg0LS45OTMtLjU0NSwwLS45OS40NDUtLjk5Ljk5MywwLC41NTcuNDM1Ljk5My45OS45OTNzLjk4NC0uNDM2Ljk4NC0uOTkzTTI0LjEwOCw0LjcwNGMwLC40NjctLjM2MS44MzQtLjgyLjgzNHMtLjgyMS0uMzY3LS44MjEtLjgzNGMwLS40Ni4zNjktLjgzNC44MjEtLjgzNHMuODIuMzc0LjgyLjgzNE0yMy40NzYsNC43NTNsLjI2Ni40OTJoLS4xOTdsLS4yNTYtLjQ2NGgtLjE5NXYuNDY0aC0uMTg0di0xLjExNGguMzkzYy4yNTMsMCwuMzk4LjExNS4zOTguMzE4LDAsLjE2My0uMDc2LjI2Ny0uMjI1LjMwNE0yMy4yOTEsNC4yOTdoLS4xOTd2LjMyM2guMjAxYy4xNTksMCwuMjI1LS4wNS4yMjUtLjE2OCwwLS4xMDYtLjA3LS4xNTUtLjIzLS4xNTUiIHN0eWxlPSJmaWxsOiNmZmY7Ii8+PHBhdGggZD0iTTQuMTcxLDkuOTM4YzEuMTc5LTIuMzUsMy4xMTctNC4yMzksNS40MDMtNS4zMzcuMjY3LS4xMjguNTM4LS4yNDUuODE0LS4zNTIuMDIzLS4wMTEuMDE0LS4wNDctLjAxMy0uMDQyQzIuMjQsNS41NzctMS4yNTEsMTUuNjg5LDQuMTgxLDIwLjAxN2MuMDIyLjAxNy4wNS0uMDA4LjAzMy0uMDMtLjc5LTEuMDgzLTIuNjUtNC44MTItLjA0My0xMC4wNDlNNi4wNCwxNi42OGMtLjIxMy0xLjMzNC0uMjEtMi42OTEuMDAyLTQsLjQyNS0yLjYyMywxLjY5Mi01LjAyNywzLjUxNS02LjgxLjMzOS0uMzM0LjY5OS0uNjQyLDEuMDczLS45MjkuMDItLjAxNiwwLS4wNDktLjAyMy0uMDM4LTQuMjUzLDEuOS02LjcwNyw2LjY0NS02LjM5MiwxMC45NjYuMTczLDEuOTc1Ljk0OCw1LjYxMiw0LjczNiw2LjMzMS4wMjMuMDA0LjAzNi0uMDI4LjAxNi0uMDQxLTEuNTU4LTEuMDcxLTIuNjU0LTMuNTc1LTIuOTI3LTUuNDhNLjc4NCw2LjkzN2MxLjkwMS0yLjY4NSw1LjgwNS00LjQ5OCw5LjYxOC00LjAyNy4wMjcuMDAzLjAzNC0uMDM1LjAwOS0uMDQyLTIuOTExLS44NTEtNS45MzgtLjI4LTcuNzg4LDEuMjE0LS43OTMuNjQtMS40MSwxLjc0Ni0xLjg3OCwyLjgzMy0uMDExLjAyNS4wMjMuMDQzLjAzOS4wMjJNMjIuMjU5LDEwLjI5QzIxLjc1Nyw0LjE0MywxNi4yMTctLjUxNSwxMC4wNzUuMDQ2Yy0yLjEzNC4xOTUtNC40MTcsMS4wNzYtNi4xMiwyLjUxNi0uMDIxLjAxOC4wMDMuMDUuMDI2LjAzNywxLjQ1NS0uODMzLDMuNDYzLS44MTMsNC42NDYtLjY3NS42MjQuMDczLDEuMjM5LjIwNCwxLjgzNS4zODlzMS4xNzYuNDI1LDEuNzI2LjcxNmMuMjg2LjE1LjU2My4zMTQuODMzLjQ5MSwxLjAwNS0uNDQ3LDIuMDY0LS43NDQsMy4xMzItLjg5NGguMDAzYy4wNzctLjAxMS4xNTMuMDMuMTc5LjEwMi4wMzMuMDk1LS4wMjUuMTkxLS4xMTYuMjEtLjU3NC4xMjEtMS4xMzkuMjg3LTEuNjg4LjQ5My0uMDI0LjAwOS0uMDE3LjA0Ni4wMDguMDQ2Ljc3OS4wMDMsMS41NTIuMDg2LDIuMzA1LjI0M2guMDA0Yy4wNjguMDE1LjEyMi4wNjguMTI5LjEzNS4wMTQuMTEyLS4wODEuMTkzLS4xOC4xNzgtLjY2MS0uMDk5LTEuMzMyLS4xNC0yLS4xMTgtLjAyNywwLS4wMzIuMDM4LS4wMDYuMDQ2LjMxNC4wOTYuNjIxLjIwNi45MjMuMzI3LjU2OS4yMzIsMS4xMTUuNTEyLDEuNjM0LjgzMWwuMDA2LjAwNWMuMDUuMDMuMDgyLjA4Ny4wNzYuMTQzLS4wMTUuMTI2LS4xNDIuMTgtLjIzNi4xMjgtLjUxNy0uMjg2LTEuMDU3LS41MzEtMS42MTUtLjcyOS0uMjM0LS4wODItLjQ3Mi0uMTU2LS43MS0uMjIyLS4wMjYtLjAwNy0uMDQxLjAyOC0uMDE5LjA0MS4zOS4yNDguNzY0LjUxOCwxLjExOC44MTQuNDcuMzk0LjkwNS44MjcsMS4yOTksMS4yOTRsLjAwNC4wMDVjLjAzOC4wNDUuMDUxLjEwNy4wMjYuMTYtLjA1My4xMTUtLjE5MS4xMjYtLjI2NC4wNDctLjM5OC0uNDM3LS44MzMtLjg0MS0xLjI5OS0xLjIwNC0uMjc2LS4yMTUtLjU2NC0uNDEzLS44NjItLjU5OC0uMDIzLS4wMTQtLjA0OC4wMTUtLjAyOC4wMzYuMDg1LjA4OS4xNjcuMTc5LjI0OS4yNzIuNDA3LjQ2My43NzIuOTYxLDEuMDg2LDEuNDg3LjMxNS41MjcuNTgxLDEuMDgxLjc5NSwxLjY1M3YuMDA1Yy4wMjIuMDU2LjAxMy4xMi0uMDI5LjE2Mi0uMDkxLjA5LS4yMjUuMDUzLS4yNjctLjA0OS0uMjE5LS41NDgtLjQ5LTEuMDc3LS44MDYtMS41NzctLjMxNi0uNDk5LS42NzktLjk3LTEuMDgtMS40MDQtLjQwMi0uNDM0LS44NDMtLjgzLTEuMzE2LTEuMTg1LS4xMzQtLjEtLjMzNi0uMjQtLjQxNi0uMjkxLTkuMjQ0LDUuMTU1LTYuMDM2LDE4LjY5MS42MzYsMTcuOTg4LDUuMjk5LTEuMjU4LDkuMDIyLTYuMjI4LDguNTY1LTExLjgxTTIuMTg1LDguNjAxYzIuMTMyLTMuMzgsNS44NDgtNC44MzUsOC4xMjQtNS4wNTIuMDI2LS4wMDMuMDI2LS4wNDIsMC0uMDQ0LS45NDEtLjA4Mi0xLjgxMS0uMDItMi45NS4yMTgtMS4xNTQuMjYzLTIuMjY0LjcxOS0zLjI1NywxLjM2MS0uOTk2LjYzOC0xLjg3MywxLjQ1OC0yLjU4NCwyLjQwMS0uMDA4LjAwOS0uMDE0LjAxOS0uMDIyLjAyOEMuMTIyLDkuMzUzLS4zMTgsMTEuNzE2LjIyOCwxMy45NDZjLjA2MS4yNTUuMjM0Ljc4NC4zNTIsMS4xMi4wMDguMDI1LjA0Ni4wMTcuMDQyLS4wMS0uMjgzLTIuNjM5LjQ4NC00Ljc0NSwxLjU2My02LjQ1NSIgc3R5bGU9ImZpbGw6I2U4MTcxZjsiLz48L2c+PC9zdmc+"};
+(function(){
+  document.querySelectorAll('[data-asset]').forEach(img=>img.src=ASSETS[img.dataset.asset]);
+  const body=document.body;
+  function clearModes(){body.classList.remove('paused','frame-one','frame-two')}
+  document.getElementById('replay').onclick=()=>{clearModes();document.querySelectorAll('.ad').forEach(a=>{a.style.display='none';void a.offsetHeight;a.style.display='block';});};
+  document.getElementById('pause').onclick=()=>{body.classList.toggle('paused');body.classList.remove('frame-one','frame-two')};
+  document.getElementById('f1').onclick=()=>{body.classList.remove('paused','frame-two');body.classList.add('frame-one')};
+  document.getElementById('f2').onclick=()=>{body.classList.remove('paused','frame-one');body.classList.add('frame-two')};
+  const filterBtns=[...document.querySelectorAll('[data-filter]')];
+  function applyFilter(value){
+    filterBtns.forEach(b=>b.classList.toggle('active',b.dataset.filter===value));
+    document.querySelectorAll('.ad-card').forEach(card=>card.classList.toggle('visible',value==='all'||card.dataset.version===value));
+    body.classList.toggle('filtering',value!=='all');
+  }
+  filterBtns.forEach(b=>b.onclick=()=>applyFilter(b.dataset.filter));
+  applyFilter('all');
+})();
+</script>
+</body></html>
