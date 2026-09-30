@@ -65,7 +65,7 @@ html,body{width:300px;height:250px;min-height:0;overflow:hidden;margin:0;backgro
   const ad=document.querySelector(&#x27;#ad-a&#x27;);
   const q=name=&gt;ad.querySelector(&#x27;[data-motion=&quot;&#x27;+name+&#x27;&quot;]&#x27;);
   function add(element,frames){
-    const a=element.animate(frames.map(({at,...frame})=&gt;({...frame,offset:at/duration})),{duration,fill:&#x27;both&#x27;,easing:&#x27;linear&#x27;});
+    const a=element.animate(frames.map(({at,...frame})=&gt;({...frame,offset:at/duration})),{duration,iterations:Infinity,fill:&#x27;both&#x27;,easing:&#x27;linear&#x27;});
     a.pause();animations.push(a);return a;
   }
   function reveal(element,start,end,exits=false){
@@ -116,8 +116,7 @@ html,body{width:300px;height:250px;min-height:0;overflow:hidden;margin:0;backgro
   add(buttonTip,[{at:0,opacity:0},{at:4500,opacity:0},{at:4580,opacity:1},{at:5420,opacity:1},{at:5600,opacity:0},{at:duration,opacity:0}]);
   function updateLabel(){pauseButton.textContent=completed?&#x27;Play again&#x27;:paused?&#x27;Resume&#x27;:&#x27;Pause&#x27;;}
   function play(){completed=false;paused=false;for(const a of animations){a.currentTime=0;a.play();}updateLabel();}
-  function seek(ms){paused=true;completed=ms&gt;=duration;for(const a of animations){a.pause();a.currentTime=Math.min(duration,Math.max(0,ms));}updateLabel();}
-  animations[0].onfinish=()=&gt;{completed=true;paused=false;updateLabel();};
+  function seek(ms){paused=true;completed=ms&gt;=duration;for(const a of animations){a.pause();a.currentTime=Math.min(duration-.01,Math.max(0,ms));}updateLabel();}
   document.querySelector(&#x27;#replay&#x27;).onclick=play;
   pauseButton.onclick=()=&gt;{if(completed){play();return;}paused=!paused;for(const a of animations)paused?a.pause():a.play();updateLabel();};
   window.mlexReview={duration,seek,play,animations};
@@ -194,7 +193,7 @@ html,body{width:300px;height:250px;min-height:0;overflow:hidden;margin:0;backgro
   const ad=document.querySelector(&#x27;#ad-a&#x27;);
   const q=name=&gt;ad.querySelector(&#x27;[data-motion=&quot;&#x27;+name+&#x27;&quot;]&#x27;);
   function add(element,frames){
-    const a=element.animate(frames.map(({at,...frame})=&gt;({...frame,offset:at/duration})),{duration,fill:&#x27;both&#x27;,easing:&#x27;linear&#x27;});
+    const a=element.animate(frames.map(({at,...frame})=&gt;({...frame,offset:at/duration})),{duration,iterations:Infinity,fill:&#x27;both&#x27;,easing:&#x27;linear&#x27;});
     a.pause();animations.push(a);return a;
   }
   function reveal(element,start,end,exits=false){
@@ -239,8 +238,7 @@ html,body{width:300px;height:250px;min-height:0;overflow:hidden;margin:0;backgro
   add(buttonTip,[{at:0,opacity:0},{at:4500,opacity:0},{at:4580,opacity:1},{at:5420,opacity:1},{at:5600,opacity:0},{at:duration,opacity:0}]);
   function updateLabel(){pauseButton.textContent=completed?&#x27;Play again&#x27;:paused?&#x27;Resume&#x27;:&#x27;Pause&#x27;;}
   function play(){completed=false;paused=false;for(const a of animations){a.currentTime=0;a.play();}updateLabel();}
-  function seek(ms){paused=true;completed=ms&gt;=duration;for(const a of animations){a.pause();a.currentTime=Math.min(duration,Math.max(0,ms));}updateLabel();}
-  animations[0].onfinish=()=&gt;{completed=true;paused=false;updateLabel();};
+  function seek(ms){paused=true;completed=ms&gt;=duration;for(const a of animations){a.pause();a.currentTime=Math.min(duration-.01,Math.max(0,ms));}updateLabel();}
   document.querySelector(&#x27;#replay&#x27;).onclick=play;
   pauseButton.onclick=()=&gt;{if(completed){play();return;}paused=!paused;for(const a of animations)paused?a.pause():a.play();updateLabel();};
   window.mlexReview={duration,seek,play,animations};
