@@ -35,7 +35,7 @@ function animate(root){
  root.querySelectorAll('[data-enter]').forEach(el=>enter(el,+el.dataset.enter,+el.dataset.enter+(+el.dataset.fade||400)));
  root.querySelectorAll('[data-draw]').forEach(el=>{const t=+el.dataset.draw;add(el,[[0,{transform:'scaleX(0)'}],[t,{transform:'scaleX(0)',easing:'cubic-bezier(.2,.7,.15,1)'}],[t+1000,{transform:'scaleX(1)'}],[6000,{transform:'scaleX(1)'}]]);});
  root.querySelectorAll('[data-trace]').forEach(el=>{const t=+el.dataset.trace;add(el,[[0,{strokeDashoffset:'100',opacity:0}],[t,{strokeDashoffset:'100',opacity:0,easing:'cubic-bezier(.2,.7,.15,1)'}],[t+1,{strokeDashoffset:'100',opacity:1,easing:'cubic-bezier(.2,.7,.15,1)'}],[t+1000,{strokeDashoffset:'0',opacity:1}],[6000,{strokeDashoffset:'0',opacity:1}]]);});
- for(const a of created){a.currentTime=0;if(!paused)a.play();}return created;
+ for(const a of created){a.currentTime=0;if(!paused||root!==gallery)a.play();}return created;
 }
 function replay(){for(const a of animations){a.currentTime=0;a.play();}paused=false;document.querySelector('#pause').textContent='Pause';}
 function render(updateURL=true){
@@ -56,5 +56,5 @@ gallery.addEventListener('click',e=>{const btn=e.target.closest('[data-board]');
 dialog.addEventListener('close',()=>{modalAnimations.forEach(a=>a.cancel());modalAnimations=[];document.querySelector('.full-frame').innerHTML='';});
 document.querySelector('#pause').addEventListener('click',()=>{paused=!paused;for(const a of animations)paused?a.pause():a.play();document.querySelector('#pause').textContent=paused?'Resume':'Pause';});
 document.querySelector('#replay').addEventListener('click',replay);
-document.querySelector('.close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});window.addEventListener('popstate',fromURL);document.fonts.ready.then(fromURL);
+document.querySelector('dialog .close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});window.addEventListener('popstate',fromURL);document.fonts.ready.then(fromURL);
 </script></body></html>
