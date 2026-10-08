@@ -49,8 +49,8 @@ function animate(root){
  root.querySelectorAll('[data-motion="smooth-loop"]').forEach(stage=>{
   const duration=+stage.dataset.duration,total=+stage.querySelector('[data-scenes]').dataset.scenes,mobile=total===3,cta=mobile?9200:4900;
   const fade=800,enterAt=f=>f===1?0:f===2?3900:9000,exitAt=f=>f===total?duration-900:f===1?3000:8100;
-  function motion(el,frames){const a=el.animate(frames.map(([at,props])=>({offset:at/duration,...props})),{duration:duration/1.2,iterations:1,fill:'both'});a.pause();a.currentTime=0;created.push(a);}
-  function envelope(el,first,last){const enter=enterAt(first);let frames=[[0,{opacity:0}],[enter,{opacity:0,easing:'ease-in-out'}],[enter+800,{opacity:1}]];if(last<total){const exit=exitAt(last);frames.push([exit,{opacity:1,easing:'ease-in-out'}],[exit+800,{opacity:0}],[duration,{opacity:0}]);}else frames.push([duration,{opacity:1}]);motion(el,frames);}
+  function motion(el,frames){const a=el.animate(frames.map(([at,props])=>({offset:at/duration,...props})),{duration:duration/1.2,iterations:Infinity,fill:'both'});a.pause();a.currentTime=0;created.push(a);}
+  function envelope(el,first,last){const enter=enterAt(first);let frames=[[0,{opacity:0}],[enter,{opacity:0,easing:'ease-in-out'}],[enter+800,{opacity:1}]];const exit=exitAt(last);frames.push([exit,{opacity:1,easing:'ease-in-out'}],[exit+800,{opacity:0}],[duration,{opacity:0}]);motion(el,frames);}
   stage.querySelectorAll('[data-scene]').forEach(el=>envelope(el,+el.dataset.scene,+el.dataset.scene));
   stage.querySelectorAll('[data-logo-first]').forEach(el=>{const first=+el.dataset.logoFirst,last=+el.dataset.logoLast;if(first!==1||last!==total)envelope(el,first,last);});
   stage.querySelectorAll('[data-enter="4500"]').forEach(el=>motion(el,[[0,{opacity:0}],[cta,{opacity:0,easing:'ease-in-out'}],[cta+(+el.dataset.fade||600),{opacity:1}],[duration,{opacity:1}]]));
