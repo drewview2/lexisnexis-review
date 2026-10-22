@@ -486,11 +486,12 @@
     if(msg.design==='pinpoint'&&!tall){y=98;size=offer?23:24;leading=offer?27:28;}
     if(msg.id==='last-chance'&&!tall&&!offer)lines=['Last chance','for special','Law360®','pricing.'];
     if(tall&&msg.id==='core'&&offer){size=30;y=280;}
+    if(tall&&msg.id==='last-chance')y=280;
     if(tall&&msg.id==='practice'&&offer)size=30;
     if(tall&&msg.id==='competitive')size=33;
     if(!tall&&msg.id==='competitive')size=25;
     const note=offer?msg.note:(msg.introNote||[]);
-    return {lines,size,y,leading,note,noteY:tall?(msg.id==='core'?424:msg.id==='practice'?240:msg.id==='competitive'?205:250):editorialPanel(msg)?180-note.length*15:msg.id==='competitive'?147:msg.id==='practice'&&!offer?201:169};
+    return {lines,size,y,leading,note,noteY:tall?(msg.id==='core'||msg.id==='last-chance'?424:msg.id==='practice'?240:msg.id==='competitive'?205:250):editorialPanel(msg)?180-note.length*15:msg.id==='competitive'?147:msg.id==='practice'&&!offer?201:169};
   }
   function create({createCanvas,logo,radar,magnifier,globe,focusGlobe}){
     const art=createCanvas(720,720),ac=art.getContext('2d'),lensWorld=focusGlobe.create({createCanvas});
@@ -510,7 +511,7 @@
         ctx.drawImage(art,cx-ms*.435,cy-ms*.43,ms,ms);
         lensWorld.render(ctx,cx,cy,ms*.19*.84,motionTime,{color:lightPanel(msg)?RED:INK});
       }else if(msg.design==='clock'){
-        magnifier.renderClock(ctx,tall?150:239,tall?386:137,tall?84:34,motionTime,{color:INK});
+        magnifier.renderClock(ctx,tall?150:239,tall?166:137,tall?72:34,motionTime,{color:INK});
       }else{
         const globeOptions={loop:true,drawOn:true,multiplePins:true,lineScale:tall?1.25:1.5,contrast:1.55,pinScale:tall?1.5:1.6,pinHighlight:false,pinSafeLeft:tall?0:.36};
         globe.render(ac,720,720,motionTime,{...globeOptions,hidePin:!tall});
