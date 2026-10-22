@@ -10,15 +10,16 @@
     :root{color-scheme:dark;--foreground:#f4f4f5;--muted-foreground:#aaaab2}
     *{box-sizing:border-box}html{background:#111214}body{margin:0;color:#f4f4f5;font:15px/1.5 Arial,Helvetica,sans-serif}
     .page{max-width:1400px;margin:auto;padding:24px 32px 36px}
-    #law360-all-eight{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(624px,100%),1fr));gap:0 48px}
+    #law360-all-eight{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(540px,100%),1fr));gap:0 32px}
     .viz-controls{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;padding:0 0 22px;border-bottom:1px solid #303136}
     .form-label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#b8b8c1;min-width:160px}
     .form-select,.btn{font:14px Arial,Helvetica,sans-serif;color:#f4f4f5;background:#23252a;border:1px solid #45464e;border-radius:5px;height:40px;padding:0 13px}
     .form-select{width:100%}.btn{cursor:pointer;white-space:nowrap}.btn:hover{background:#31333a}.btn:focus-visible,.form-select:focus-visible{outline:2px solid #fff;outline-offset:3px}
     h3{font-size:17px;font-weight:500;margin:0 0 14px;letter-spacing:-.15px}.text-small{font-size:12px}
     #law360-all-eight .campaign-group{margin-top:36px;padding-bottom:32px;border-bottom:1px solid #303136}
-    #law360-all-eight canvas{outline:1px solid #34353b}
-    @media(max-width:680px){.page{padding:24px 16px}.campaign-pair{justify-content:center}h3{line-height:1.4}}
+    .page #law360-all-eight .campaign-pair{grid-template-columns:repeat(2,minmax(0,300px))}
+    #law360-all-eight canvas{outline:1px solid #34353b;max-width:100%;height:auto!important}
+    @media(max-width:680px){.page{padding:24px 16px}.page #law360-all-eight .campaign-pair{grid-template-columns:repeat(auto-fit,300px);justify-content:center}h3{line-height:1.4}}
     @media(max-width:340px){.page{padding-left:10px;padding-right:10px}}
   </style>
 </head>
@@ -431,10 +432,10 @@
       const h=tall?600:250;
       ctx.fillStyle=msg.design==='focus'?RED:INK;ctx.fillRect(0,0,300,h);
       if(msg.design==='radar'){
-        const cx=tall?150:244,cy=tall?388:178;
+        const cx=tall?150:240,cy=tall?388:140;
         const g=ctx.createRadialGradient(cx,cy,0,cx,cy,tall?175:125);
         g.addColorStop(0,'#270b13');g.addColorStop(1,INK);ctx.fillStyle=g;ctx.fillRect(0,0,300,h);
-        radar.draw(ctx,cx,cy,motionTime,{radius:tall?96:44,dotRadius:tall?8:5.5,lineWidth:tall?1.5:1.15});
+        radar.draw(ctx,cx,cy,motionTime,{radius:tall?96:40,dotRadius:tall?8:5.5,lineWidth:tall?1.5:1.15});
       }else if(msg.design==='focus'){
         magnifier.render(ac,720,720,motionTime);
         ac.save();ac.globalCompositeOperation='destination-out';ac.beginPath();ac.arc(720*.435,720*.43,720*.19+1.5,0,Math.PI*2);ac.fill();ac.restore();
