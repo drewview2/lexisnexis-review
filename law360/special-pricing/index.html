@@ -230,7 +230,7 @@
   }
   function renderClock(ctx,cx,cy,radius,time,options={}){
     const color=options.color||'#ef233c',accent=options.accentColor||color;
-    drawOrbit(ctx,cx,cy,radius,time,{color,outerColors:options.accentColor?[color,accent]:undefined,innerColor:accent});
+    drawOrbit(ctx,cx,cy,radius,time,{color:accent,innerColor:color});
     ctx.save();ctx.translate(cx,cy);ctx.strokeStyle=color;ctx.fillStyle=color;
     ctx.lineCap='round';ctx.lineJoin='round';
     ctx.lineWidth=Math.max(.9,radius*.019);
@@ -335,11 +335,11 @@
   const ease=x=>{x=clamp(x);return x*x*x*(x*(x*6-15)+10);};
   const targetLat=.40,targetLon=1.90;
   // Sparse, irregular clusters loosely suggest continents; no coastline grid.
-  const continentCoordinates=/* CONTINENT_POINTS_START */[[-135,58],[-112,48],[-83,51],[-76,34],[-101,27],[-68,7],[-52,-10],[-63,-26],[-70,-43],[-8,52],[19,55],[35,47],[-5,26],[23,29],[32,8],[12,-3],[25,-24],[59,56],[87,47],[116,61],[139,43],[112,25],[79,19],[105,7],[120,-23],[141,-18],[144,-36],[-43,70]]/* CONTINENT_POINTS_END */;
+  const continentCoordinates=/* CONTINENT_POINTS_START */[[-112,48],[-83,51],[-76,34],[-101,27],[-68,7],[-52,-10],[-63,-26],[-70,-43],[19,55],[35,47],[-5,26],[23,29],[32,8],[12,-3],[25,-24],[87,47],[139,43],[112,25],[79,19],[105,7],[120,-23],[141,-18],[144,-36]]/* CONTINENT_POINTS_END */;
   const continentPins=continentCoordinates.map(([lon,lat],i)=>({
     lon:lon*Math.PI/180,lat:lat*Math.PI/180,
     delay:.5+.95*(1+Math.sin(lon*.033+lat*.021))+.40*((i*37)%23)/23,
-    scale:.82+.25*((i*13)%17)/17,anchor:[1,6,10,14,20,25].includes(i)
+    scale:.82+.25*((i*13)%17)/17,anchor:['-112,48','-52,-10','19,55','32,8','139,43','141,-18'].includes(`${lon},${lat}`)
   }));
   function loopOrientation(time){
     const phase=((time%16)+16)%16;
@@ -518,7 +518,7 @@
         ctx.drawImage(art,cx-ms*.435,cy-ms*.43,ms,ms);
         lensWorld.render(ctx,cx,cy,ms*.19*.84,motionTime,{color:lightPanel(msg)?RED:INK});
       }else if(msg.design==='clock'){
-        magnifier.renderClock(ctx,tall?150:238,tall?166:137,tall?72:42,motionTime,{color:INK,accentColor:RED});
+        magnifier.renderClock(ctx,tall?150:234,tall?166:137,tall?80:46,motionTime,{color:INK,accentColor:RED});
       }else{
         const globeOptions={loop:true,drawOn:true,multiplePins:true,lineScale:tall?1.25:1.5,contrast:1.55,pinScale:tall?1.5:1.6,pinHighlight:false,pinSafeLeft:tall?0:.36};
         globe.render(ac,720,720,motionTime,{...globeOptions,hidePin:!tall});
@@ -572,7 +572,6 @@
       const x=msg.design==='radar'?(tall?30:24):(tall?24:20),y=tall?24:20,w=tall?134:108;
       ctx.fillStyle=panelColor(msg);ctx.fillRect(x-4,y-4,w+8,w*148/584+8);
       ctx.drawImage(lightPanel(msg)?darkLogo:logo,x,y,w,w*148/584);
-      if(msg.design==='radar'){ctx.fillStyle=RED;ctx.fillRect(0,0,6,h);}
       ctx.restore();return {message:msg.name,concept:msg.concept,width:300,height:h,frame:p.offer>.5?'Offer':'Opening'};
     }
     return {render};
