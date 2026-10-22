@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="preview-revision" content="2026-10-22-houston-type-03">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="preview-revision" content="2026-10-22-houston-row-04">
 <title>Lex Machina / Houston — Client Review</title>
 <style>
 :root{color-scheme:dark;--red:#e8171f}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#17191d;color:#f6f7f8;font:400 14px Lato,Arial,Helvetica,sans-serif}main{max-width:1540px;margin:auto;padding:28px 28px 70px}header{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:22px}h1{font-size:25px;line-height:1.1;letter-spacing:-.35px;margin:0}.sub{color:#aeb4be;font-size:13px}.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}button,select{font:700 13px Lato,Arial,sans-serif;color:#f4f4f5;background:#25282f;border:1px solid #525660;border-radius:5px;padding:9px 13px;cursor:pointer}button:hover{background:#343840}button:focus-visible,select:focus-visible{outline:2px solid var(--red);outline-offset:3px}nav{display:flex;gap:9px 16px;flex-wrap:wrap;margin-bottom:24px}nav a{color:#b8bdc7;text-decoration:none;font-size:12px}.size-group{margin-top:34px;padding-top:20px;border-top:1px solid #393d45;scroll-margin-top:16px}h2{font-size:18px;font-weight:700;margin:0 0 18px}.ads{display:flex;flex-wrap:wrap;align-items:flex-start;gap:26px}.card{margin:0;max-width:100%}figcaption{font-size:12px;color:#d0d3d9;margin-bottom:9px}.viewport{overflow:hidden;background:#000;outline:1px solid #3b3e45}.hidden{display:none!important}#status{color:#b8bdc7;font-size:13px;padding:16px 0}
@@ -118,8 +118,10 @@ function layout(size,n){
   if(n===3)p.message=['Better litigation intelligence.','<em>Less guesswork</em> with'];
   p.f1=BOX(22,9,490,72,[28,25,25,28][n],1.08);
   p.f2=BOX(18,9,292,72,[25,27,25,20.5][n],1.13);
-  p.triangle=[46,-14,236,202.25];p.lex=[350,12,338,45.72];
-  p.lnFirst=[586,31,120,26.79];p.ln=[350,64,88,19.65];p.cta=[477,58,229,27];p.ctaFont=11.5;
+  p.triangle=[46,-14,236,202.25];
+  // One centered row: Lex Machina, CTA, LexisNexis; preserve the message and triangle.
+  p.lex=[328,34.313,158,21.374];p.cta=[496,29,128,32];p.ln=[634,36.962,72,16.076];
+  p.lnFirst=[586,31,120,26.79];p.ctaFont=10.8;
  }else if(size==='500x100'){
   p.opening=SHORT_OPEN[n];p.message=WIDE[n].slice();
   if(n===3)p.message=['Better litigation','intelligence.','<em>Less guesswork</em> with'];
@@ -144,7 +146,7 @@ function image(kind,cls,rect,alt=''){return `<img class="asset asset-img ${cls}"
 function copy(cls,spec,lines){return `<div class="asset copy ${cls}" style="${rectStyle(spec.rect)};font-size:${spec.font}px;line-height:${spec.leading}">${lines.map(t=>`<span class="copy-line">${t}</span>`).join('')}</div>`}
 function ctaText(p,n){
  if(p.h===600)return n===0?'Explore Litigation<br>Analytics':n===1?'Explore Houston<br>Insights':n===2?'See Houston<br>Analytics':'Request a<br>Walkthrough';
- if(p.w===970||p.w===500)return n===0?'Explore Litigation<br>Analytics':n===1?'Explore Houston<br>Insights':n===2?'See Houston<br>Analytics':'Request a<br>Walkthrough';
+ if(p.w===970||p.w===728||p.w===500)return n===0?'Explore Litigation<br>Analytics':n===1?'Explore Houston<br>Insights':n===2?'See Houston<br>Analytics':'Request a<br>Walkthrough';
  return ADS[n].cta;
 }
 function build(){
