@@ -52,10 +52,10 @@
     </div>
   </section>
   <section class="campaign-group">
-    <h3>Last chance · Focus · White</h3>
+    <h3>Last chance · Clock · White</h3>
     <div class="campaign-pair">
-      <figure><figcaption class="text-small">300 × 250</figcaption><canvas data-ad="3" data-height="250" role="img" aria-label="Last chance, red Focus animation on white, 300 by 250"></canvas></figure>
-      <figure><figcaption class="text-small">300 × 600</figcaption><canvas data-ad="3" data-height="600" role="img" aria-label="Last chance, red Focus animation on white, 300 by 600"></canvas></figure>
+      <figure><figcaption class="text-small">300 × 250</figcaption><canvas data-ad="3" data-height="250" role="img" aria-label="Last chance, red clock animation on white, 300 by 250"></canvas></figure>
+      <figure><figcaption class="text-small">300 × 600</figcaption><canvas data-ad="3" data-height="600" role="img" aria-label="Last chance, red clock animation on white, 300 by 600"></canvas></figure>
     </div>
   </section>
   <style>
@@ -194,7 +194,7 @@
   function rgba(hex,a){
     return `rgba(${parseInt(hex.slice(1,3),16)},${parseInt(hex.slice(3,5),16)},${parseInt(hex.slice(5,7),16)},${a})`;
   }
-  function drawOriginalArcs(ctx,time){
+  function drawOriginalArcs(ctx,time,options={}){
     const gradients={};
     for(const [name,g] of Object.entries(source.gradients)){
       const grad=ctx.createLinearGradient(g.x1,g.y1,g.x2,g.y2);
@@ -210,11 +210,11 @@
         const path=new Path2D(p.d);
         ctx.globalAlpha=Number(p.opacity??1);
         if(p.fill&&p.fill!=='none'){
-          ctx.fillStyle=p.fill.startsWith('url')?gradients[p.fill.slice(5,-1)]:p.fill;
+          ctx.fillStyle=options.color||(p.fill.startsWith('url')?gradients[p.fill.slice(5,-1)]:p.fill);
           ctx.fill(path);
         }
         if(p.stroke&&p.stroke!=='none'){
-          ctx.strokeStyle=p.stroke.startsWith('url')?gradients[p.stroke.slice(5,-1)]:p.stroke;
+          ctx.strokeStyle=options.color||(p.stroke.startsWith('url')?gradients[p.stroke.slice(5,-1)]:p.stroke);
           ctx.lineWidth=p.strokeWidth||1;
           ctx.stroke(path);
         }
@@ -222,7 +222,40 @@
       ctx.restore();
     }
   }
+  function drawOrbit(ctx,cx,cy,radius,time,options={}){
+    ctx.save();ctx.translate(cx,cy);ctx.scale(radius/390,radius/390);ctx.translate(-600,-600);
+    drawOriginalArcs(ctx,time,options);ctx.restore();
+  }
+  function renderClock(ctx,cx,cy,radius,time,options={}){
+    const color=options.color||'#ef233c';
+    drawOrbit(ctx,cx,cy,radius,time,{color});
+    ctx.save();ctx.translate(cx,cy);ctx.strokeStyle=color;ctx.fillStyle=color;
+    ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.lineWidth=Math.max(.9,radius*.019);
+    for(let i=0;i<4;i++){
+      const a=i*TAU/4;ctx.beginPath();ctx.moveTo(Math.sin(a)*radius*.49,-Math.cos(a)*radius*.49);
+      ctx.lineTo(Math.sin(a)*radius*.55,-Math.cos(a)*radius*.55);ctx.stroke();
+    }
+    ctx.lineWidth=Math.max(1.7,radius*.045);
+    ctx.beginPath();ctx.moveTo(-radius*.26,-radius*.17);ctx.lineTo(0,0);ctx.lineTo(radius*.20,-radius*.37);ctx.stroke();
+    const sweep=TAU*time/32-Math.PI/2;
+    ctx.lineWidth=Math.max(.8,radius*.016);ctx.beginPath();
+    ctx.moveTo(-Math.cos(sweep)*radius*.08,-Math.sin(sweep)*radius*.08);
+    ctx.lineTo(Math.cos(sweep)*radius*.46,Math.sin(sweep)*radius*.46);ctx.stroke();
+    ctx.beginPath();ctx.arc(0,0,radius*.04,0,TAU);ctx.fill();ctx.restore();
+  }
+  function renderFlatMagnifier(ctx,width,height,time,color){
+    ctx.clearRect(0,0,width,height);ctx.save();
+    const scale=Math.min(width,height)/1200;ctx.scale(scale,scale);
+    const cx=width/(2*scale)-78,cy=height/(2*scale)-84;
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(-Math.PI/4);ctx.fillStyle=color;
+    ctx.beginPath();ctx.roundRect(-28,290,56,85,10);ctx.fill();
+    ctx.beginPath();ctx.roundRect(-44,347,88,263,22);ctx.fill();ctx.restore();
+    drawOrbit(ctx,cx,cy,316,time,{color});ctx.restore();
+    return {duration:32,loop:true,source:'Red-Orbital-Animation-2.svg',lens:{x:cx*scale,y:cy*scale,r:228*scale}};
+  }
   function render(ctx,width,height,time,options={}){
+    if(options.flatColor)return renderFlatMagnifier(ctx,width,height,time,options.flatColor);
     ctx.clearRect(0,0,width,height);
     ctx.save();
     const scale=Math.min(width,height)/1200;
@@ -285,7 +318,7 @@
     ctx.restore();
     return {duration:32,loop:true,source:'Red-Orbital-Animation-2.svg',lens:{x:cx*scale,y:cy*scale,r:inner*scale}};
   }
-  const api={render,duration:32,loop:true};
+  const api={render,renderClock,drawOrbit,duration:32,loop:true};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   else scope.LawOrbitalMagnifier=api;
 })(typeof window!=='undefined'?window:globalThis);
@@ -298,6 +331,16 @@
   const clamp=x=>Math.max(0,Math.min(1,x));
   const ease=x=>{x=clamp(x);return x*x*x*(x*(x*6-15)+10);};
   const targetLat=.40,targetLon=1.90;
+  // Fixed scattered locations keep the apparent randomness and the loop repeatable.
+  const scatteredPins=[
+    {lat:.48,peak:5.0,offset:.40,scale:1.06},
+    {lat:-.31,peak:6.35,offset:-.27,scale:.86},
+    {lat:.05,peak:7.8,offset:.55,scale:1.00},
+    {lat:.71,peak:9.15,offset:-.19,scale:.82},
+    {lat:-.58,peak:10.5,offset:.33,scale:.92},
+    {lat:.26,peak:11.9,offset:-.42,scale:1.03},
+    {lat:-.12,peak:13.15,offset:.48,scale:.84}
+  ].map(p=>({...p,lon:targetLon-TAU*(p.peak-6.2)/16+p.offset}));
   function loopOrientation(time){
     const phase=((time%16)+16)%16;
     // Reveal the marker after its surface location is already facing the viewer.
@@ -321,6 +364,25 @@
     const arcX=x*Math.cos(state.roll)-y*Math.sin(state.roll);
     const arcY=x*Math.sin(state.roll)+y*Math.cos(state.roll);
     return {x:cx+arcX*r,y:cy-arcY*r,z};
+  }
+  function drawScatteredPins(ctx,state,r,cx,cy,size,options){
+    for(const marker of scatteredPins){
+      const age=state.phase-(marker.peak-1.35);
+      const reveal=ease(age/1.35)*(1-ease((age-2.7)/1.35));
+      const p=project(marker.lat,marker.lon,state,r,cx,cy);
+      const front=ease((p.z-.05)/.3);
+      const textClearance=options.pinSafeLeft?ease((p.x/size-options.pinSafeLeft)/.10):1;
+      if(reveal*front*textClearance<=0)continue;
+      const scale=(options.pinScale??1)*marker.scale;
+      ctx.save();ctx.globalAlpha*=reveal*front*textClearance;
+      const bloom=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,size*.038);
+      bloom.addColorStop(0,'rgba(255,34,59,.24)');bloom.addColorStop(1,'rgba(255,23,43,0)');
+      ctx.fillStyle=bloom;ctx.beginPath();ctx.arc(p.x,p.y,size*.038,0,TAU);ctx.fill();
+      ctx.strokeStyle='rgba(255,58,78,.88)';ctx.lineWidth=size*.0018*(options.lineScale??1);
+      ctx.beginPath();ctx.arc(p.x,p.y,size*.014*scale,0,TAU);ctx.stroke();
+      ctx.fillStyle='#ff304a';ctx.beginPath();ctx.arc(p.x,p.y,size*.009*scale,0,TAU);ctx.fill();
+      ctx.restore();
+    }
   }
   function render(ctx,width,height,time,options={}){
     ctx.clearRect(0,0,width,height);ctx.save();
@@ -356,7 +418,8 @@
     ctx.strokeStyle=rim;ctx.lineWidth=size*.0023*lineScale;ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+TAU*(options.drawOn?ease(phase/1.8):1));ctx.stroke();
     }
     const pin=project(targetLat,targetLon,state,r,cx,cy);
-    if(!options.hidePin&&state.pin>0&&pin.z>0){
+    if(!options.hidePin&&options.multiplePins&&options.loop)drawScatteredPins(ctx,state,r,cx,cy,size,options);
+    if(!options.hidePin&&!options.multiplePins&&state.pin>0&&pin.z>0){
       ctx.save();ctx.globalAlpha*=state.pin*(options.loop?ease((pin.z-.05)/.25):1);
       const bloom=ctx.createRadialGradient(pin.x,pin.y,0,pin.x,pin.y,size*.047);
       bloom.addColorStop(0,'rgba(255,34,59,.23)');bloom.addColorStop(1,'rgba(255,23,43,0)');
@@ -399,12 +462,13 @@
   const clamp=x=>Math.max(0,Math.min(1,x));
   const ease=x=>{x=clamp(x);return x*x*(3-2*x);};
   const lightPanel=msg=>msg.id==='last-chance';
+  const editorialPanel=msg=>msg.design==='focus'||msg.design==='clock';
   const panelColor=msg=>lightPanel(msg)?WHITE:msg.design==='focus'?RED:INK;
   const messages=[
     {id:'core',name:'Core offer',concept:'Focus',design:'focus',reason:'A closer look at critical news and in-depth analysis.',intro:['Critical legal','news.','In-depth analysis.'],offer:['Special Law360®','pricing for a','limited time.'],note:['Offer ends December 14.'],cta:'Request pricing'},
     {id:'competitive',name:'Competitive intelligence',concept:'Radar',design:'radar',reason:'Signals converge to reveal what is shaping the market.',intro:['Know what’s','shaping the','legal market.'],offer:['Explore special','Law360® pricing'],note:['through December 14.'],cta:'Get pricing details'},
     {id:'practice',name:'Industry & practice awareness',concept:'Pinpoint',design:'pinpoint',reason:'Broad coverage brings the relevant developments into focus.',intro:['Act now for','special Law360®','pricing.'],introNote:['Ends December 14.'],offer:['Follow the trends.','Inform your','practice.'],note:[],cta:'Explore the offer'},
-    {id:'last-chance',name:'Last chance',concept:'Focus · White',design:'focus',reason:'A white field and red lens give the final offer a distinct expression of the Focus concept.',intro:['Last chance','for special','Law360® pricing.'],offer:['Stay informed','with critical','reporting.'],note:['Special pricing expires','December 14.'],cta:'Request pricing'}
+    {id:'last-chance',name:'Last chance',concept:'Clock · White',design:'clock',reason:'The original Law360 orbital arcs frame a clock that signals the approaching deadline.',intro:['Last chance','for special','Law360® pricing.'],offer:['Stay informed','with critical','reporting.'],note:['Special pricing expires','December 14.'],cta:'Request pricing'}
   ];
   function phases(time){
     const t=((time%8)+8)%8;
@@ -422,18 +486,18 @@
   function layout(msg,tall,offer){
     let lines=offer?msg.offer:msg.intro,size=tall?32:24.5,y=tall?107:68,leading=tall?37:29;
     if(msg.id==='core'&&!offer){
-      if(tall)return {lines:['Critical legal','news.','In-depth','analysis.'],size:34,y:107,leading:38,note:[],noteY:0};
-      return {lines:['Critical legal','news.'],size:27,y:64,leading:31,sub:['In-depth analysis.'],subY:151,note:[],noteY:0};
+      if(tall)return {lines:['Critical legal','news.','In-depth','analysis.'],size:34,y:280,leading:38,note:[],noteY:0};
+      return {lines:['Critical','legal','news.'],size:34,y:64,leading:34,sub:['In-depth analysis.'],subY:178,note:[],noteY:0};
     }
-    if(msg.design==='focus'&&!tall){size=22;y=64;leading=25;}
-    if(msg.design==='pinpoint'&&!tall){y=offer?112:109;size=offer?23:24;leading=offer?27:28;}
+    if(editorialPanel(msg)&&!tall){size=22;y=64;leading=25;}
+    if(msg.design==='pinpoint'&&!tall){y=98;size=offer?23:24;leading=offer?27:28;}
     if(msg.id==='last-chance'&&!tall&&!offer)lines=['Last chance','for special','Law360®','pricing.'];
-    if(tall&&msg.id==='core'&&offer)size=30;
+    if(tall&&msg.id==='core'&&offer){size=30;y=280;}
     if(tall&&msg.id==='practice'&&offer)size=30;
     if(tall&&msg.id==='competitive')size=33;
     if(!tall&&msg.id==='competitive')size=25;
     const note=offer?msg.note:(msg.introNote||[]);
-    return {lines,size,y,leading,note,noteY:tall?(msg.id==='practice'?240:msg.id==='competitive'?205:250):msg.design==='focus'?180-note.length*15:msg.id==='competitive'?147:msg.id==='practice'&&!offer?201:169};
+    return {lines,size,y,leading,note,noteY:tall?(msg.id==='core'?424:msg.id==='practice'?240:msg.id==='competitive'?205:250):editorialPanel(msg)?180-note.length*15:msg.id==='competitive'?147:msg.id==='practice'&&!offer?201:169};
   }
   function create({createCanvas,logo,radar,magnifier,globe,focusGlobe}){
     const art=createCanvas(720,720),ac=art.getContext('2d'),lensWorld=focusGlobe.create({createCanvas});
@@ -448,14 +512,14 @@
         g.addColorStop(0,'#270b13');g.addColorStop(1,INK);ctx.fillStyle=g;ctx.fillRect(0,0,300,h);
         radar.draw(ctx,cx,cy,motionTime,{radius:tall?96:40,dotRadius:tall?8:5.5,lineWidth:tall?1.5:1.15});
       }else if(msg.design==='focus'){
-        magnifier.render(ac,720,720,motionTime);
-        ac.save();ac.globalCompositeOperation='destination-out';ac.beginPath();ac.arc(720*.435,720*.43,720*.19+1.5,0,Math.PI*2);ac.fill();ac.restore();
-        ac.save();ac.globalCompositeOperation='source-in';ac.fillStyle=lightPanel(msg)?RED:INK;ac.fillRect(0,0,720,720);ac.restore();
-        const ms=tall?260:118,cx=tall?142:234,cy=tall?369:127;
+        magnifier.render(ac,720,720,motionTime,{flatColor:INK});
+        const ms=tall?244:118,cx=tall?142:234,cy=tall?166:127;
         ctx.drawImage(art,cx-ms*.435,cy-ms*.43,ms,ms);
         lensWorld.render(ctx,cx,cy,ms*.19*.84,motionTime,{color:lightPanel(msg)?RED:INK});
+      }else if(msg.design==='clock'){
+        magnifier.renderClock(ctx,tall?150:239,tall?386:137,tall?84:34,motionTime,{color:RED});
       }else{
-        const globeOptions={loop:true,drawOn:true,lineScale:tall?1.25:1.5,contrast:1.55,pinScale:tall?1.7:2,pinHighlight:false};
+        const globeOptions={loop:true,drawOn:true,multiplePins:true,lineScale:tall?1.25:1.5,contrast:1.55,pinScale:tall?1.5:1.6,pinHighlight:false,pinSafeLeft:tall?0:.36};
         globe.render(ac,720,720,motionTime,{...globeOptions,hidePin:!tall});
         const s=tall?345:225,x=tall?-22.5:126,y=tall?214:-12;
         ctx.drawImage(art,x,y,s,s);
@@ -468,9 +532,9 @@
     }
     function headline(ctx,msg,tall,offer,alpha){
       if(alpha<=0)return;
-      const l=layout(msg,tall,offer),x=tall?24:20;
+      const l=layout(msg,tall,offer),x=msg.design==='radar'?(tall?30:24):msg.design==='pinpoint'&&!tall?28:(tall?24:20);
       ctx.save();ctx.globalAlpha=alpha;ctx.translate(0,(offer?5:-4)*(1-alpha));
-      l.lines.forEach((v,i)=>line(ctx,v,x,l.y+i*l.leading,l.size,msg.design==='focus'?INK:WHITE));
+      l.lines.forEach((v,i)=>line(ctx,v,x,l.y+i*l.leading,l.size,editorialPanel(msg)?INK:WHITE));
       if(l.sub)l.sub.forEach((v,i)=>line(ctx,v,x,l.subY+i*20,17.5,INK,400));
       l.note.forEach((v,i)=>line(ctx,v,x,l.noteY+i*(tall?19:15),tall?14:12,lightPanel(msg)?INK:msg.design==='pinpoint'?RED:WHITE,400));
       ctx.restore();
@@ -478,22 +542,23 @@
     function cta(ctx,msg,tall,alpha){
       if(alpha<=0)return;
       ctx.save();ctx.globalAlpha=alpha;
-      const pad=tall?24:20,barY=tall?520:200,barH=tall?80:50;
-      const cy=barY+barH/2,arrowW=tall?30:25,arrowHead=tall?7:6;
+      const pad=msg.design==='radar'?(tall?30:24):(tall?24:20),barY=tall?520:200,barH=tall?80:50;
+      let cy=barY+barH/2,arrowW=tall?30:25,arrowHead=tall?7:6;
       let arrowRight=300-pad;
-      if(msg.design==='focus'||msg.design==='radar'){
-        ctx.fillStyle=lightPanel(msg)?RED:msg.design==='radar'?'#9d1730':INK;ctx.fillRect(0,barY,300,barH);
+      if(editorialPanel(msg)||msg.design==='radar'){
+        ctx.fillStyle=lightPanel(msg)?RED:msg.design==='radar'?'#801128':INK;ctx.fillRect(0,barY,300,barH);
       }else{
-        const box=tall?40:32;
-        ctx.fillStyle=RED;ctx.fillRect(300-pad-box,cy-box/2,box,box);
-        arrowRight=300-pad-(box-arrowW)/2;
+        const radius=tall?20:16,cx=300-pad-radius;
+        cy=(tall?600:250)-pad-radius;arrowW=tall?22:18;arrowHead=tall?5.5:4.5;
+        ctx.fillStyle=RED;ctx.beginPath();ctx.arc(cx,cy,radius,0,Math.PI*2);ctx.fill();
+        arrowRight=cx+arrowW/2;
       }
       font(ctx,tall?16:12.5);
       ctx.textBaseline='alphabetic';
       const metrics=ctx.measureText(msg.cta);
       ctx.fillStyle=WHITE;
       ctx.fillText(msg.cta,pad,cy+(metrics.actualBoundingBoxAscent-metrics.actualBoundingBoxDescent)/2);
-      ctx.strokeStyle=WHITE;ctx.lineWidth=tall?1.8:1.6;ctx.lineCap='round';ctx.lineJoin='round';
+      ctx.strokeStyle=WHITE;ctx.lineWidth=msg.design==='radar'?(tall?2.1:1.8):(tall?1.8:1.6);ctx.lineCap='round';ctx.lineJoin='round';
       ctx.beginPath();ctx.moveTo(arrowRight-arrowW,cy);ctx.lineTo(arrowRight,cy);
       ctx.moveTo(arrowRight-arrowHead,cy-arrowHead);ctx.lineTo(arrowRight,cy);ctx.lineTo(arrowRight-arrowHead,cy+arrowHead);ctx.stroke();
       ctx.restore();
@@ -503,10 +568,10 @@
       ctx.save();ctx.setTransform(width/300,0,0,height/h,0,0);ctx.clearRect(0,0,300,h);
       artwork(ctx,msg,tall,motionTime);
       headline(ctx,msg,tall,false,p.opening);headline(ctx,msg,tall,true,p.offer);cta(ctx,msg,tall,p.offer);
-      const x=tall?24:20,y=tall?24:20,w=tall?134:108;
+      const x=msg.design==='radar'?(tall?30:24):(tall?24:20),y=tall?24:20,w=tall?134:108;
       ctx.fillStyle=panelColor(msg);ctx.fillRect(x-4,y-4,w+8,w*148/584+8);
       ctx.drawImage(lightPanel(msg)?darkLogo:logo,x,y,w,w*148/584);
-      if(msg.design==='radar'){ctx.fillStyle=RED;ctx.fillRect(0,0,4,h);}
+      if(msg.design==='radar'){ctx.fillStyle=RED;ctx.fillRect(0,0,6,h);}
       ctx.restore();return {message:msg.name,concept:msg.concept,width:300,height:h,frame:p.offer>.5?'Offer':'Opening'};
     }
     return {render};
