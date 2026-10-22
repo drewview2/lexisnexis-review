@@ -52,10 +52,10 @@
     </div>
   </section>
   <section class="campaign-group">
-    <h3>Last chance · Deadline</h3>
+    <h3>Last chance · Focus · White</h3>
     <div class="campaign-pair">
-      <figure><figcaption class="text-small">300 × 250</figcaption><canvas data-ad="3" data-height="250" role="img" aria-label="Last chance, Deadline animation, 300 by 250"></canvas></figure>
-      <figure><figcaption class="text-small">300 × 600</figcaption><canvas data-ad="3" data-height="600" role="img" aria-label="Last chance, Deadline animation, 300 by 600"></canvas></figure>
+      <figure><figcaption class="text-small">300 × 250</figcaption><canvas data-ad="3" data-height="250" role="img" aria-label="Last chance, red Focus animation on white, 300 by 250"></canvas></figure>
+      <figure><figcaption class="text-small">300 × 600</figcaption><canvas data-ad="3" data-height="600" role="img" aria-label="Last chance, red Focus animation on white, 300 by 600"></canvas></figure>
     </div>
   </section>
   <style>
@@ -92,15 +92,16 @@
     const bitmap=createCanvas(256,256),bc=bitmap.getContext('2d');
     const projection=d3.geoOrthographic().translate([128,128]).scale(120).clipAngle(90).precision(.25);
     const path=d3.geoPath(projection,bc);
-    let cachedFrame=-1;
-    function render(ctx,x,y,radius,time){
+    let cachedFrame=-1,cachedColor='';
+    function render(ctx,x,y,radius,time,options={}){
       const frame=Math.floor(time*30);
-      if(frame!==cachedFrame){
-        cachedFrame=frame;bc.clearRect(0,0,256,256);
+      const color=options.color||'#08090b';
+      if(frame!==cachedFrame||color!==cachedColor){
+        cachedFrame=frame;cachedColor=color;bc.clearRect(0,0,256,256);
         // One revolution every 48 seconds, independent of the ad's copy loop.
         projection.rotate([35-(frame/30)*7.5,-12,0]);
-        bc.fillStyle='#08090b';bc.beginPath();path(land);bc.fill();
-        bc.strokeStyle='#08090b';bc.lineWidth=3.2;bc.beginPath();bc.arc(128,128,120,0,Math.PI*2);bc.stroke();
+        bc.fillStyle=color;bc.beginPath();path(land);bc.fill();
+        bc.strokeStyle=color;bc.lineWidth=3.2;bc.beginPath();bc.arc(128,128,120,0,Math.PI*2);bc.stroke();
       }
       ctx.drawImage(bitmap,x-radius*128/120,y-radius*128/120,radius*256/120,radius*256/120);
     }
@@ -327,15 +328,20 @@
     const size=Math.min(width,height),cx=width*.5,cy=height*.52;
     const state=options.loop?loopOrientation(time):orientation(time);
     const r=size*(.333+.012*state.focus);
+    const phase=state.phase??time;
+    if(options.drawOn)ctx.globalAlpha=ease(phase/.35)*(1-ease((phase-14.2)/1.8));
+    if(!options.pinOnly){
     const lines=[];
     const add=(a,b)=>lines.push({a,b,z:(a.z+b.z)/2});
     for(let j=-2;j<=2;j++){
       const lat=j*Math.PI/6;
-      for(let i=0;i<144;i++)add(project(lat,i/144*TAU,state,r,cx,cy),project(lat,(i+1)/144*TAU,state,r,cx,cy));
+      const progress=options.drawOn?ease((phase-.12-(j+2)*.14)/2.65):1;
+      for(let i=0;i<144&&i/144<progress;i++)add(project(lat,i/144*TAU,state,r,cx,cy),project(lat,Math.min((i+1)/144,progress)*TAU,state,r,cx,cy));
     }
     for(let j=0;j<10;j++){
       const lon=j/10*TAU;
-      for(let i=0;i<90;i++)add(project(-Math.PI/2+i/90*Math.PI,lon,state,r,cx,cy),project(-Math.PI/2+(i+1)/90*Math.PI,lon,state,r,cx,cy));
+      const progress=options.drawOn?ease((phase-.35-j*.075)/2.9):1;
+      for(let i=0;i<90&&i/90<progress;i++)add(project(-Math.PI/2+i/90*Math.PI,lon,state,r,cx,cy),project(-Math.PI/2+Math.min((i+1)/90,progress)*Math.PI,lon,state,r,cx,cy));
     }
     ctx.lineCap='butt';
     lines.sort((a,b)=>a.z-b.z).forEach(({a,b,z})=>{
@@ -347,10 +353,11 @@
     });
     const rim=ctx.createLinearGradient(cx-r,cy-r,cx+r,cy+r);
     rim.addColorStop(0,'rgba(246,53,66,.5)');rim.addColorStop(.45,'rgba(255,74,84,.13)');rim.addColorStop(1,'rgba(220,19,41,.45)');
-    ctx.strokeStyle=rim;ctx.lineWidth=size*.0023*lineScale;ctx.beginPath();ctx.arc(cx,cy,r,0,TAU);ctx.stroke();
+    ctx.strokeStyle=rim;ctx.lineWidth=size*.0023*lineScale;ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+TAU*(options.drawOn?ease(phase/1.8):1));ctx.stroke();
+    }
     const pin=project(targetLat,targetLon,state,r,cx,cy);
-    if(state.pin>0&&pin.z>0){
-      ctx.save();ctx.globalAlpha=state.pin*(options.loop?ease((pin.z-.05)/.25):1);
+    if(!options.hidePin&&state.pin>0&&pin.z>0){
+      ctx.save();ctx.globalAlpha*=state.pin*(options.loop?ease((pin.z-.05)/.25):1);
       const bloom=ctx.createRadialGradient(pin.x,pin.y,0,pin.x,pin.y,size*.047);
       bloom.addColorStop(0,'rgba(255,34,59,.23)');bloom.addColorStop(1,'rgba(255,23,43,0)');
       ctx.fillStyle=bloom;ctx.beginPath();ctx.arc(pin.x,pin.y,size*.047,0,TAU);ctx.fill();
@@ -391,12 +398,13 @@
   const INK='#08090b',RED='#ef233c',WHITE='#fafafa';
   const clamp=x=>Math.max(0,Math.min(1,x));
   const ease=x=>{x=clamp(x);return x*x*(3-2*x);};
-  const redPanel=msg=>msg.design==='focus'||msg.design==='deadline';
+  const lightPanel=msg=>msg.id==='last-chance';
+  const panelColor=msg=>lightPanel(msg)?WHITE:msg.design==='focus'?RED:INK;
   const messages=[
     {id:'core',name:'Core offer',concept:'Focus',design:'focus',reason:'A closer look at critical news and in-depth analysis.',intro:['Critical legal','news.','In-depth analysis.'],offer:['Special Law360®','pricing for a','limited time.'],note:['Offer ends December 14.'],cta:'Request pricing'},
     {id:'competitive',name:'Competitive intelligence',concept:'Radar',design:'radar',reason:'Signals converge to reveal what is shaping the market.',intro:['Know what’s','shaping the','legal market.'],offer:['Explore special','Law360® pricing'],note:['through December 14.'],cta:'Get pricing details'},
     {id:'practice',name:'Industry & practice awareness',concept:'Pinpoint',design:'pinpoint',reason:'Broad coverage brings the relevant developments into focus.',intro:['Act now for','special Law360®','pricing.'],introNote:['Ends December 14.'],offer:['Follow the trends.','Inform your','practice.'],note:[],cta:'Explore the offer'},
-    {id:'last-chance',name:'Last chance',concept:'Deadline',design:'deadline',reason:'A moving clock hand and orbital arcs reinforce the approaching offer deadline.',intro:['Last chance','for special','Law360® pricing.'],offer:['Stay informed','with critical','reporting.'],note:['Special pricing expires','December 14.'],cta:'Request pricing'}
+    {id:'last-chance',name:'Last chance',concept:'Focus · White',design:'focus',reason:'A white field and red lens give the final offer a distinct expression of the Focus concept.',intro:['Last chance','for special','Law360® pricing.'],offer:['Stay informed','with critical','reporting.'],note:['Special pricing expires','December 14.'],cta:'Request pricing'}
   ];
   function phases(time){
     const t=((time%8)+8)%8;
@@ -417,7 +425,7 @@
       if(tall)return {lines:['Critical legal','news.','In-depth','analysis.'],size:34,y:107,leading:38,note:[],noteY:0};
       return {lines:['Critical legal','news.'],size:27,y:64,leading:31,sub:['In-depth analysis.'],subY:151,note:[],noteY:0};
     }
-    if(redPanel(msg)&&!tall){size=22;y=64;leading=25;}
+    if(msg.design==='focus'&&!tall){size=22;y=64;leading=25;}
     if(msg.design==='pinpoint'&&!tall){y=offer?112:109;size=offer?23:24;leading=offer?27:28;}
     if(msg.id==='last-chance'&&!tall&&!offer)lines=['Last chance','for special','Law360®','pricing.'];
     if(tall&&msg.id==='core'&&offer)size=30;
@@ -425,13 +433,15 @@
     if(tall&&msg.id==='competitive')size=33;
     if(!tall&&msg.id==='competitive')size=25;
     const note=offer?msg.note:(msg.introNote||[]);
-    return {lines,size,y,leading,note,noteY:tall?(msg.id==='practice'?240:msg.id==='competitive'?205:250):redPanel(msg)?180-note.length*15:msg.id==='competitive'?147:msg.id==='practice'&&!offer?201:169};
+    return {lines,size,y,leading,note,noteY:tall?(msg.id==='practice'?240:msg.id==='competitive'?205:250):msg.design==='focus'?180-note.length*15:msg.id==='competitive'?147:msg.id==='practice'&&!offer?201:169};
   }
   function create({createCanvas,logo,radar,magnifier,globe,focusGlobe}){
     const art=createCanvas(720,720),ac=art.getContext('2d'),lensWorld=focusGlobe.create({createCanvas});
+    const darkLogo=createCanvas(584,148),dc=darkLogo.getContext('2d');
+    dc.drawImage(logo,0,0,584,148);dc.globalCompositeOperation='source-in';dc.fillStyle=INK;dc.fillRect(0,0,584,148);
     function artwork(ctx,msg,tall,motionTime){
       const h=tall?600:250;
-      ctx.fillStyle=redPanel(msg)?RED:INK;ctx.fillRect(0,0,300,h);
+      ctx.fillStyle=panelColor(msg);ctx.fillRect(0,0,300,h);
       if(msg.design==='radar'){
         const cx=tall?150:240,cy=tall?388:140;
         const g=ctx.createRadialGradient(cx,cy,0,cx,cy,tall?175:125);
@@ -440,38 +450,19 @@
       }else if(msg.design==='focus'){
         magnifier.render(ac,720,720,motionTime);
         ac.save();ac.globalCompositeOperation='destination-out';ac.beginPath();ac.arc(720*.435,720*.43,720*.19+1.5,0,Math.PI*2);ac.fill();ac.restore();
-        ac.save();ac.globalCompositeOperation='source-in';ac.fillStyle=INK;ac.fillRect(0,0,720,720);ac.restore();
+        ac.save();ac.globalCompositeOperation='source-in';ac.fillStyle=lightPanel(msg)?RED:INK;ac.fillRect(0,0,720,720);ac.restore();
         const ms=tall?260:118,cx=tall?142:234,cy=tall?369:127;
         ctx.drawImage(art,cx-ms*.435,cy-ms*.43,ms,ms);
-        lensWorld.render(ctx,cx,cy,ms*.19*.84,motionTime);
-      }else if(msg.design==='deadline'){
-        const x=tall?150:239,y=tall?391:139,r=tall?83:33,turn=Math.PI*2*motionTime/32;
-        ctx.save();ctx.translate(x,y);ctx.strokeStyle=INK;ctx.fillStyle=INK;
-        ctx.lineCap='butt';ctx.lineWidth=tall?8:3.4;
-        for(let i=0;i<3;i++){
-          const a=turn+i*Math.PI*2/3;
-          ctx.beginPath();ctx.arc(0,0,r,a,a+Math.PI*.49);ctx.stroke();
-        }
-        ctx.lineWidth=tall?1.5:.75;ctx.globalAlpha=.7;
-        ctx.beginPath();ctx.arc(0,0,r*.79,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;
-        for(let i=0;i<4;i++){
-          const a=i*Math.PI/2;
-          ctx.lineWidth=tall?2:1;
-          ctx.beginPath();ctx.moveTo(Math.cos(a)*r*.65,Math.sin(a)*r*.65);ctx.lineTo(Math.cos(a)*r*.72,Math.sin(a)*r*.72);ctx.stroke();
-        }
-        ctx.lineCap='round';ctx.lineWidth=tall?4.5:1.9;
-        ctx.beginPath();ctx.moveTo(-r*.26,-r*.17);ctx.lineTo(0,0);ctx.lineTo(r*.2,-r*.37);ctx.stroke();
-        const hand=turn-Math.PI/2;
-        ctx.lineWidth=tall?1.7:.9;
-        ctx.beginPath();ctx.moveTo(-Math.cos(hand)*r*.12,-Math.sin(hand)*r*.12);ctx.lineTo(Math.cos(hand)*r*.57,Math.sin(hand)*r*.57);ctx.stroke();
-        ctx.beginPath();ctx.arc(0,0,tall?4:1.8,0,Math.PI*2);ctx.fill();ctx.restore();
+        lensWorld.render(ctx,cx,cy,ms*.19*.84,motionTime,{color:lightPanel(msg)?RED:INK});
       }else{
-        globe.render(ac,720,720,motionTime,{loop:true,lineScale:tall?1.25:1.5,contrast:1.55,pinScale:tall?1.7:2,pinHighlight:false});
+        const globeOptions={loop:true,drawOn:true,lineScale:tall?1.25:1.5,contrast:1.55,pinScale:tall?1.7:2,pinHighlight:false};
+        globe.render(ac,720,720,motionTime,{...globeOptions,hidePin:!tall});
         const s=tall?345:225,x=tall?-22.5:126,y=tall?214:-12;
         ctx.drawImage(art,x,y,s,s);
         if(!tall){
           const g=ctx.createLinearGradient(65,0,280,0);g.addColorStop(0,INK);g.addColorStop(.45,'rgba(8,9,11,.82)');g.addColorStop(.78,'rgba(8,9,11,0)');g.addColorStop(1,'rgba(8,9,11,0)');
           ctx.fillStyle=g;ctx.fillRect(0,50,300,200);
+          globe.render(ac,720,720,motionTime,{...globeOptions,pinOnly:true});ctx.drawImage(art,x,y,s,s);
         }
       }
     }
@@ -479,9 +470,9 @@
       if(alpha<=0)return;
       const l=layout(msg,tall,offer),x=tall?24:20;
       ctx.save();ctx.globalAlpha=alpha;ctx.translate(0,(offer?5:-4)*(1-alpha));
-      l.lines.forEach((v,i)=>line(ctx,v,x,l.y+i*l.leading,l.size,redPanel(msg)?INK:msg.design==='radar'&&!offer&&i===2?RED:WHITE));
+      l.lines.forEach((v,i)=>line(ctx,v,x,l.y+i*l.leading,l.size,msg.design==='focus'?INK:WHITE));
       if(l.sub)l.sub.forEach((v,i)=>line(ctx,v,x,l.subY+i*20,17.5,INK,400));
-      l.note.forEach((v,i)=>line(ctx,v,x,l.noteY+i*(tall?19:15),tall?14:12,redPanel(msg)?WHITE:RED,400));
+      l.note.forEach((v,i)=>line(ctx,v,x,l.noteY+i*(tall?19:15),tall?14:12,lightPanel(msg)?INK:msg.design==='pinpoint'?RED:WHITE,400));
       ctx.restore();
     }
     function cta(ctx,msg,tall,alpha){
@@ -490,8 +481,8 @@
       const pad=tall?24:20,barY=tall?520:200,barH=tall?80:50;
       const cy=barY+barH/2,arrowW=tall?30:25,arrowHead=tall?7:6;
       let arrowRight=300-pad;
-      if(redPanel(msg)||msg.design==='radar'){
-        ctx.fillStyle=redPanel(msg)?INK:RED;ctx.fillRect(0,barY,300,barH);
+      if(msg.design==='focus'||msg.design==='radar'){
+        ctx.fillStyle=lightPanel(msg)?RED:msg.design==='radar'?'#9d1730':INK;ctx.fillRect(0,barY,300,barH);
       }else{
         const box=tall?40:32;
         ctx.fillStyle=RED;ctx.fillRect(300-pad-box,cy-box/2,box,box);
@@ -513,8 +504,9 @@
       artwork(ctx,msg,tall,motionTime);
       headline(ctx,msg,tall,false,p.opening);headline(ctx,msg,tall,true,p.offer);cta(ctx,msg,tall,p.offer);
       const x=tall?24:20,y=tall?24:20,w=tall?134:108;
-      ctx.fillStyle=redPanel(msg)?RED:INK;ctx.fillRect(x-4,y-4,w+8,w*148/584+8);
-      ctx.drawImage(logo,x,y,w,w*148/584);
+      ctx.fillStyle=panelColor(msg);ctx.fillRect(x-4,y-4,w+8,w*148/584+8);
+      ctx.drawImage(lightPanel(msg)?darkLogo:logo,x,y,w,w*148/584);
+      if(msg.design==='radar'){ctx.fillStyle=RED;ctx.fillRect(0,0,4,h);}
       ctx.restore();return {message:msg.name,concept:msg.concept,width:300,height:h,frame:p.offer>.5?'Offer':'Opening'};
     }
     return {render};
