@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="preview-revision" content="2026-10-22-houston-row-04">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="preview-revision" content="2026-10-23-houston-balance-05">
 <title>Lex Machina / Houston — Client Review</title>
 <style>
 :root{color-scheme:dark;--red:#e8171f}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#17191d;color:#f6f7f8;font:400 14px Lato,Arial,Helvetica,sans-serif}main{max-width:1540px;margin:auto;padding:28px 28px 70px}header{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:22px}h1{font-size:25px;line-height:1.1;letter-spacing:-.35px;margin:0}.sub{color:#aeb4be;font-size:13px}.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}button,select{font:700 13px Lato,Arial,sans-serif;color:#f4f4f5;background:#25282f;border:1px solid #525660;border-radius:5px;padding:9px 13px;cursor:pointer}button:hover{background:#343840}button:focus-visible,select:focus-visible{outline:2px solid var(--red);outline-offset:3px}nav{display:flex;gap:9px 16px;flex-wrap:wrap;margin-bottom:24px}nav a{color:#b8bdc7;text-decoration:none;font-size:12px}.size-group{margin-top:34px;padding-top:20px;border-top:1px solid #393d45;scroll-margin-top:16px}h2{font-size:18px;font-weight:700;margin:0 0 18px}.ads{display:flex;flex-wrap:wrap;align-items:flex-start;gap:26px}.card{margin:0;max-width:100%}figcaption{font-size:12px;color:#d0d3d9;margin-bottom:9px}.viewport{overflow:hidden;background:#000;outline:1px solid #3b3e45}.hidden{display:none!important}#status{color:#b8bdc7;font-size:13px;padding:16px 0}
@@ -82,7 +82,7 @@ function layout(size,n){
  let p={w,h,shake:h<=100?4:10,opening:OPEN[n],message:SQUARE[n]};
  if(size==='300x250'||size==='250x250'){
   const small=w===250,s=small?.90:1,cx=w/2;
-  const cy=[48,63,44,43][n],ch=[72,66,88,84][n],fs=[22,24,22,18][n],lh=[24,30,22,21][n];
+  const cy=[48,55,44,43][n],ch=[72,66,88,84][n],fs=[22,27,22,18][n],lh=[24,32,22,21][n];
   p.f1=BOX(small?16:20,25,small?218:260,148,([29,28,28,29][n])*(small?.87:1),1.08);
   p.f2=BOX(cx-110*s,cy,220*s,ch*s,fs*s,lh/fs);
   p.triangle=small?[15,24,220,188.55]:[32,23,236,202.25];
@@ -93,18 +93,18 @@ function layout(size,n){
  }else if(size==='300x600'){
   p.f1=BOX(20,105,260,310,[34,30,32,33][n],1.1);
   const fs=[25,28,25,20.5][n];
-  p.f2=BOX(27,[118,137,116,117][n],246,[82,77,106,96][n],fs,[1.09,1.25,1.04,1.17][n]);
+  p.f2=BOX(27,[118,125,104,117][n],246,[82,77,106,96][n],fs,[1.09,1.25,1.04,1.17][n]);
   p.triangle=[16,88,268,229.68];p.lex=[28,252,244,33.007];
   p.lnFirst=[73,535,154,34.38];p.ln=[73,529,154,34.38];p.cta=[45,402,210,44];p.ctaFont=13;
  }else if(size==='1200x1200'){
   p.shake=40;p.f1=BOX(90,180,1020,520,[116,108,108,116][n],1.08);
-  const fs=[88,96,88,72][n];p.f2=BOX(160,[212,272,196,192][n],880,[288,264,352,336][n],fs,[24/22,1.25,1,21/18][n]);
+  const fs=[88,108,88,72][n];p.f2=BOX(160,[212,240,196,192][n],880,[288,264,352,336][n],fs,[24/22,32/27,1,21/18][n]);
   p.triangle=[128,112,944,809];p.lex=[140,640,920,124.45];p.lnFirst=[410,1040,380,84.84];
   p.ln=[95,1040,365,81.50];p.cta=[520,1028,585,100];p.ctaFont=38;
  }else if(size==='160x600'){
   p.opening=TALL_OPEN[n];p.message=TALL[n];
   p.f1=BOX(8,110,144,310,[27,23,24,27][n],[1.18,1.16,1.15,1.14][n]);
-  const fs=[25,29,24,22][n];p.f2=BOX(12,[82,105,100,78][n],136,[146,132,136,153][n],fs,[1.12,1.17,1.15,1.14][n]);
+  const fs=[25,29,24,22][n];p.f2=BOX(12,[82,93,88,78][n],136,[146,132,136,153][n],fs,[1.12,1.17,1.15,1.14][n]);
   p.triangle=[-55,60,270,231.39];p.lex=[14,294,132,17.855];
   p.lnFirst=[24,535,112,25.01];p.ln=[24,518,112,25.01];p.cta=[21,400,118,48];p.ctaFont=12.2;
  }else if(size==='970x250'){
