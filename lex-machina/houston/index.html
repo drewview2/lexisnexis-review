@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="preview-revision" content="2026-10-23-houston-balance-05">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="preview-revision" content="2026-10-23-houston-readability-06">
 <title>Lex Machina / Houston — Client Review</title>
 <style>
 :root{color-scheme:dark;--red:#e8171f}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#17191d;color:#f6f7f8;font:400 14px Lato,Arial,Helvetica,sans-serif}main{max-width:1540px;margin:auto;padding:28px 28px 70px}header{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:22px}h1{font-size:25px;line-height:1.1;letter-spacing:-.35px;margin:0}.sub{color:#aeb4be;font-size:13px}.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}button,select{font:700 13px Lato,Arial,sans-serif;color:#f4f4f5;background:#25282f;border:1px solid #525660;border-radius:5px;padding:9px 13px;cursor:pointer}button:hover{background:#343840}button:focus-visible,select:focus-visible{outline:2px solid var(--red);outline-offset:3px}nav{display:flex;gap:9px 16px;flex-wrap:wrap;margin-bottom:24px}nav a{color:#b8bdc7;text-decoration:none;font-size:12px}.size-group{margin-top:34px;padding-top:20px;border-top:1px solid #393d45;scroll-margin-top:16px}h2{font-size:18px;font-weight:700;margin:0 0 18px}.ads{display:flex;flex-wrap:wrap;align-items:flex-start;gap:26px}.card{margin:0;max-width:100%}figcaption{font-size:12px;color:#d0d3d9;margin-bottom:9px}.viewport{overflow:hidden;background:#000;outline:1px solid #3b3e45}.hidden{display:none!important}#status{color:#b8bdc7;font-size:13px;padding:16px 0}
@@ -92,10 +92,11 @@ function layout(size,n){
   p.cta=small?[101,206,136,29]:[128,204,158,30];p.ctaFont=small?9:10;
  }else if(size==='300x600'){
   p.f1=BOX(20,105,260,310,[34,30,32,33][n],1.1);
-  const fs=[25,28,25,20.5][n];
-  p.f2=BOX(27,[118,125,104,117][n],246,[82,77,106,96][n],fs,[1.09,1.25,1.04,1.17][n]);
-  p.triangle=[16,88,268,229.68];p.lex=[28,252,244,33.007];
-  p.lnFirst=[73,535,154,34.38];p.ln=[73,529,154,34.38];p.cta=[45,402,210,44];p.ctaFont=13;
+  // Follow the approved Miami tall layout: readable stacks, then evenly spaced brand and CTA.
+  p.message=[TALL[0],TALL[1],SQUARE[2],['Better litigation','intelligence.','<em>Less</em>','<em>guesswork</em>','with']][n];
+  p.f2=BOX(24,66,252,170,[28,36,30,28][n],1.13);
+  p.triangle=[0,58,300,257.1];p.lex=[28,300,244,33.007];
+  p.lnFirst=[73,535,154,34.38];p.ln=[58,499,184,41.08];p.cta=[51,393,198,46];p.ctaFont=15;
  }else if(size==='1200x1200'){
   p.shake=40;p.f1=BOX(90,180,1020,520,[116,108,108,116][n],1.08);
   const fs=[88,108,88,72][n];p.f2=BOX(160,[212,240,196,192][n],880,[288,264,352,336][n],fs,[24/22,32/27,1,21/18][n]);
@@ -110,11 +111,12 @@ function layout(size,n){
  }else if(size==='970x250'){
   p.opening=WIDE_OPEN[n];p.message=WIDE[n];
   p.f1=BOX(42,40,540,170,[44,37,36,44][n],1.1);
-  p.f2=BOX(40,64,410,108,[40,42,40,32][n],1.18);
+  p.f2=BOX(40,59,410,118,[40,50,40,32][n],1.18);
   p.triangle=[92,23,300,257.1];p.lex=[500,54,405,54.79];
-  p.lnFirst=[680,102,210,46.89];p.ln=[500,150,170,37.96];p.cta=[715,139,190,56];p.ctaFont=15.5;
+  p.lnFirst=[680,102,210,46.89];p.ln=[480,176.365,158,35.27];p.cta=[666,171,260,46];p.ctaFont=16.5;
  }else if(size==='728x90'){
   p.opening=SHORT_OPEN[n];p.message=WIDE[n].slice();
+  if(n===0||n===3)p.opening=[SHORT_OPEN[n].join(' ')];
   if(n===3)p.message=['Better litigation intelligence.','<em>Less guesswork</em> with'];
   p.f1=BOX(22,9,490,72,[28,25,25,28][n],1.08);
   p.f2=BOX(18,9,292,72,[25,27,25,20.5][n],1.13);
@@ -133,26 +135,28 @@ function layout(size,n){
   const wide=w===320;p.opening=SHORT_OPEN[n];p.message=WIDE[n].slice();
   if(n===3)p.message=['Better litigation','intelligence.','<em>Less guesswork</em> with'];
   p.f1=BOX(6,3,w-70,44,[16,14,14,16][n],1.08);
-  p.f2=BOX(5,3,wide?150:145,44,[13,14,13,11.3][n],1.12);
-  p.triangle=[14,-6,136,116.55];p.lex=wide?[169,7,90,12.17]:[160,7,82,11.09];
-  p.lnFirst=[w-59,18,51,11.39];p.ln=wide?[269,7,43,9.60]:[252,7,40,8.93];
-  p.cta=wide?[169,27,143,18]:[160,27,132,18];p.ctaFont=8.6;
+  // The 50px banners use Miami's no-button treatment; LexisNexis stays on frame one.
+  p.f2=BOX(6,3,wide?178:166,44,(wide?[16,20,17,14]:[15.5,19,16.5,14])[n],n===3?1.04:1.1);
+  p.triangle=[10,-6,wide?170:158,(wide?170:158)*.857];
+  p.lex=wide?[194,17.02,118,15.962]:[182,17.56,110,14.88];
+  p.lnFirst=[w-59,18,51,11.39];p.ln=null;p.cta=null;
  }
  return p;
 }
 let ASSETS={};const body=document.body;let paused=false;
 function rectStyle(a){return `left:${a[0]}px;top:${a[1]}px;width:${a[2]}px;height:${a[3]}px`}
-function image(kind,cls,rect,alt=''){return `<img class="asset asset-img ${cls}" data-asset="${kind}" src="${ASSETS[kind]}" alt="${alt}" style="${rectStyle(rect)}">`}
+function image(kind,cls,rect,alt=''){return rect?`<img class="asset asset-img ${cls}" data-asset="${kind}" src="${ASSETS[kind]}" alt="${alt}" style="${rectStyle(rect)}">`:''}
 function copy(cls,spec,lines){return `<div class="asset copy ${cls}" style="${rectStyle(spec.rect)};font-size:${spec.font}px;line-height:${spec.leading}">${lines.map(t=>`<span class="copy-line">${t}</span>`).join('')}</div>`}
 function ctaText(p,n){
  if(p.h===600)return n===0?'Explore Litigation<br>Analytics':n===1?'Explore Houston<br>Insights':n===2?'See Houston<br>Analytics':'Request a<br>Walkthrough';
- if(p.w===970||p.w===728||p.w===500)return n===0?'Explore Litigation<br>Analytics':n===1?'Explore Houston<br>Insights':n===2?'See Houston<br>Analytics':'Request a<br>Walkthrough';
+ if(p.w===728||p.w===500)return n===0?'Explore Litigation<br>Analytics':n===1?'Explore Houston<br>Insights':n===2?'See Houston<br>Analytics':'Request a<br>Walkthrough';
  return ADS[n].cta;
 }
+function button(p,n){return p.cta?`<div class="asset cta" style="${rectStyle(p.cta)};font-size:${p.ctaFont}px"><span class="cta-label">${ctaText(p,n)}</span></div>`:''}
 function build(){
  document.querySelector('#sizes').innerHTML=SIZES.map(s=>`<a href="#s${s}">${s.replace('x',' × ')}</a>`).join('');
  document.querySelector('#preview').innerHTML=SIZES.map(size=>`<section class="size-group" id="s${size}"><h2>${size.replace('x',' × ')}</h2><div class="ads">${ADS.map((ad,n)=>{
-  const p=layout(size,n);return `<figure class="card" data-version="${n+1}"><figcaption>AD 0${n+1} / ${ad.name}</figcaption><div class="viewport"><div class="ad" data-version="${n+1}" data-size="${size}" style="width:${p.w}px;height:${p.h}px;--shake:${p.shake}px" role="img" aria-label="${ad.headline} ${ad.message} ${ad.cta}">${copy('f1',p.f1,p.opening)}${image('ln','ln-first',p.lnFirst,'LexisNexis®')}${image('triangle','triangle',p.triangle)}${copy('f2',p.f2,p.message)}${image('lex','lex',p.lex,'Lex Machina®')}${image('ln','ln-last',p.ln,'LexisNexis®')}<div class="asset cta" style="${rectStyle(p.cta)};font-size:${p.ctaFont}px"><span class="cta-label">${ctaText(p,n)}</span></div></div></div></figure>`;
+  const p=layout(size,n);return `<figure class="card" data-version="${n+1}"><figcaption>AD 0${n+1} / ${ad.name}</figcaption><div class="viewport"><div class="ad" data-version="${n+1}" data-size="${size}" style="width:${p.w}px;height:${p.h}px;--shake:${p.shake}px" role="img" aria-label="${ad.headline} ${ad.message}${p.cta?' '+ad.cta:''}">${copy('f1',p.f1,p.opening)}${image('ln','ln-first',p.lnFirst,'LexisNexis®')}${image('triangle','triangle',p.triangle)}${copy('f2',p.f2,p.message)}${image('lex','lex',p.lex,'Lex Machina®')}${image('ln','ln-last',p.ln,'LexisNexis®')}${button(p,n)}</div></div></figure>`;
  }).join('')}</div></section>`).join('');
 }
 function resize(){const main=document.querySelector('main'),cs=getComputedStyle(main),available=main.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);document.querySelectorAll('.viewport').forEach(v=>{const a=v.firstElementChild,w=parseFloat(a.style.width),h=parseFloat(a.style.height),s=Math.min(1,available/w,w===1200?.5:1);a.style.transform=`scale(${s})`;v.style.width=w*s+'px';v.style.height=h*s+'px'})}
