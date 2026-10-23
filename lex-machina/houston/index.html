@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="preview-revision" content="2026-10-23-houston-readability-06">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="preview-revision" content="2026-10-23-houston-client-review-07">
 <title>Lex Machina / Houston — Client Review</title>
 <style>
 :root{color-scheme:dark;--red:#e8171f}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#17191d;color:#f6f7f8;font:400 14px Lato,Arial,Helvetica,sans-serif}main{max-width:1540px;margin:auto;padding:28px 28px 70px}header{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:22px}h1{font-size:25px;line-height:1.1;letter-spacing:-.35px;margin:0}.sub{color:#aeb4be;font-size:13px}.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}button,select{font:700 13px Lato,Arial,sans-serif;color:#f4f4f5;background:#25282f;border:1px solid #525660;border-radius:5px;padding:9px 13px;cursor:pointer}button:hover{background:#343840}button:focus-visible,select:focus-visible{outline:2px solid var(--red);outline-offset:3px}nav{display:flex;gap:9px 16px;flex-wrap:wrap;margin-bottom:24px}nav a{color:#b8bdc7;text-decoration:none;font-size:12px}.size-group{margin-top:34px;padding-top:20px;border-top:1px solid #393d45;scroll-margin-top:16px}h2{font-size:18px;font-weight:700;margin:0 0 18px}.ads{display:flex;flex-wrap:wrap;align-items:flex-start;gap:26px}.card{margin:0;max-width:100%}figcaption{font-size:12px;color:#d0d3d9;margin-bottom:9px}.viewport{overflow:hidden;background:#000;outline:1px solid #3b3e45}.hidden{display:none!important}#status{color:#b8bdc7;font-size:13px;padding:16px 0}
@@ -18,6 +18,7 @@ body[data-frame] .asset{animation:none!important;opacity:0!important}
 body[data-frame='opening'] .f1,body[data-frame='opening'] .ln-first{opacity:1!important}
 body[data-frame='message'] .triangle,body[data-frame='message'] .f2{opacity:1!important}
 body[data-frame='final'] .triangle,body[data-frame='final'] .f2,body[data-frame='final'] .lex,body[data-frame='final'] .ln-last,body[data-frame='final'] .cta{opacity:1!important}
+.ln-persistent,body[data-frame] .ln-persistent{z-index:24;animation:none!important;opacity:1!important}
 body:not(.ready) #preview{visibility:hidden}@media(max-width:760px){main{padding:22px 14px 50px}h1{font-size:22px}}
 </style>
 </head>
@@ -94,7 +95,7 @@ function layout(size,n){
   p.f1=BOX(20,105,260,310,[34,30,32,33][n],1.1);
   // Follow the approved Miami tall layout: readable stacks, then evenly spaced brand and CTA.
   p.message=[TALL[0],TALL[1],SQUARE[2],['Better litigation','intelligence.','<em>Less</em>','<em>guesswork</em>','with']][n];
-  p.f2=BOX(24,66,252,170,[28,36,30,28][n],1.13);
+  p.f2=BOX(24,n===2?74:66,252,170,[28,36,30,26][n],1.13);
   p.triangle=[0,58,300,257.1];p.lex=[28,300,244,33.007];
   p.lnFirst=[73,535,154,34.38];p.ln=[58,499,184,41.08];p.cta=[51,393,198,46];p.ctaFont=15;
  }else if(size==='1200x1200'){
@@ -119,7 +120,7 @@ function layout(size,n){
   if(n===0||n===3)p.opening=[SHORT_OPEN[n].join(' ')];
   if(n===3)p.message=['Better litigation intelligence.','<em>Less guesswork</em> with'];
   p.f1=BOX(22,9,490,72,[28,25,25,28][n],1.08);
-  p.f2=BOX(18,9,292,72,[25,27,25,20.5][n],1.13);
+  p.f2=BOX(18,9,292,72,[25,27,24,20.5][n],1.13);
   p.triangle=[46,-14,236,202.25];
   // One centered row: Lex Machina, CTA, LexisNexis; preserve the message and triangle.
   p.lex=[328,34.313,158,21.374];p.cta=[496,29,128,32];p.ln=[634,36.962,72,16.076];
@@ -146,6 +147,7 @@ function layout(size,n){
 let ASSETS={};const body=document.body;let paused=false;
 function rectStyle(a){return `left:${a[0]}px;top:${a[1]}px;width:${a[2]}px;height:${a[3]}px`}
 function image(kind,cls,rect,alt=''){return rect?`<img class="asset asset-img ${cls}" data-asset="${kind}" src="${ASSETS[kind]}" alt="${alt}" style="${rectStyle(rect)}">`:''}
+function brand(p){return p.h===600?image('ln','ln-persistent',p.ln,'LexisNexis®'):image('ln','ln-first',p.lnFirst,'LexisNexis®')+image('ln','ln-last',p.ln,'LexisNexis®')}
 function copy(cls,spec,lines){return `<div class="asset copy ${cls}" style="${rectStyle(spec.rect)};font-size:${spec.font}px;line-height:${spec.leading}">${lines.map(t=>`<span class="copy-line">${t}</span>`).join('')}</div>`}
 function ctaText(p,n){
  if(p.h===600)return n===0?'Explore Litigation<br>Analytics':n===1?'Explore Houston<br>Insights':n===2?'See Houston<br>Analytics':'Request a<br>Walkthrough';
@@ -156,7 +158,7 @@ function button(p,n){return p.cta?`<div class="asset cta" style="${rectStyle(p.c
 function build(){
  document.querySelector('#sizes').innerHTML=SIZES.map(s=>`<a href="#s${s}">${s.replace('x',' × ')}</a>`).join('');
  document.querySelector('#preview').innerHTML=SIZES.map(size=>`<section class="size-group" id="s${size}"><h2>${size.replace('x',' × ')}</h2><div class="ads">${ADS.map((ad,n)=>{
-  const p=layout(size,n);return `<figure class="card" data-version="${n+1}"><figcaption>AD 0${n+1} / ${ad.name}</figcaption><div class="viewport"><div class="ad" data-version="${n+1}" data-size="${size}" style="width:${p.w}px;height:${p.h}px;--shake:${p.shake}px" role="img" aria-label="${ad.headline} ${ad.message}${p.cta?' '+ad.cta:''}">${copy('f1',p.f1,p.opening)}${image('ln','ln-first',p.lnFirst,'LexisNexis®')}${image('triangle','triangle',p.triangle)}${copy('f2',p.f2,p.message)}${image('lex','lex',p.lex,'Lex Machina®')}${image('ln','ln-last',p.ln,'LexisNexis®')}${button(p,n)}</div></div></figure>`;
+  const p=layout(size,n);return `<figure class="card" data-version="${n+1}"><figcaption>AD 0${n+1} / ${ad.name}</figcaption><div class="viewport"><div class="ad" data-version="${n+1}" data-size="${size}" style="width:${p.w}px;height:${p.h}px;--shake:${p.shake}px" role="img" aria-label="${ad.headline} ${ad.message}${p.cta?' '+ad.cta:''}">${copy('f1',p.f1,p.opening)}${brand(p)}${image('triangle','triangle',p.triangle)}${copy('f2',p.f2,p.message)}${image('lex','lex',p.lex,'Lex Machina®')}${button(p,n)}</div></div></figure>`;
  }).join('')}</div></section>`).join('');
 }
 function resize(){const main=document.querySelector('main'),cs=getComputedStyle(main),available=main.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);document.querySelectorAll('.viewport').forEach(v=>{const a=v.firstElementChild,w=parseFloat(a.style.width),h=parseFloat(a.style.height),s=Math.min(1,available/w,w===1200?.5:1);a.style.transform=`scale(${s})`;v.style.width=w*s+'px';v.style.height=h*s+'px'})}
