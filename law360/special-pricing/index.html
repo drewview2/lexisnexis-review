@@ -545,6 +545,16 @@
   const base=node?require('./campaign-compositor.js'):scope.LawCampaign;
   const INK='#08090b',RED='#ef233c',WHITE='#fafafa';
   const sizes=[[300,250],[160,600],[728,90],[300,600],[970,250],[320,50],[300,50],[1200,1200],[250,250],[500,100]];
+  const isMobileBanner=(w,h)=>w===320&&h===50;
+  const durationForSize=(w,h)=>isMobileBanner(w,h)?10:8;
+  function phases(time,w,h){
+    if(!isMobileBanner(w,h)){const p=base.phases(time);return {...p,button:p.offer};}
+    const t=((time%10)+10)%10;
+    const ease=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
+    return {t,opening:1-ease((t-2.6)/.35)+ease((t-9.55)/.45),
+      offer:ease((t-2.95)/.35)*(1-ease((t-5.8)/.35)),
+      button:ease((t-6.2)/.35)*(1-ease((t-9.1)/.4))};
+  }
   function type(ctx,size,weight=700){ctx.font=`${weight} ${size}px ${weight===400?'LawLatoRegular':'LawLato'}, Arial, sans-serif`;ctx.textAlign='left';ctx.textBaseline='top';}
   function text(ctx,s,x,y,size,color,weight=700){
     type(ctx,size,weight);ctx.fillStyle=color;
@@ -596,7 +606,14 @@
     function specification(msg,w,h,offer){
       const i=base.messages.indexOf(msg),intro=msg.intro,copy=offer?msg.offer:intro,note=offer?msg.note:msg.introNote||[];
       let result;
-      if(h===50){
+      if(isMobileBanner(w,h)){
+        // Copy occupies the full right-hand column; the CTA gets its own frame.
+        // All message copy, including the deadline, uses no more than two rows.
+        const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special Law360® pricing.'],['Last chance for special','Law360® pricing.']];
+        const offers=[['Special Law360® pricing'],['Explore special Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed with critical reporting.']];
+        const notes=offer?[['for a limited time. Offer ends December 14.'],['through December 14.'],[],['Special pricing expires December 14.']][i]:(i===2?['Ends December 14.']:[]);
+        result={logo:[8,18,56],art:[81,25,i===0?9:11],artBounds:[68,0,32,50],button:[112,10,200,30,12.5,14,false],block:{lines:offer?offers[i]:openings[i],x:108,y:9,size:offer?(i===3?12:14):(i===2?12.5:14),leading:16,note:notes,noteY:29,noteSize:10.5}};
+      }else if(h===50){
         const x=104;
         const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special','Law360® pricing.'],['Last chance for special','Law360® pricing.']];
         const offers=[['Special Law360®','pricing for a','limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed','with critical reporting.']];
@@ -646,18 +663,18 @@
       if(Math.abs(ratio-1)<.001){w=layoutWidth>=600?600:300;h=w;}
       else if(Math.abs(ratio-160/600)<.001){w=160;h=600;}
       else{const size=sizes.find(([x,y])=>Math.abs(x/y-ratio)<.001);if(size)[w,h]=size;}
-      const p=base.phases(time),a=specification(msg,w,h,false),b=specification(msg,w,h,true),bg=msg.id==='core'?RED:msg.id==='last-chance'?WHITE:INK;
+      const p=phases(time,w,h),a=specification(msg,w,h,false),b=specification(msg,w,h,true),bg=msg.id==='core'?RED:msg.id==='last-chance'?WHITE:INK;
       ctx.save();ctx.setTransform(width/w,0,0,height/h,0,0);ctx.clearRect(0,0,w,h);ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
       // Art stays within its own zone in narrow banners; the full approved drawing is preserved.
       ctx.save();if(a.artBounds){ctx.beginPath();ctx.rect(...a.artBounds);ctx.clip();}
       illustration(ctx,msg,...a.art,motionTime,{fade:msg.id==='practice'&&h>100&&w!==160&&!a.artBounds,h});ctx.restore();
-      block(ctx,msg,a.block,false,p.opening);block(ctx,msg,b.block,true,p.offer);button(ctx,msg,b.button,p.offer);
+      block(ctx,msg,a.block,false,p.opening);block(ctx,msg,b.block,true,p.offer);button(ctx,msg,b.button,p.button);
       ctx.fillStyle=bg;ctx.fillRect(a.logo[0]-2,a.logo[1]-2,a.logo[2]+4,a.logo[2]*148/584+4);brand(ctx,msg,...a.logo);
-      ctx.restore();return {message:msg.name,width:w,height:h,frame:p.offer>.5?'Offer':'Opening'};
+      ctx.restore();return {message:msg.name,width:w,height:h,frame:isMobileBanner(w,h)&&p.button>.5?'Button':p.offer>.5?'Offer':'Opening'};
     }
     return {render,specification};
   }
-  const api={create,messages:base.messages,phases:base.phases,sizes,duration:8};
+  const api={create,messages:base.messages,phases,sizes,duration:8,durationForSize};
   if(node)module.exports=api;else scope.LawCampaignSizes=api;
 })(typeof window!=='undefined'?window:globalThis);
 
@@ -672,11 +689,12 @@ const renderer=LawCampaignSizes.create({createCanvas:makeCanvas,logo,radar:LawPr
 
 const q=new URLSearchParams(location.search),api=LawCampaignSizes;
 const sizeFilter=document.getElementById('size-filter'),adFilter=document.getElementById('ad-filter'),frameFilter=document.getElementById('frame-filter'),grid=document.getElementById('ads'),play=document.getElementById('play');
+const buttonFrame=new Option('Button frame','button');frameFilter.add(buttonFrame);
 api.messages.forEach((m,i)=>{const o=new Option(m.name,String(i));adFilter.add(o);});
 api.sizes.forEach(([w,h])=>sizeFilter.add(new Option(`${w} × ${h}`,`${w}x${h}`)));
 sizeFilter.value=api.sizes.some(([w,h])=>`${w}x${h}`===q.get('size'))?q.get('size'):q.get('size')==='all'?'all':'970x250';
 adFilter.value=['0','1','2','3'].includes(q.get('ad'))?q.get('ad'):'all';
-frameFilter.value=['opening','offer'].includes(q.get('frame'))?q.get('frame'):'animate';
+frameFilter.value=['opening','offer','button'].includes(q.get('frame'))?q.get('frame'):'animate';
 let time=0,playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,entries=[],last=performance.now();
 const observer=new IntersectionObserver(items=>items.forEach(e=>{const entry=entries.find(x=>x.figure===e.target);if(entry){entry.visible=e.isIntersecting;if(entry.visible)drawOne(entry);}}),{rootMargin:'120px'});
 for(let i=0;i<4;i++)for(const [w,h] of api.sizes){
@@ -687,9 +705,9 @@ for(let i=0;i<4;i++)for(const [w,h] of api.sizes){
  c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);c.style.width=w+'px';c.setAttribute('role','img');c.setAttribute('aria-label',`${api.messages[i].name}, ${w} by ${h}, animated special pricing advertisement`);
  figure.append(caption,c);grid.append(figure);const e={figure,c,i,w,h,visible:true};entries.push(e);observer.observe(figure);
 }
-function drawOne(e){if(e.figure.hidden)return;const t=frameFilter.value==='offer'?4.5:frameFilter.value==='opening'?1.5:time;renderer.render(e.c.getContext('2d'),e.c.width,e.c.height,t,e.i,time,{width:e.w,height:e.h});}
+function drawOne(e){if(e.figure.hidden)return;const t=frameFilter.value==='offer'?4.5:frameFilter.value==='opening'?1.5:frameFilter.value==='button'?7.5:time;renderer.render(e.c.getContext('2d'),e.c.width,e.c.height,t,e.i,time,{width:e.w,height:e.h});}
 function draw(){entries.forEach(e=>{if(e.visible)drawOne(e);});}
-function update(){let count=0;entries.forEach(e=>{e.figure.hidden=!((adFilter.value==='all'||Number(adFilter.value)===e.i)&&(sizeFilter.value==='all'||sizeFilter.value===`${e.w}x${e.h}`));if(!e.figure.hidden)count++;});grid.classList.toggle('wide',['728x90','970x250','500x100','1200x1200'].includes(sizeFilter.value));document.getElementById('status').textContent=count+' of 40 versions';entries.forEach(drawOne);play.textContent=playing?'Pause':'Play';}
+function update(){buttonFrame.disabled=sizeFilter.value!=='320x50';buttonFrame.hidden=buttonFrame.disabled;if(buttonFrame.disabled&&frameFilter.value==='button')frameFilter.value='animate';let count=0;entries.forEach(e=>{e.figure.hidden=!((adFilter.value==='all'||Number(adFilter.value)===e.i)&&(sizeFilter.value==='all'||sizeFilter.value===`${e.w}x${e.h}`));if(!e.figure.hidden)count++;});grid.classList.toggle('wide',['728x90','970x250','500x100','1200x1200'].includes(sizeFilter.value));document.getElementById('status').textContent=count+' of 40 versions';entries.forEach(drawOne);play.textContent=playing?'Pause':'Play';}
 for(const el of [sizeFilter,adFilter,frameFilter])el.addEventListener('change',update);
 play.addEventListener('click',()=>{playing=!playing;play.textContent=playing?'Pause':'Play';draw();});
 document.getElementById('restart').addEventListener('click',()=>{time=0;last=performance.now();draw();});
