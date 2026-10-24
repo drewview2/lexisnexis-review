@@ -597,11 +597,11 @@
       const i=base.messages.indexOf(msg),intro=msg.intro,copy=offer?msg.offer:intro,note=offer?msg.note:msg.introNote||[];
       let result;
       if(h===50){
-        const x=87,sw=w-96;
+        const x=104;
         const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special','Law360® pricing.'],['Last chance for special','Law360® pricing.']];
         const offers=[['Special Law360®','pricing for a','limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed','with critical reporting.']];
         const notes=offer?[['Offer ends December 14.'],['through December 14.'],[],['Special pricing expires','December 14.']][i]:(i===2?['Ends December 14.']:[]);
-        result={logo:[8,6,70],art:[42,36,10],button:[w-96,12,90,27,10,6,false],block:{lines:offer?offers[i]:openings[i],x,y:offer?3:notes.length?4:10,size:offer?(i===3?10.4:10.7):12.5,leading:offer?11.4:14,note:notes,noteY:offer?(i===0?38:i===3?28:30):35,noteSize:offer?8.2:9.3}};
+        result={logo:[7,18,56],art:[80,25,i===0?9:11],artBounds:[67,0,32,50],button:[w-88,12,82,27,9.2,6,false],block:{lines:offer?offers[i]:openings[i],x,y:offer?3:notes.length?4:10,size:offer?(i===3?10:10.3):11.8,leading:offer?11.4:13.4,note:notes,noteY:offer?(i===0?38:i===3?28:30):35,noteSize:offer?8.2:9.3}};
       }else if(w===160){
         const openings=[['Critical legal','news.','In-depth','analysis.'],['Know what’s','shaping the','legal market.'],['Act now for','special','Law360®','pricing.'],['Last chance','for special','Law360®','pricing.']];
         const offers=[['Special','Law360®','pricing for a','limited time.'],['Explore','special','Law360®','pricing'],['Follow the','trends.','Inform your','practice.'],['Stay informed','with critical','reporting.']];
@@ -611,17 +611,17 @@
       }else if(w===728){
         const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special','Law360® pricing.'],['Last chance for special','Law360® pricing.']];
         const offers=[['Special Law360® pricing','for a limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed with','critical reporting.']];
-        result={logo:[16,15,104],art:[165,47,30],button:[568,25,144,40,12,12,false],block:{lines:offer?offers[i]:openings[i],x:220,y:15,size:21,leading:24,note,noteY:65,noteSize:11}};
+        result={logo:[16,32,104],art:[165,44,i===0?26:30],artBounds:[130,0,78,90],button:[568,25,144,40,12,12,false],block:{lines:offer?offers[i]:openings[i],x:220,y:note.length?15:21,size:21,leading:24,note,noteY:65,noteSize:11}};
         if(i===3&&offer)result.block.note=['Special pricing expires December 14.'];
       }else if(w===500){
-        const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special','Law360® pricing.'],['Last chance for','special Law360®','pricing.']];
-        const offers=[['Special Law360®','pricing for a','limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed with','critical reporting.']];
-        result={logo:[14,12,96],art:[58,66,i===0?20:26],button:[351,34,135,36,11,10,false],block:{lines:offer?offers[i]:openings[i],x:130,y:17,size:18,leading:20,note,noteY:79,noteSize:10.5}};
-        if(i===3&&offer){result.block.note=['Special pricing expires','December 14.'];result.block.noteY=62;}
+        const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special','Law360® pricing.'],['Last chance for special','Law360® pricing.']];
+        const offers=[['Special Law360® pricing','for a limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed with','critical reporting.']];
+        result={logo:[12,40,80],art:[127,48,i===0?19:22],artBounds:[98,0,65,100],button:[374,34,112,32,10.5,8,false],block:{lines:offer?offers[i]:openings[i],x:174,y:note.length?19:31,size:i===0&&offer?15:16,leading:19,note,noteY:64,noteSize:9.5}};
+        if(i===3&&offer)result.block.note=['Special pricing expires','December 14.'];
       }else if(w===970){
         const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special','Law360® pricing.'],['Last chance for special','Law360® pricing.']];
         const offers=[['Special Law360® pricing','for a limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed with','critical reporting.']];
-        result={logo:[28,24,148],art:[804,94,i===0?60:70],button:[709,193,233,40,16,18,true],block:{lines:offer?offers[i]:openings[i],x:28,y:86,size:39,leading:43,note,noteY:187,noteSize:17}};
+        result={logo:[24,106,148],art:[271,119,i===0?51:62],artBounds:[190,0,170,250],button:[780,102,166,46,15,16,false],block:{lines:offer?offers[i]:openings[i],x:385,y:note.length?77:94,size:31,leading:36,note,noteY:158,noteSize:16}};
         if(i===3&&offer)result.block.note=['Special pricing expires December 14.'];
       }else if(w===600){
         const openings=[['Critical','legal','news.'],intro,intro,['Last chance','for special','Law360®','pricing.']];
@@ -647,8 +647,8 @@
       const p=base.phases(time),a=specification(msg,w,h,false),b=specification(msg,w,h,true),bg=msg.id==='core'?RED:msg.id==='last-chance'?WHITE:INK;
       ctx.save();ctx.setTransform(width/w,0,0,height/h,0,0);ctx.clearRect(0,0,w,h);ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
       // Art stays within its own zone in narrow banners; the full approved drawing is preserved.
-      ctx.save();if(h<=100){ctx.beginPath();ctx.rect(0,0,h===50?80:208,h);ctx.clip();}
-      illustration(ctx,msg,...a.art,motionTime,{fade:msg.id==='practice'&&h>100&&w!==160,h});ctx.restore();
+      ctx.save();if(a.artBounds){ctx.beginPath();ctx.rect(...a.artBounds);ctx.clip();}
+      illustration(ctx,msg,...a.art,motionTime,{fade:msg.id==='practice'&&h>100&&w!==160&&!a.artBounds,h});ctx.restore();
       block(ctx,msg,a.block,false,p.opening);block(ctx,msg,b.block,true,p.offer);button(ctx,msg,b.button,p.offer);
       ctx.fillStyle=bg;ctx.fillRect(a.logo[0]-2,a.logo[1]-2,a.logo[2]+4,a.logo[2]*148/584+4);brand(ctx,msg,...a.logo);
       ctx.restore();return {message:msg.name,width:w,height:h,frame:p.offer>.5?'Offer':'Opening'};
