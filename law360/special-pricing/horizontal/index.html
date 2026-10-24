@@ -545,7 +545,7 @@
   const base=node?require('./campaign-compositor.js'):scope.LawCampaign;
   const INK='#08090b',RED='#ef233c',WHITE='#fafafa';
   const sizes=[[300,250],[160,600],[728,90],[300,600],[970,250],[320,50],[300,50],[1200,1200],[250,250],[500,100]];
-  const isMobileBanner=(w,h)=>w===320&&h===50;
+  const isMobileBanner=(w,h)=>(w===300||w===320)&&h===50;
   const durationForSize=(w,h)=>isMobileBanner(w,h)?10:8;
   function phases(time,w,h){
     if(!isMobileBanner(w,h)){const p=base.phases(time);return {...p,button:p.offer};}
@@ -556,8 +556,13 @@
       button:ease((t-6.2)/.35)*(1-ease((t-9.1)/.4))};
   }
   function type(ctx,size,weight=700){ctx.font=`${weight} ${size}px ${weight===400?'LawLatoRegular':'LawLato'}, Arial, sans-serif`;ctx.textAlign='left';ctx.textBaseline='top';}
-  function text(ctx,s,x,y,size,color,weight=700){
+  function text(ctx,s,x,y,size,color,weight=700,centerWidth){
     type(ctx,size,weight);ctx.fillStyle=color;
+    if(centerWidth!==undefined){
+      let width=ctx.measureText(s).width;
+      if(s.includes('®')){const [a,b]=s.split('®');width=ctx.measureText(a+b).width;type(ctx,size*.45,weight);width+=ctx.measureText('®').width+2;type(ctx,size,weight);}
+      x+=(centerWidth-width)/2;
+    }
     if(!s.includes('®')){ctx.fillText(s,x,y);return;}
     const [a,b]=s.split('®');ctx.fillText(a,x,y);const px=x+ctx.measureText(a).width;
     type(ctx,size*.45,weight);ctx.fillText('®',px+1,y+1);const rw=ctx.measureText('®').width+2;
@@ -598,27 +603,20 @@
       if(alpha<=0)return;ctx.save();ctx.globalAlpha=alpha;
       const color=msg.id==='core'||msg.id==='last-chance'?INK:WHITE;
       const {lines,x,y,size,leading,note=[],noteY,noteSize=12,sub=[],subY,subSize=18}=b;
-      lines.forEach((s,i)=>text(ctx,s,x,y+i*leading,size,color));
-      sub.forEach((s,i)=>text(ctx,s,x,subY+i*subSize*1.2,subSize,color,400));
+      const centerWidth=b.align==='center'?b.width:undefined;
+      lines.forEach((s,i)=>text(ctx,s,x,y+i*leading,size,color,700,centerWidth));
+      sub.forEach((s,i)=>text(ctx,s,x,subY+i*subSize*1.2,subSize,color,400,centerWidth));
       const nc=msg.id==='practice'?RED:msg.id==='core'?WHITE:color;
-      note.forEach((s,i)=>text(ctx,s,x,noteY+i*noteSize*1.2,noteSize,nc,400));ctx.restore();
+      note.forEach((s,i)=>text(ctx,s,x,noteY+i*noteSize*1.2,noteSize,nc,400,centerWidth));ctx.restore();
     }
     function specification(msg,w,h,offer){
-      const i=base.messages.indexOf(msg),intro=msg.intro,copy=offer?msg.offer:intro,note=offer?msg.note:msg.introNote||[];
+      const i=base.messages.indexOf(msg),intro=msg.intro,copy=offer?msg.offer:intro,note=h<=100?[]:offer?msg.note:msg.introNote||[];
       let result;
       if(isMobileBanner(w,h)){
-        // Copy occupies the full right-hand column; the CTA gets its own frame.
-        // All message copy, including the deadline, uses no more than two rows.
-        const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special Law360® pricing.'],['Last chance for special','Law360® pricing.']];
-        const offers=[['Special Law360® pricing'],['Explore special Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed with critical reporting.']];
-        const notes=offer?[['for a limited time. Offer ends December 14.'],['through December 14.'],[],['Special pricing expires December 14.']][i]:(i===2?['Ends December 14.']:[]);
-        result={logo:[8,18,56],art:[83,24,i===0?12:15],artBounds:[66,0,38,50],button:[124,11,176,28,12.5,14,false],block:{lines:offer?offers[i]:openings[i],x:108,y:9,size:offer?(i===3?12:14):(i===2?12.5:14),leading:16,note:notes,noteY:29,noteSize:10.5}};
-      }else if(h===50){
-        const x=104;
         const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special','Law360® pricing.'],['Last chance for special','Law360® pricing.']];
-        const offers=[['Special Law360®','pricing for a','limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed','with critical reporting.']];
-        const notes=offer?[['Offer ends December 14.'],['through December 14.'],[],['Special pricing expires','December 14.']][i]:(i===2?['Ends December 14.']:[]);
-        result={logo:[7,18,56],art:[80,25,i===0?9:11],artBounds:[67,0,32,50],button:[w-88,12,82,27,9.2,6,false],block:{lines:offer?offers[i]:openings[i],x,y:offer?3:notes.length?4:10,size:offer?(i===3?10:10.3):11.8,leading:offer?11.4:13.4,note:notes,noteY:offer?(i===0?38:i===3?28:30):35,noteSize:offer?8.2:9.3}};
+        const offers=[['Special Law360® pricing','for a limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed with','critical reporting.']];
+        const x=w===320?136:130,area=w-8-x,size=w===320?16:15;
+        result={logo:[8,25-66*148/584/2,66],art:[i===0?96:100,i===0?20:25,i===0?18:21],artBounds:[76,0,54,50],button:[x+(area-136)/2,11,136,28,12.5,12,false],block:{lines:offer?offers[i]:openings[i],x,y:(50-(size+18))/2,size,leading:18,note:[],align:'center',width:area}};
       }else if(w===160){
         const openings=[['Critical legal','news.','In-depth','analysis.'],['Know what’s','shaping the','legal market.'],['Act now for','special','Law360®','pricing.'],['Last chance','for special','Law360®','pricing.']];
         const offers=[['Special','Law360®','pricing for a','limited time.'],['Explore','special','Law360®','pricing'],['Follow the','trends.','Inform your','practice.'],['Stay informed','with critical','reporting.']];
@@ -628,18 +626,18 @@
       }else if(w===728){
         const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special','Law360® pricing.'],['Last chance for special','Law360® pricing.']];
         const offers=[['Special Law360® pricing','for a limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed with','critical reporting.']];
-        result={logo:[16,32,104],art:[165,44,i===0?26:30],artBounds:[130,0,78,90],button:[568,25,144,40,12,12,false],block:{lines:offer?offers[i]:openings[i],x:220,y:note.length?15:21,size:21,leading:24,note,noteY:65,noteSize:11}};
-        if(i===3&&offer)result.block.note=['Special pricing expires December 14.'];
+        result={logo:[14,45-114*148/584/2,114],art:[i===0?171:176,i===0?36:45,i===0?32:38],artBounds:[138,0,84,90],button:[574,27,140,36,12.5,12,false],block:{lines:offer?offers[i]:openings[i],x:236,y:19,size:24,leading:28,note:[],align:'center',width:314}};
+        if(i===3&&offer&&h>100)result.block.note=['Special pricing expires December 14.'];
       }else if(w===500){
         const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special','Law360® pricing.'],['Last chance for special','Law360® pricing.']];
         const offers=[['Special Law360® pricing','for a limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed with','critical reporting.']];
-        result={logo:[12,40,80],art:[127,48,i===0?19:22],artBounds:[98,0,65,100],button:[374,34,112,32,10.5,8,false],block:{lines:offer?offers[i]:openings[i],x:174,y:note.length?19:31,size:i===0&&offer?15:16,leading:19,note,noteY:64,noteSize:9.5}};
-        if(i===3&&offer)result.block.note=['Special pricing expires','December 14.'];
+        result={logo:[12,50-88*148/584/2,88],art:[i===0?141:148,i===0?40:50,i===0?31:38],artBounds:[108,0,84,100],button:[390,35,98,30,10.5,8,false],block:{lines:offer?offers[i]:openings[i],x:202,y:32,size:i===0&&offer?15.5:17,leading:20,note:[],align:'center',width:176}};
+
       }else if(w===970){
         const openings=[['Critical legal news.','In-depth analysis.'],['Know what’s shaping','the legal market.'],['Act now for special','Law360® pricing.'],['Last chance for special','Law360® pricing.']];
         const offers=[['Special Law360® pricing','for a limited time.'],['Explore special','Law360® pricing'],['Follow the trends.','Inform your practice.'],['Stay informed with','critical reporting.']];
-        result={logo:[24,106,148],art:[271,119,i===0?51:62],artBounds:[190,0,170,250],button:[780,102,166,46,15,16,false],block:{lines:offer?offers[i]:openings[i],x:385,y:note.length?77:94,size:31,leading:36,note,noteY:158,noteSize:16}};
-        if(i===3&&offer)result.block.note=['Special pricing expires December 14.'];
+        result={logo:[24,125-148*148/584/2,148],art:[i===0?285:296,i===0?103:125,i===0?72:92],artBounds:[192,0,214,250],button:[796,104,150,42,15,12,false],block:{lines:offer?offers[i]:openings[i],x:420,y:note.length?76:90,size:32,leading:38,note,noteY:166,noteSize:16,align:'center',width:354}};
+        if(i===3&&offer&&h>100)result.block.note=['Special pricing expires December 14.'];
       }else if(w===600){
         const openings=[['Critical','legal','news.'],intro,intro,['Last chance','for special','Law360®','pricing.']];
         const offers=[['Special Law360®','pricing for a','limited time.'],msg.offer,msg.offer,msg.offer];
@@ -651,6 +649,13 @@
         result={logo:[24,22,120],art:[i===0?226:i===2?254:238,i===1?181:i===2?87:149,i===0?38:i===2?85:i===1?45:48],button:[0,244,300,56,14,24,true],block:{lines:offer?copy:openings[i],x:24,y:i===2?104:76,size:i===0&&!offer?34:25,leading:i===0&&!offer?35:29,note,noteY:i===1?185:i===2?206:205,noteSize:12}};
         if(i===0&&!offer){result.block.sub=['In-depth analysis.'];result.block.subY=201;result.block.subSize=18;}
         if(i===3){result.block.size=23;result.block.leading=27;result.block.noteY=204;result.block.noteSize=11.5;}
+      }
+      if(!offer&&[500,728,970].includes(w)){
+        result.block.width=w-result.block.x-(w===970?24:w===728?14:12);
+        result.block.size=w===970?36:w===728?26:19;
+        result.block.leading=w===970?42:w===728?30:22;
+        result.block.y=(h-result.block.size-result.block.leading)/2;
+        if(result.block.note.length){result.block.y-=18;result.block.noteY=result.block.y+result.block.leading+result.block.size+12;}
       }
       return result;
     }
@@ -707,7 +712,7 @@ for(let i=0;i<4;i++)for(const [w,h] of api.sizes){
 }
 function drawOne(e){if(e.figure.hidden)return;const t=frameFilter.value==='offer'?4.5:frameFilter.value==='opening'?1.5:frameFilter.value==='button'?7.5:time;renderer.render(e.c.getContext('2d'),e.c.width,e.c.height,t,e.i,time,{width:e.w,height:e.h});}
 function draw(){entries.forEach(e=>{if(e.visible)drawOne(e);});}
-function update(){buttonFrame.disabled=sizeFilter.value!=='320x50';buttonFrame.hidden=buttonFrame.disabled;if(buttonFrame.disabled&&frameFilter.value==='button')frameFilter.value='animate';let count=0;entries.forEach(e=>{e.figure.hidden=!((adFilter.value==='all'||Number(adFilter.value)===e.i)&&(sizeFilter.value==='all'||sizeFilter.value===`${e.w}x${e.h}`));if(!e.figure.hidden)count++;});grid.classList.toggle('wide',['728x90','970x250','500x100','1200x1200'].includes(sizeFilter.value));document.getElementById('status').textContent=count+' of 20 versions';entries.forEach(drawOne);play.textContent=playing?'Pause':'Play';}
+function update(){buttonFrame.disabled=!['300x50','320x50'].includes(sizeFilter.value);buttonFrame.hidden=buttonFrame.disabled;if(buttonFrame.disabled&&frameFilter.value==='button')frameFilter.value='animate';let count=0;entries.forEach(e=>{e.figure.hidden=!((adFilter.value==='all'||Number(adFilter.value)===e.i)&&(sizeFilter.value==='all'||sizeFilter.value===`${e.w}x${e.h}`));if(!e.figure.hidden)count++;});grid.classList.toggle('wide',['728x90','970x250','500x100','1200x1200'].includes(sizeFilter.value));document.getElementById('status').textContent=count+' of 20 versions';entries.forEach(drawOne);play.textContent=playing?'Pause':'Play';}
 for(const el of [sizeFilter,adFilter,frameFilter])el.addEventListener('change',update);
 play.addEventListener('click',()=>{playing=!playing;play.textContent=playing?'Pause':'Play';draw();});
 document.getElementById('restart').addEventListener('click',()=>{time=0;last=performance.now();draw();});
