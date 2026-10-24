@@ -672,7 +672,7 @@ const q=new URLSearchParams(location.search),api=LawCampaignSizes;
 const sizeFilter=document.getElementById('size-filter'),adFilter=document.getElementById('ad-filter'),frameFilter=document.getElementById('frame-filter'),grid=document.getElementById('ads'),play=document.getElementById('play');
 api.messages.forEach((m,i)=>{const o=new Option(m.name,String(i));adFilter.add(o);});
 api.sizes.forEach(([w,h])=>sizeFilter.add(new Option(`${w} × ${h}`,`${w}x${h}`)));
-sizeFilter.value=api.sizes.some(([w,h])=>`${w}x${h}`===q.get('size'))?q.get('size'):q.get('size')==='all'?'all':'300x250';
+sizeFilter.value=api.sizes.some(([w,h])=>`${w}x${h}`===q.get('size'))?q.get('size'):q.get('size')==='all'?'all':'970x250';
 adFilter.value=['0','1','2','3'].includes(q.get('ad'))?q.get('ad'):'all';
 frameFilter.value=['opening','offer'].includes(q.get('frame'))?q.get('frame'):'animate';
 let time=0,playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,entries=[],last=performance.now();
