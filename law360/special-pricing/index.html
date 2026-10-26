@@ -9,7 +9,7 @@
 <label>Ad<select id="ad-filter"><option value="all">All four ads</option></select></label>
 <label>Size<select id="size-filter"><option value="all">All sizes</option></select></label>
 <label>Frame<select id="frame-filter"><option value="animate">Animation</option><option value="opening">Opening frame</option><option value="offer">Offer frame</option></select></label>
-<label>Playback<select id="mode-filter"><option value="demandbase">Demandbase · 15-second limit</option><option value="standard">HTML5 · 30-second limit</option><option value="loop">Loop</option></select></label><button id="play" type="button">Pause</button><button id="restart" type="button">Restart</button><span id="status" class="status" aria-live="polite"></span></div>
+<label>Playback<select id="mode-filter"><option value="loop">Loop continuously</option><option value="demandbase">Demandbase · 15-second limit</option><option value="standard">HTML5 · 30-second limit</option></select></label><button id="play" type="button">Pause</button><button id="restart" type="button">Restart</button><span id="status" class="status" aria-live="polite"></span></div>
 <div id="ads" class="ads"></div>
 </main>
 <script>
@@ -694,7 +694,7 @@ function campaignTime(seconds,width,height,mode){
  return {time:seconds>=limit?hold:time,motion:Math.min(seconds,limit),stopped:seconds>=limit};
 }
 const q=new URLSearchParams(location.search),api=LawCampaignSizes;
-const modeFilter=document.getElementById('mode-filter');modeFilter.value=q.get('mode')==='loop'?'loop':q.get('mode')==='standard'?'standard':'demandbase';
+const modeFilter=document.getElementById('mode-filter');modeFilter.value=q.get('mode')==='demandbase'?'demandbase':q.get('mode')==='standard'?'standard':'loop';
 const sizeFilter=document.getElementById('size-filter'),adFilter=document.getElementById('ad-filter'),frameFilter=document.getElementById('frame-filter'),grid=document.getElementById('ads'),play=document.getElementById('play');
 const buttonFrame=new Option('Button frame','button');frameFilter.add(buttonFrame);
 api.messages.forEach((m,i)=>{const o=new Option(m.name,String(i));adFilter.add(o);});
