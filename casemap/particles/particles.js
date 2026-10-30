@@ -34,12 +34,12 @@ function draw(ctx,w,h,t,{artwork=false,intensity=1,particles=true}={}){
  ctx.clearRect(0,0,w,h);const bg=ctx.createRadialGradient(bx,by,0,bx,by,radius);
  bg.addColorStop(0,'#23060c');bg.addColorStop(.28,'#160409');bg.addColorStop(.62,'#080205');bg.addColorStop(1,'#010102');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);if(!particles||intensity<.001)return;
  ctx.save();ctx.translate(hero.x-hero.size/2,hero.y-hero.size/2);ctx.scale(hero.size/1000,hero.size/1000);
- const pts=geometry(t,w<350?340:520),sprite=glow(),release=artwork?0:ramp(t,3.05,3.9);ctx.globalCompositeOperation='lighter';
+ const pts=geometry(t,square?(w<350?340:520):180),pointScale=square?1:1.85,sprite=glow(),release=artwork?0:ramp(t,3.05,3.9);ctx.globalCompositeOperation='lighter';
  for(const p of pts){const a=p.a*intensity,focus=clamp((p.depth-.28)/.36),x=500+(p.x-500)*(1+.13*release),y=500+(p.y-500)*(1+.13*release);
-  const r=p.r*(3.6-1.2*focus+1.5*release);
+  const r=p.r*pointScale*(3.6-1.2*focus+1.5*release);
   ctx.globalAlpha=a*(.44-.16*focus+.22*p.sweep);ctx.drawImage(sprite,x-r,y-r,r*2,r*2);
   if(focus>.04){
-   const core=p.r*(.52+.28*focus);
+   const core=p.r*pointScale*(.52+.28*focus);
    ctx.globalAlpha=a*focus*(1-release);ctx.fillStyle=p.c<.28?'#ff3e5d':p.c<.53?'#ffa3b2':'#fff5ec';ctx.beginPath();ctx.arc(x,y,core,0,TAU);ctx.fill();
    if(focus>.7&&p.c>.5){ctx.globalAlpha=a*.85*(1-release);ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(x-core*.19,y-core*.23,core*.3,0,TAU);ctx.fill()}
   }
