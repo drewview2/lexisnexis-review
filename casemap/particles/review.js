@@ -30,7 +30,7 @@ function rebuild(){
 async function download(item,button){
  button.disabled=true;
  try{
-  const load=path=>fetch(path+'?v=motion-polish').then(r=>{if(!r.ok)throw Error();return r.text()});
+  const load=path=>fetch(path+'?v=clear-plus').then(r=>{if(!r.ok)throw Error();return r.text()});
   const engine=await load('particles.js'),artEngine=item.animation==='particles'?'':await load('art-engine.js');
   const d=item.art?null:CAMPAIGN.data[item.i+'-'+item.sz],w=d?d.w:1200,h=d?d.h:1200,assets=item.animation==='particles'?{}:item.animation==='glass'?{plus:CAMPAIGN.assets.plus}:{globe:CAMPAIGN.assets.globe};
   const run='var d='+JSON.stringify(d)+';var logo='+JSON.stringify(item.art?'':CAMPAIGN.logo)+';var assets='+JSON.stringify(assets)+';var scene=ParticleHalo.mount(document.getElementById("stage"),d,logo,{artwork:'+!!item.art+',animation:'+JSON.stringify(item.animation)+',assets:assets});var start=performance.now();function tick(now){var elapsed=(now-start)/1000;var loop='+!!item.art+';var t=loop?elapsed%10:Math.min(10,elapsed);scene.paint(t,loop);if(loop||t<10)requestAnimationFrame(tick)}requestAnimationFrame(tick);';
