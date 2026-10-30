@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
 const TAU=Math.PI*2,clamp=x=>Math.max(0,Math.min(1,x));
-const smooth=x=>{x=clamp(x);return x*x*(3-2*x)},ramp=(t,a,b)=>smooth((t-a)/(b-a));
+const smooth=x=>{x=clamp(x);return x*x*x*(x*(x*6-15)+10)},ramp=(t,a,b)=>smooth((t-a)/(b-a));
 const hash=i=>{const v=Math.sin(i*127.1+311.7)*43758.5453123;return v-Math.floor(v)};
 const seeds=Array.from({length:1560},(_,i)=>({a:i*2.3999632297,b:hash(i+21)*TAU,r:Math.sqrt(hash(i+829)),s:hash(i+129),c:hash(i+1531),p:hash(i+57)*TAU,group:hash(i+401),u:hash(i+733),v:hash(i+1091),z:hash(i+615)}));
 const geometryCache=new Map();
@@ -12,11 +12,12 @@ function geometry(time,count=1560){
   const s=seeds[i],a=s.a+phase,b=s.b+.38*Math.sin(phase+s.p),pulse=Math.sin(a*3-phase)*9+Math.cos(a*2+phase)*6;
   const tube=12+42*s.r,rad=294+pulse+tube*Math.cos(b),x=Math.cos(a)*rad,y=Math.sin(a)*rad,z=tube*Math.sin(b);
   const yy=y*Math.cos(tilt)-z*Math.sin(tilt),zz=y*Math.sin(tilt)+z*Math.cos(tilt),xx=x*Math.cos(lean)-yy*Math.sin(lean),yyy=x*Math.sin(lean)+yy*Math.cos(lean),persp=1+zz/1900;
-  const m=ramp(time,1.7,3.45)*(1-ramp(time,8.25,9.9));
+  const stagger=(s.s-.5)*.18,m=ramp(time,1.7+stagger,3.45+stagger)*(1-ramp(time,8.25+stagger,9.9+stagger));
   let tx,ty;if(s.group<.5865){tx=(s.u-.5)*182;ty=(s.v-.5)*650}else{tx=(s.u<.5?-1:1)*(91+((s.u*2)%1)*234);ty=(s.v-.5)*182}
-  const drift=3*Math.sin(phase*2+s.p),angle=.028*Math.sin(phase),px=tx*Math.cos(angle)-ty*Math.sin(angle),py=tx*Math.sin(angle)+ty*Math.cos(angle),pz=(s.z-.5)*55;
+  const drift=2.4*Math.sin(phase*2+s.p),angle=.025*Math.sin(phase),turn=.12*Math.sin(phase),rawZ=(s.z-.5)*55;
+  const turnedX=tx*Math.cos(turn)+rawZ*Math.sin(turn),px=turnedX*Math.cos(angle)-ty*Math.sin(angle),py=turnedX*Math.sin(angle)+ty*Math.cos(angle),pz=-tx*Math.sin(turn)+rawZ*Math.cos(turn);
   const nx=500+xx*persp*(1-m)+(px+drift)*m+Math.sin(m*Math.PI)*Math.sin(s.p)*48,ny=500+yyy*persp*(1-m)+(py+drift*.6)*m+Math.sin(m*Math.PI)*Math.cos(s.p)*48,nz=zz*(1-m)+pz*m;
-  const depth=clamp((nz+155)/310),sweep=Math.pow(.5+.5*Math.cos(a-phase*2-.7),9),alpha=(.25+.52*depth+.2*sweep)*(.82+.18*Math.sin(phase*2+s.p)),radius=(.65+Math.pow(s.s,3)*2.35)*(1+depth*.3);
+  const depth=clamp((nz+155)/310),sweep=(1-m)*Math.pow(.5+.5*Math.cos(a-phase*2-.7),9)+m*Math.exp(-Math.pow((px+py*.22-420*Math.sin(phase))/135,2)),alpha=(.25+.52*depth+.2*sweep)*(.82+.18*Math.sin(phase*2+s.p)),radius=(.65+Math.pow(s.s,3)*2.35)*(1+depth*.3);
   points.push({x:nx,y:ny,z:nz,r:radius,a:alpha,depth,sweep,c:s.c,i});
  }points.sort((a,b)=>a.z-b.z);geometryCache.set(key,points);return points;
 }
@@ -34,6 +35,7 @@ function draw(ctx,w,h,t,{artwork=false,intensity=1,particles=true}={}){
  for(let i=0;i<32;i++){const p=seeds[i+1500],a=p.a+TAU*t/10,r=355+hash(i+997)*100,x=500+Math.cos(a)*r,y=500+Math.sin(a)*r*.85;ctx.globalAlpha=(.08+.09*p.s)*intensity;ctx.fillStyle=p.c>.5?'#f6d9db':'#cd314b';ctx.beginPath();ctx.arc(x,y,1+3*p.s,0,TAU);ctx.fill()}
  ctx.restore();ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
 }
+const artFrames=new Map();
 let serial=0;
 function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
  const w=artwork?1200:d.w,h=artwork?1200:d.h,id='scene'+(++serial),square=w/h<2;
@@ -55,12 +57,12 @@ function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
   ctx.setTransform(ratio,0,0,ratio,0,0);draw(ctx,w,h,t,{artwork,intensity,particles:animation==='particles'});
   if(animation!=='particles'){
    const kind=animation==='glass'?'plus':'globe',artTime=animation==='glass'?2.7+4.9*(.5-.5*Math.cos(TAU*t/10)):t;
-   const a=CaseMapArt.artwork(kind,artTime,assets[kind],id);
+   const frameKey=kind+'-'+artTime;if(artFrames.size>5)artFrames.clear();if(!artFrames.has(frameKey))artFrames.set(frameKey,CaseMapArt.artwork(kind,artTime,assets[kind],'shared-art'));const frame=artFrames.get(frameKey),a={defs:frame.defs.replaceAll('shared-art',id),body:frame.body.replaceAll('shared-art',id)};
    const defs=animation==='glass'?a.defs.replace(/<image[\s\S]*?<\/image>/g,''):a.defs;
    art.innerHTML='<defs>'+defs+'</defs>'+a.body;
    art.style.opacity=artwork?1:animation==='glass'?.45+.55*reveal:.18+.82*reveal;
   }
-  if(!artwork){opening.style.opacity=op;closing.style.opacity=cl;cta.style.opacity=ct}
+  if(!artwork){const lift=Math.min(10,h*.014);opening.style.opacity=op;closing.style.opacity=cl;cta.style.opacity=ct;opening.setAttribute('transform','translate(0 '+(-lift*(1-op))+')');closing.setAttribute('transform','translate(0 '+(lift*(1-cl))+')')}
  },destroy(){observer.disconnect()}};
  return scene;
 }
