@@ -8,7 +8,7 @@ function paint(force=false){for(const s of scenes)if(force||s.visible)s.scene.pa
 function rebuild(){
  observer.disconnect();for(const s of scenes)s.scene.destroy();scenes=[];grid.innerHTML='';
  const ratio=+size.split('x')[0]/+size.split('x')[1];
- grid.className='grid'+(view==='artwork'?' artwork-set':size==='all'?' all':ratio>2?' wide':ratio<.8?' tall':+size.split('x')[0]<=300?' small':'');
+ grid.className='grid'+(view==='artwork'?(motion==='all'?' artwork-set':' artwork-set single'):size==='all'?' all':ratio>2?' wide':ratio<.8?' tall':+size.split('x')[0]<=300?' small':'');
  const chosen=motion==='all'?Object.keys(motions):[motion];
  for(const animation of chosen){
   const title=document.createElement('div');title.className='section-title';title.innerHTML='<h2>'+motions[animation]+'</h2><span>'+(view==='artwork'?'Independent animation':(size==='all'?'All seven sizes':size.replace('x',' × ')))+'</span>';grid.appendChild(title);
@@ -30,7 +30,7 @@ function rebuild(){
 async function download(item,button){
  button.disabled=true;
  try{
-  const load=path=>fetch(path+'?v=plus-suite').then(r=>{if(!r.ok)throw Error();return r.text()});
+  const load=path=>fetch(path+'?v=plus-suite-final').then(r=>{if(!r.ok)throw Error();return r.text()});
   const engine=await load('particles.js'),artEngine=item.animation==='particles'?'':await load('art-engine.js');
   const d=item.art?null:CAMPAIGN.data[item.i+'-'+item.sz],w=d?d.w:1200,h=d?d.h:1200,assets=item.animation==='particles'?{}:item.animation==='glass'?{plus:CAMPAIGN.assets.plus}:{globe:CAMPAIGN.assets.globe};
   const run='var d='+JSON.stringify(d)+';var logo='+JSON.stringify(item.art?'':CAMPAIGN.logo)+';var assets='+JSON.stringify(assets)+';var scene=ParticleHalo.mount(document.getElementById("stage"),d,logo,{artwork:'+!!item.art+',animation:'+JSON.stringify(item.animation)+',assets:assets});var start=performance.now();function tick(now){var t=Math.min(10,(now-start)/1000);scene.paint(t,false);if(t<10)requestAnimationFrame(tick)}requestAnimationFrame(tick);';

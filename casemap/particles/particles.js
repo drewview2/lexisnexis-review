@@ -38,7 +38,7 @@ let serial=0;
 function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
  const w=artwork?1200:d.w,h=artwork?1200:d.h,id='scene'+(++serial),square=w/h<2;
  host.style.aspectRatio=w+'/'+h;
- const normalSize=Math.min(w,h),hero={x:w*.5,y:artwork?h*.5:h*.49,size:animation==='glass'?normalSize*1.55:normalSize*1.13};
+ const normalSize=Math.min(w,h),hero={x:w*.5,y:artwork?h*.5:h*.49,size:animation==='glass'?normalSize*(artwork||w/h>.8?1.12:1.55):normalSize*(artwork||w/h<.8?1.13:.97)};
  if(!square&&!artwork){hero.x=w*.54;hero.y=h/2;hero.size=h*(animation==='glass'?2.8:1.1)}
  const fixed=animation==='glass'?'<defs><image id="'+id+'-texture" href="'+assets.plus+'" width="1000" height="1000"/></defs>':'';
  let copy=artwork?'':'<image href="'+logo+'" x="'+d.logo.x+'" y="'+d.logo.y+'" width="'+d.logo.w+'" height="'+d.logo.h+'"/><g data-role="brand">'+d.brand+'</g><g class="opening">'+d.opening+'</g><g class="closing">'+d.closing+'</g><g class="cta">'+d.cta+'</g>';
