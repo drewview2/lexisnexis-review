@@ -10,28 +10,39 @@ function geometry(time,count=520){
  const phase=TAU*time/10,tilt=.35+.12*Math.sin(phase),lean=-.18+.12*Math.sin(phase),points=[];
  for(let i=0;i<count;i++){
   const s=seeds[i],a=s.a+phase,b=s.b+.38*Math.sin(phase+s.p),pulse=Math.sin(a*3-phase)*9+Math.cos(a*2+phase)*6;
-  const tube=12+42*s.r,rad=294+pulse+tube*Math.cos(b),x=Math.cos(a)*rad,y=Math.sin(a)*rad,z=tube*Math.sin(b);
+  const tube=16+48*s.r,rad=290+pulse+tube*Math.cos(b),x=Math.cos(a)*rad,y=Math.sin(a)*rad,z=tube*Math.sin(b)*1.5;
   const yy=y*Math.cos(tilt)-z*Math.sin(tilt),zz=y*Math.sin(tilt)+z*Math.cos(tilt),xx=x*Math.cos(lean)-yy*Math.sin(lean),yyy=x*Math.sin(lean)+yy*Math.cos(lean),persp=1+zz/1900;
   const stagger=(s.s-.5)*.18,m=ramp(time,.55+stagger,1.95+stagger)*(1-ramp(time,7.4+stagger,9.7+stagger));
   let tx,ty;if(s.group<.5865){tx=(s.u-.5)*182;ty=(s.v-.5)*650}else{tx=(s.u<.5?-1:1)*(91+((s.u*2)%1)*234);ty=(s.v-.5)*182}
-  const drift=2.4*Math.sin(phase*2+s.p),angle=.025*Math.sin(phase),turn=.12*Math.sin(phase),rawZ=(s.z-.5)*55;
+  const drift=3.2*Math.sin(phase*2+s.p),angle=.022*Math.sin(phase),turn=.22*Math.sin(phase),rawZ=(s.z-.5)*190;
   const turnedX=tx*Math.cos(turn)+rawZ*Math.sin(turn),px=turnedX*Math.cos(angle)-ty*Math.sin(angle),py=turnedX*Math.sin(angle)+ty*Math.cos(angle),pz=-tx*Math.sin(turn)+rawZ*Math.cos(turn);
   const nx=500+xx*persp*(1-m)+(px+drift)*m+Math.sin(m*Math.PI)*Math.sin(s.p)*48,ny=500+yyy*persp*(1-m)+(py+drift*.6)*m+Math.sin(m*Math.PI)*Math.cos(s.p)*48,nz=zz*(1-m)+pz*m;
-  const depth=clamp((nz+155)/310),sweep=(1-m)*Math.pow(.5+.5*Math.cos(a-phase*2-.7),9)+m*Math.exp(-Math.pow((px+py*.22-420*Math.sin(phase))/135,2)),twinkle=.36+.64*Math.pow(.5+.5*Math.sin(phase*3+s.p),3),alpha=(.58+.22*depth+.2*sweep)*twinkle,radius=(3.7+Math.pow(s.s,2)*5.5)*(1+depth*.18);
+  const depth=clamp((nz+155)/310),sweep=(1-m)*Math.pow(.5+.5*Math.cos(a-phase*2-.7),9)+m*Math.exp(-Math.pow((px+py*.22-420*Math.sin(phase))/135,2)),twinkle=.78+.22*Math.pow(.5+.5*Math.sin(phase*2+s.p),3),alpha=clamp(.34+.55*depth+.28*sweep)*twinkle,radius=(3.5+Math.pow(s.s,2)*4.8)*(.78+depth*.55);
   points.push({x:nx,y:ny,z:nz,r:radius,a:alpha,depth,sweep,c:s.c,i});
  }points.sort((a,b)=>a.z-b.z);geometryCache.set(key,points);return points;
+}
+let glowSprite;
+function glow(){
+ if(glowSprite)return glowSprite;
+ const sprite=document.createElement('canvas');sprite.width=sprite.height=128;
+ const c=sprite.getContext('2d'),g=c.createRadialGradient(64,64,0,64,64,64);
+ g.addColorStop(0,'rgba(255,185,193,.8)');g.addColorStop(.22,'rgba(255,92,117,.35)');g.addColorStop(.5,'rgba(255,46,79,.09)');g.addColorStop(1,'rgba(255,35,65,0)');c.fillStyle=g;c.fillRect(0,0,128,128);glowSprite=sprite;return sprite;
 }
 function draw(ctx,w,h,t,{artwork=false,intensity=1,particles=true}={}){
  const square=w/h<2,hero=artwork?{x:w/2,y:h/2,size:Math.min(w,h)*.98}:square?{x:w*.5,y:h*.51,size:Math.min(w,h)*.98}:{x:w*.54,y:h*.5,size:h*1.32},radius=Math.min(w,h)*.83;
  const phase=TAU*t/10,bx=w*(.5+.035*Math.sin(phase)),by=h*(.5+.025*Math.sin(phase*2));
  ctx.clearRect(0,0,w,h);const bg=ctx.createRadialGradient(bx,by,0,bx,by,radius);
- bg.addColorStop(0,'#23060c');bg.addColorStop(.28,'#160409');bg.addColorStop(.62,'#080205');bg.addColorStop(1,'#010102');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);if(!particles)return;
+ bg.addColorStop(0,'#23060c');bg.addColorStop(.28,'#160409');bg.addColorStop(.62,'#080205');bg.addColorStop(1,'#010102');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);if(!particles||intensity<.001)return;
  ctx.save();ctx.translate(hero.x-hero.size/2,hero.y-hero.size/2);ctx.scale(hero.size/1000,hero.size/1000);
- const pts=geometry(t,w<350?340:520);ctx.globalCompositeOperation='lighter';
- for(const p of pts){const a=p.a*intensity;
-  const r=p.r*(3.3+1.2*(1-intensity)),g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,r);
-  g.addColorStop(0,p.c<.3?'#ff7587':'#fff8f5');g.addColorStop(.19,p.c<.3?'rgba(255,88,116,.92)':'rgba(255,219,224,.92)');g.addColorStop(.34,'rgba(255,92,117,.34)');g.addColorStop(.65,'rgba(255,51,87,.07)');g.addColorStop(1,'rgba(255,35,65,0)');
-  ctx.globalAlpha=a;ctx.fillStyle=g;ctx.fillRect(p.x-r,p.y-r,r*2,r*2);
+ const pts=geometry(t,w<350?340:520),sprite=glow(),release=artwork?0:ramp(t,3.05,3.9);ctx.globalCompositeOperation='lighter';
+ for(const p of pts){const a=p.a*intensity,focus=clamp((p.depth-.28)/.36),x=500+(p.x-500)*(1+.13*release),y=500+(p.y-500)*(1+.13*release);
+  const r=p.r*(3.6-1.2*focus+1.5*release);
+  ctx.globalAlpha=a*(.44-.16*focus+.22*p.sweep);ctx.drawImage(sprite,x-r,y-r,r*2,r*2);
+  if(focus>.04){
+   const core=p.r*(.52+.28*focus);
+   ctx.globalAlpha=a*focus*(1-release);ctx.fillStyle=p.c<.28?'#ff3e5d':p.c<.53?'#ffa3b2':'#fff5ec';ctx.beginPath();ctx.arc(x,y,core,0,TAU);ctx.fill();
+   if(focus>.7&&p.c>.5){ctx.globalAlpha=a*.85*(1-release);ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(x-core*.19,y-core*.23,core*.3,0,TAU);ctx.fill()}
+  }
  }
  for(let i=0;i<12;i++){const p=seeds[i+540],a=p.a+TAU*t/10,r=375+hash(i+997)*65,x=500+Math.cos(a)*r,y=500+Math.sin(a)*r*.85;ctx.globalAlpha=(.08+.09*p.s)*intensity;ctx.fillStyle=p.c>.5?'#f6d9db':'#cd314b';ctx.beginPath();ctx.arc(x,y,2+3*p.s,0,TAU);ctx.fill()}
  ctx.restore();ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
@@ -59,11 +70,11 @@ function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
    hero.size=normalSize*(tall?(w<200?.76:.68):.43);
    const right=w*(tall?.08:.06),bottom=footer+h*.055;
    hero.x=w-right-hero.size*.44;hero.y=h-bottom-hero.size*.43;
-   glassCopy=tall?{x:w*.08,y:h*.24,w:w*.84,h:h*.30}:{x:w*.06,y:h*.23,w:w*.49,h:h*.45};
+   glassCopy=tall?{x:w*.065,y:h*.20,w:w*.87,h:h*.34}:{x:w*.06,y:h*.205,w:w*.61,h:h*.51};
   }else{
    hero.size=h*.74;hero.x=w-w*.02-hero.size*.44;hero.y=h-h*.08-hero.size*.43;
-   const ctaX=w===728?470:312,left=w===728?148:118;
-   glassCopy={x:left,y:h*.14,w:ctaX-left-16,h:h*.72,center:true};ctaShift=ctaX-(w===728?570:384);
+   const ctaX=w===728?474:318,left=w===728?142:114;
+   glassCopy={x:left,y:h*.10,w:ctaX-left-14,h:h*.80,center:true};ctaShift=ctaX-(w===728?570:384);
   }
  }
  const fixed=animation==='glass'?'<defs><image id="'+id+'-texture" href="'+assets.plus+'" width="1000" height="1000"/></defs>':'';
@@ -73,7 +84,7 @@ function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
  const canvas=host.querySelector('canvas'),ctx=canvas.getContext('2d'),opening=host.querySelector('.opening'),closing=host.querySelector('.closing'),cta=host.querySelector('.cta'),art=host.querySelector('.art');
  if(glassCopy){alignCopy(opening,glassCopy);alignCopy(closing,glassCopy);if(ctaShift)cta.setAttribute('transform','translate('+ctaShift+' 0)')}
  let ratio=1,lastTime=0,lastLoop=true,scene;
- function resize(){ratio=Math.min(2,window.devicePixelRatio||1)*Math.min(1,(host.clientWidth||w)/w);canvas.width=Math.round(w*ratio);canvas.height=Math.round(h*ratio);if(scene)scene.paint(lastTime,lastLoop)}
+ function resize(){ratio=Math.min(3,window.devicePixelRatio||1)*Math.min(1,(host.clientWidth||w)/w);canvas.width=Math.round(w*ratio);canvas.height=Math.round(h*ratio);if(scene)scene.paint(lastTime,lastLoop)}
  const observer=new ResizeObserver(resize);observer.observe(host);resize();
  scene={paint(t,loop=true){
   lastTime=t;lastLoop=loop;

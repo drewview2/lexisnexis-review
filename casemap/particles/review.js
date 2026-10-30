@@ -30,7 +30,7 @@ function rebuild(){
 async function download(item,button){
  button.disabled=true;
  try{
-  const load=path=>fetch(path+'?v=glow-corner').then(r=>{if(!r.ok)throw Error();return r.text()});
+  const load=path=>fetch(path+'?v=depth-light').then(r=>{if(!r.ok)throw Error();return r.text()});
   const engine=await load('particles.js'),artEngine=item.animation==='particles'?'':await load('art-engine.js');
   const d=item.art?null:CAMPAIGN.data[item.i+'-'+item.sz],w=d?d.w:1200,h=d?d.h:1200,assets=item.animation==='particles'?{}:item.animation==='glass'?{plus:CAMPAIGN.assets.plus}:{globe:CAMPAIGN.assets.globe};
   const run='var d='+JSON.stringify(d)+';var logo='+JSON.stringify(item.art?'':CAMPAIGN.logo)+';var assets='+JSON.stringify(assets)+';var scene=ParticleHalo.mount(document.getElementById("stage"),d,logo,{artwork:'+!!item.art+',animation:'+JSON.stringify(item.animation)+',assets:assets});var start=performance.now();function tick(now){var elapsed=(now-start)/1000;var loop='+!!item.art+';var t=loop?elapsed%10:Math.min(10,elapsed);scene.paint(t,loop);if(loop||t<10)requestAnimationFrame(tick)}requestAnimationFrame(tick);';
@@ -43,6 +43,6 @@ sizeSelect.onchange=()=>{size=sizeSelect.value;rebuild()};motionSelect.onchange=
 playButton.onclick=()=>{playing=!playing;paint(true)};document.getElementById('replay').onclick=()=>{time=0;playing=true;paint(true)};
 timeline.oninput=()=>{time=+timeline.value;playing=false;paint(true)};document.querySelectorAll('[data-time]').forEach(b=>b.onclick=()=>{time=+b.dataset.time;playing=false;paint(true)});
 document.addEventListener('visibilitychange',()=>{before=performance.now()});
-function tick(now){const dt=Math.min(.1,(now-before)/1000);before=now;if(playing&&!document.hidden){time=(time+dt)%10;if(now-lastPaint>32){paint();lastPaint=now}}requestAnimationFrame(tick)}
+function tick(now){const dt=Math.min(.1,(now-before)/1000);before=now;if(playing&&!document.hidden){time=(time+dt)%10;if(now-lastPaint>=15){paint();lastPaint=now}}requestAnimationFrame(tick)}
 rebuild();requestAnimationFrame(tick);
 })();
