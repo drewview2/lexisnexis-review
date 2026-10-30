@@ -43,19 +43,37 @@ function draw(ctx,w,h,t,{artwork=false,intensity=1,particles=true}={}){
    ctx.globalAlpha=a*focus*(1-release);ctx.fillStyle=p.c<.28?'#ff3e5d':p.c<.53?'#ffa3b2':'#fff5ec';ctx.beginPath();ctx.arc(x,y,core,0,TAU);ctx.fill();
    if(focus>.7&&p.c>.5){ctx.globalAlpha=a*.85*(1-release);ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(x-core*.19,y-core*.23,core*.3,0,TAU);ctx.fill()}
   }
+  if(p.i%17===0&&focus>.15){
+   const digitSize=(square?20*Math.max(1,Math.min(1.8,250/Math.min(w,h))):42)*(.85+.3*p.depth);
+   ctx.font='500 '+digitSize+'px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+   ctx.globalAlpha=a*(.26+.44*p.depth+.2*p.sweep)*(1-release);ctx.fillStyle=p.c<.4?'#ff8398':'#ffe9e9';
+   ctx.fillText(Math.sin(phase*2+seeds[p.i].p)>0?'1':'0',x+p.r*pointScale*2.5,y-p.r*pointScale*1.7);
+  }
  }
  for(let i=0;i<12;i++){const p=seeds[i+540],a=p.a+TAU*t/10,r=375+hash(i+997)*65,x=500+Math.cos(a)*r,y=500+Math.sin(a)*r*.85;ctx.globalAlpha=(.08+.09*p.s)*intensity;ctx.fillStyle=p.c>.5?'#f6d9db':'#cd314b';ctx.beginPath();ctx.arc(x,y,2+3*p.s,0,TAU);ctx.fill()}
  ctx.restore();ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
 }
 const artFrames=new Map();
-// Keep the original vector lettering; only reposition each outlined line.
-function alignCopy(group,box){
- const lines=Array.from(group.querySelectorAll('[data-role$="-line"]'));
- if(!lines.length)return;
- const measured=lines.map(el=>({el,b:el.getBBox()})),top=Math.min(...measured.map(l=>l.b.y)),bottom=Math.max(...measured.map(l=>l.b.y+l.b.height)),width=Math.max(...measured.map(l=>l.b.width));
- const scale=Math.min(box.w/width,box.h/(bottom-top)),y=box.y+(box.center?(box.h-(bottom-top)*scale)/2:0);
- group.replaceChildren(...lines);
- for(const {el,b} of measured)el.setAttribute('transform','translate('+(box.x-b.x*scale)+' '+(y-top*scale)+') scale('+scale+')');
+// Source outline em sizes, measured against matching glyphs. Both frames share
+// one final type size, even when their original vector lettering was different.
+const typeSizes={
+ '1200x1200':[[86,69],[86,76],[86,65]],'300x600':[[86,69],[86,76],[86,65]],
+ '300x250':[[25,25],[25,21],[25,18.5]],'250x250':[[23,23],[23,19],[23,17.1]],
+ '160x600':[[23,23],[23,19],[23,17.1]],'728x90':[[27,24],[27,21],[27,18.79]],
+ '500x100':[[22,16.6],[22,16],[22,14.7]]
+};
+function alignCopyPair(opening,closing,box,ems){
+ const frames=[opening,closing].map((group,i)=>{
+  const lines=Array.from(group.querySelectorAll('[data-role$="-line"]')).map(el=>({el,b:el.getBBox()}));
+  return {group,lines,em:ems[i],top:Math.min(...lines.map(l=>l.b.y)),bottom:Math.max(...lines.map(l=>l.b.y+l.b.height)),width:Math.max(...lines.map(l=>l.b.width))};
+ });
+ const fontSize=Math.min(...frames.flatMap(f=>[box.w*f.em/f.width,box.h*.82*f.em/(f.bottom-f.top)]));
+ for(const f of frames){
+  const scale=fontSize/f.em,y=box.y+(box.h-(f.bottom-f.top)*scale)/2;
+  const left=box.x+(box.horizontal?(box.w-f.width*scale)/2:0);
+  f.group.replaceChildren(...f.lines.map(l=>l.el));f.group.setAttribute('data-font-size',fontSize.toFixed(4));
+  for(const {el,b} of f.lines){const x=box.leftAligned?left:box.x+(box.w-b.width*scale)/2;el.setAttribute('transform','translate('+(x-b.x*scale)+' '+(y-f.top*scale)+') scale('+scale+')')}
+ }
 }
 let serial=0;
 function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
@@ -63,18 +81,16 @@ function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
  host.style.aspectRatio=w+'/'+h;
  const normalSize=Math.min(w,h),hero={x:w*.5,y:artwork?h*.5:h*.49,size:animation==='glass'?normalSize*.9:normalSize*(artwork||w/h<.8?1.13:.97)};
  if(!square&&!artwork){hero.x=w*.54;hero.y=h/2;hero.size=h*(animation==='glass'?.9:1.1)}
- let glassCopy=null,ctaShift=0;
+ let ctaShift=0;
  if(animation==='glass'&&!artwork){
   const tall=h/w>1.5,footer=d.h===1200?124:d.h===600?(w===160?53:55):w===250?44:46;
   if(square){
-   hero.size=normalSize*(tall?(w<200?.76:.68):.43);
+   hero.size=normalSize*(tall?(w<200?.76:.50):.32);
    const right=w*(tall?.08:.06),bottom=footer+h*.055;
    hero.x=w-right-hero.size*.44;hero.y=h-bottom-hero.size*.43;
-   glassCopy=tall?{x:w*.065,y:h*.20,w:w*.87,h:h*.34}:{x:w*.06,y:h*.205,w:w*.61,h:h*.51};
   }else{
    hero.size=h*.74;hero.x=w-w*.02-hero.size*.44;hero.y=h-h*.08-hero.size*.43;
-   const ctaX=w===728?474:318,left=w===728?142:114;
-   glassCopy={x:left,y:h*.10,w:ctaX-left-14,h:h*.80,center:true};ctaShift=ctaX-(w===728?570:384);
+   const ctaX=w===728?474:318;ctaShift=ctaX-(w===728?570:384);
   }
  }
  const fixed=animation==='glass'?'<defs><image id="'+id+'-texture" href="'+assets.plus+'" width="1000" height="1000"/></defs>':'';
@@ -82,7 +98,19 @@ function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
  copy=copy.replace(/id="([^"]+)"/g,(_,v)=>'id="'+id+'-'+v+'"').replace(/url\(#([^)]+)\)/g,(_,v)=>'url(#'+id+'-'+v+')');
  host.innerHTML='<canvas aria-hidden="true"></canvas><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+(artwork?'CaseMap '+animation+' animation':d.label)+'">'+fixed+'<g class="art" transform="translate('+(hero.x-hero.size/2)+' '+(hero.y-hero.size/2)+') scale('+(hero.size/1000)+')"></g>'+copy+'</svg>';
  const canvas=host.querySelector('canvas'),ctx=canvas.getContext('2d'),opening=host.querySelector('.opening'),closing=host.querySelector('.closing'),cta=host.querySelector('.cta'),art=host.querySelector('.art');
- if(glassCopy){alignCopy(opening,glassCopy);alignCopy(closing,glassCopy);if(ctaShift)cta.setAttribute('transform','translate('+ctaShift+' 0)')}
+ if(!artwork){
+  if(ctaShift)cta.setAttribute('transform','translate('+ctaShift+' 0)');
+  const brand=host.querySelector('[data-role="brand"]').getBBox(),button=cta.getBBox(),message=d.label.includes('Updated transcript?')?1:d.label.includes('Know which')?2:0;
+  let box;
+  if(square){
+   const top=Math.max(d.logo.y+d.logo.h,brand.y+brand.height),bottom=button.y,left=animation==='glass'?(h/w>1.5?w*.065:w*.06):w*.08;
+   box={x:left,y:top,w:animation==='glass'?(h/w>1.5?w*.87:w*.61):w*.84,h:bottom-top,leftAligned:animation==='glass'};
+  }else{
+   const left=Math.max(d.logo.x+d.logo.w,brand.x+brand.width),right=button.x+ctaShift,pad=Math.min(14,(right-left)*.05);
+   box={x:left+pad,y:0,w:right-left-pad*2,h,leftAligned:animation==='glass',horizontal:true};
+  }
+  alignCopyPair(opening,closing,box,typeSizes[w+'x'+h][message]);
+ }
  let ratio=1,lastTime=0,lastLoop=true,scene;
  function resize(){ratio=Math.min(3,window.devicePixelRatio||1)*(host.clientWidth||w)/w;canvas.width=Math.round(w*ratio);canvas.height=Math.round(h*ratio);if(scene)scene.paint(lastTime,lastLoop)}
  const observer=new ResizeObserver(resize);observer.observe(host);resize();
