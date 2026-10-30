@@ -16,9 +16,9 @@ function artwork(kind,time,src,prefix,focus=false){
  if(kind==='globe')return globe(time,src,prefix);
  const t=((time%10)+10)%10;
  // Light travels through the material. The object itself remains perfectly still.
- const u=clamp((t-.25)/9.5),center=-360+1720*u;
+ const u=clamp((t-.25)/9.5),center=kind==='plus'?500+490*Math.sin(2*Math.PI*t/5-.65):-360+1720*u;
  const angle=kind==='continent'?-24:focus?-42:18;
- const energy=Math.sin(Math.PI*u)**.35;
+ const energy=kind==='plus'?.94:Math.sin(Math.PI*u)**.35;
  const base=kind==='continent'?.055:.065;
  const defs=`<linearGradient id="${prefix}-broad" gradientUnits="userSpaceOnUse" x1="${n(center-420)}" y1="0" x2="${n(center+420)}" y2="0" gradientTransform="rotate(${angle} 500 500)"><stop stop-color="white" stop-opacity="0"></stop><stop offset=".18" stop-color="white" stop-opacity=".03"></stop><stop offset=".36" stop-color="white" stop-opacity=".45"></stop><stop offset=".5" stop-color="white"></stop><stop offset=".64" stop-color="white" stop-opacity=".45"></stop><stop offset=".82" stop-color="white" stop-opacity=".03"></stop><stop offset="1" stop-color="white" stop-opacity="0"></stop></linearGradient><linearGradient id="${prefix}-glint" gradientUnits="userSpaceOnUse" x1="${n(center-105)}" y1="0" x2="${n(center+105)}" y2="0" gradientTransform="rotate(${angle} 500 500)"><stop stop-color="white" stop-opacity="0"></stop><stop offset=".42" stop-color="white" stop-opacity=".5"></stop><stop offset=".5" stop-color="white"></stop><stop offset=".58" stop-color="white" stop-opacity=".5"></stop><stop offset="1" stop-color="white" stop-opacity="0"></stop></linearGradient><mask id="${prefix}-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><rect width="1000" height="1000" fill="url(#${prefix}-broad)"></rect></mask><mask id="${prefix}-shine" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><rect width="1000" height="1000" fill="url(#${prefix}-glint)"></rect></mask><filter id="${prefix}-ruby" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 .28 .12 0 0  0 .36 .05 0 0  0 0 .32 0 0  0 0 0 1 0"></feColorMatrix></filter>`;
  const img=`<use href="#${prefix}-texture"></use>`;
