@@ -28,11 +28,19 @@ function glow(){
  const c=sprite.getContext('2d'),g=c.createRadialGradient(64,64,0,64,64,64);
  g.addColorStop(0,'rgba(255,185,193,.8)');g.addColorStop(.22,'rgba(255,92,117,.35)');g.addColorStop(.5,'rgba(255,46,79,.09)');g.addColorStop(1,'rgba(255,35,65,0)');c.fillStyle=g;c.fillRect(0,0,128,128);glowSprite=sprite;return sprite;
 }
-function draw(ctx,w,h,t,{artwork=false,intensity=1,particles=true}={}){
+function draw(ctx,w,h,t,{artwork=false,intensity=1,particles=true,animation='particles'}={}){
  const square=w/h<2,hero=artwork?{x:w/2,y:h/2,size:Math.min(w,h)*.98}:square?{x:w*.5,y:h*.51,size:Math.min(w,h)*.98}:{x:w*.54,y:h*.5,size:h*1.32},radius=Math.min(w,h)*.83;
  const phase=TAU*t/10,bx=w*(.5+.035*Math.sin(phase)),by=h*(.5+.025*Math.sin(phase*2));
- ctx.clearRect(0,0,w,h);const bg=ctx.createRadialGradient(bx,by,0,bx,by,radius);
- bg.addColorStop(0,'#23060c');bg.addColorStop(.28,'#160409');bg.addColorStop(.62,'#080205');bg.addColorStop(1,'#010102');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);if(!particles||intensity<.001)return;
+ ctx.clearRect(0,0,w,h);
+ if(animation==='glass'){
+  const base=ctx.createLinearGradient(0,0,w,h);base.addColorStop(0,'#27212a');base.addColorStop(.48,'#14121a');base.addColorStop(1,'#08090e');ctx.fillStyle=base;ctx.fillRect(0,0,w,h);
+  const light=ctx.createRadialGradient(w*.86,h*.75,0,w*.86,h*.75,Math.max(w,h)*.8);light.addColorStop(0,'rgba(105,27,43,.42)');light.addColorStop(.48,'rgba(64,19,34,.16)');light.addColorStop(1,'rgba(20,10,22,0)');ctx.fillStyle=light;ctx.fillRect(0,0,w,h);
+ }else if(animation==='globe'){
+  const base=ctx.createRadialGradient(bx,h*.44,0,bx,h*.44,Math.max(w,h)*.85);base.addColorStop(0,'#15243a');base.addColorStop(.48,'#0b1422');base.addColorStop(1,'#03070f');ctx.fillStyle=base;ctx.fillRect(0,0,w,h);
+ }else{
+  const bg=ctx.createRadialGradient(bx,by,0,bx,by,radius);bg.addColorStop(0,'#310911');bg.addColorStop(.28,'#1c050b');bg.addColorStop(.62,'#090205');bg.addColorStop(1,'#010102');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+ }
+ if(!particles||intensity<.001)return;
  ctx.save();ctx.translate(hero.x-hero.size/2,hero.y-hero.size/2);ctx.scale(hero.size/1000,hero.size/1000);
  const pts=geometry(t,square?(w<350?340:520):180),pointScale=square?1:1.85,sprite=glow(),release=artwork?0:ramp(t,3.05,3.9);ctx.globalCompositeOperation='lighter';
  for(const p of pts){const a=p.a*intensity,focus=clamp((p.depth-.28)/.36),x=500+(p.x-500)*(1+.13*release),y=500+(p.y-500)*(1+.13*release);
@@ -75,6 +83,19 @@ function alignCopyPair(opening,closing,box,ems){
   for(const {el,b} of f.lines){const x=box.leftAligned?left:box.x+(box.w-b.width*scale)/2;el.setAttribute('transform','translate('+(x-b.x*scale)+' '+(y-f.top*scale)+') scale('+scale+')')}
  }
 }
+
+function styleButton(cta,d,animation){
+ const b=cta.getBBox(),height=b.height*1.28,y=Math.max(0,Math.min(d.h-height,b.y-(height-b.height)/2));
+ const label=d.label.includes('Updated transcript?')?'EXPLORE CASEMAP+':d.label.includes('Know which')?'REQUEST A DEMO':'SEE IT IN ACTION';
+ const fontSize=Math.min(height*.31,b.width/(label.length*.69+2.6)),tracking=fontSize*.12;
+ const stroke=Math.max(1.6,height*.038),radius=animation==='glass'?height*.13:animation==='globe'?height/2:height*.06;
+ const fill=animation==='glass'?'#fff3ec':animation==='globe'?'#101c2c':'#df1834',ink=animation==='glass'?'#30101c':'#ffffff',edge=animation==='globe'?'#f36b7f':animation==='glass'?'#fff8f3':'#f54359';
+ // Replace vector sentence-case lettering with a crisp, tracked uppercase label.
+ // Expand about the original center; copy layout below uses the new top edge.
+ cta.innerHTML='<rect x="'+b.x+'" y="'+y+'" width="'+b.width+'" height="'+height+'" rx="'+radius+'" fill="'+fill+'" stroke="'+edge+'" stroke-width="'+stroke+'"/><text x="'+(b.x+b.width/2)+'" y="'+(y+height/2)+'" text-anchor="middle" dominant-baseline="central" font-family="Arial, Helvetica, sans-serif" font-size="'+fontSize+'" font-weight="700" letter-spacing="'+tracking+'" fill="'+ink+'">'+label+'</text>';
+ cta.setAttribute('data-button-style',animation);
+}
+
 let serial=0;
 function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
  const w=artwork?1200:d.w,h=artwork?1200:d.h,id='scene'+(++serial),square=w/h<2;
@@ -99,6 +120,7 @@ function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
  host.innerHTML='<canvas aria-hidden="true"></canvas><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+(artwork?'CaseMap '+animation+' animation':d.label)+'">'+fixed+'<g class="art" transform="translate('+(hero.x-hero.size/2)+' '+(hero.y-hero.size/2)+') scale('+(hero.size/1000)+')"></g>'+copy+'</svg>';
  const canvas=host.querySelector('canvas'),ctx=canvas.getContext('2d'),opening=host.querySelector('.opening'),closing=host.querySelector('.closing'),cta=host.querySelector('.cta'),art=host.querySelector('.art');
  if(!artwork){
+  styleButton(cta,d,animation);
   if(ctaShift)cta.setAttribute('transform','translate('+ctaShift+' 0)');
   const brand=host.querySelector('[data-role="brand"]').getBBox(),button=cta.getBBox(),message=d.label.includes('Updated transcript?')?1:d.label.includes('Know which')?2:0;
   let box;
@@ -118,7 +140,7 @@ function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
   lastTime=t;lastLoop=loop;
   const end=loop?ramp(t,9.45,10):0,op=(1-ramp(t,2.2,2.55))*(1-end)+end,cl=ramp(t,3,3.4)*(1-end),ct=ramp(t,3.4,3.75)*(1-end),reveal=ramp(t,1.65,2.45)*(1-ramp(t,3.05,3.9));
   const intensity=artwork?1:(.26+.74*ramp(t,1.65,2.45))*(1-ramp(t,3.05,3.9))+.26*end;
-  ctx.setTransform(ratio,0,0,ratio,0,0);draw(ctx,w,h,t,{artwork,intensity,particles:animation==='particles'});
+  ctx.setTransform(ratio,0,0,ratio,0,0);draw(ctx,w,h,t,{artwork,intensity,particles:animation==='particles',animation});
   if(animation!=='particles'){
    const kind=animation==='glass'?'plus':'globe',artTime=t;
    const frameKey=kind+'-'+artTime;if(artFrames.size>5)artFrames.clear();if(!artFrames.has(frameKey))artFrames.set(frameKey,CaseMapArt.artwork(kind,artTime,assets[kind],'shared-art'));const frame=artFrames.get(frameKey),a={defs:frame.defs.replaceAll('shared-art',id),body:frame.body.replaceAll('shared-art',id)};
