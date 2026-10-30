@@ -1,0 +1,14 @@
+(function(){'use strict';
+const ads=document.getElementById('ads'),art=document.getElementById('artwork'),videos=Array.from(document.querySelectorAll('video')),size=document.getElementById('size');
+const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function play(video){if(reduced||document.hidden||video.closest('[hidden]'))return;video.muted=true;const p=video.play();if(p&&p.catch)p.catch(function(){});}
+function setView(view){const isArt=view==='artwork';ads.hidden=isArt;art.hidden=!isArt;document.querySelectorAll('[data-view]').forEach(function(link){const active=link.dataset.view===view;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});videos.forEach(function(v){if(v.closest('[hidden]'))v.pause();else play(v);});}
+document.querySelector('.toolbar').hidden=false;
+document.querySelectorAll('[data-view]').forEach(function(link){link.addEventListener('click',function(e){e.preventDefault();setView(link.dataset.view);history.replaceState(null,'','#'+link.dataset.view);});});
+document.querySelectorAll('.card').forEach(function(card){const video=card.querySelector('video'),button=card.querySelector('.replay');button.hidden=false;video.defaultMuted=true;video.muted=true;if(reduced){video.autoplay=false;video.pause();}button.addEventListener('click',function(){video.currentTime=0;video.muted=true;const p=video.play();if(p&&p.catch)p.catch(function(){});});});
+size.addEventListener('change',function(){const parts=size.value.split('x'),w=+parts[0],h=+parts[1];ads.classList.toggle('wide',w/h>2);ads.classList.toggle('small',w<=300);ads.querySelectorAll('.card').forEach(function(card){const v=card.querySelector('video'),key='ad-'+card.dataset.ad+'-'+size.value;v.pause();v.poster='media/'+key+'.jpg';v.querySelector('source').src='media/'+key+'.mp4';v.querySelector('img').src=v.poster;v.width=w;v.height=h;card.querySelector('.stage').style.aspectRatio=w+' / '+h;card.querySelector('.dimensions').textContent=w+' × '+h;card.querySelector('.direct').href='media/'+key+'.mp4';v.load();play(v);});});
+document.getElementById('replay-all').addEventListener('click',function(){ads.querySelectorAll('video').forEach(function(v){v.currentTime=0;v.muted=true;const p=v.play();if(p&&p.catch)p.catch(function(){});});});
+if('IntersectionObserver'in window){const observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){const v=entry.target;if(entry.isIntersecting)play(v);else v.pause();});},{threshold:.12});videos.forEach(function(v){observer.observe(v);});}
+document.addEventListener('visibilitychange',function(){if(document.hidden)videos.forEach(function(v){v.pause();});});
+setView(location.hash==='#artwork'?'artwork':'ads');
+})();
