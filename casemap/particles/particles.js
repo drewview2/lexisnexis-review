@@ -84,7 +84,7 @@ function mount(host,d,logo,{artwork=false,animation='particles',assets={}}={}){
  const canvas=host.querySelector('canvas'),ctx=canvas.getContext('2d'),opening=host.querySelector('.opening'),closing=host.querySelector('.closing'),cta=host.querySelector('.cta'),art=host.querySelector('.art');
  if(glassCopy){alignCopy(opening,glassCopy);alignCopy(closing,glassCopy);if(ctaShift)cta.setAttribute('transform','translate('+ctaShift+' 0)')}
  let ratio=1,lastTime=0,lastLoop=true,scene;
- function resize(){ratio=Math.min(3,window.devicePixelRatio||1)*Math.min(1,(host.clientWidth||w)/w);canvas.width=Math.round(w*ratio);canvas.height=Math.round(h*ratio);if(scene)scene.paint(lastTime,lastLoop)}
+ function resize(){ratio=Math.min(3,window.devicePixelRatio||1)*(host.clientWidth||w)/w;canvas.width=Math.round(w*ratio);canvas.height=Math.round(h*ratio);if(scene)scene.paint(lastTime,lastLoop)}
  const observer=new ResizeObserver(resize);observer.observe(host);resize();
  scene={paint(t,loop=true){
   lastTime=t;lastLoop=loop;
